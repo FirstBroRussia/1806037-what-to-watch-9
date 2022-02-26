@@ -1,18 +1,5 @@
-/* eslint-disable no-console */
 import {FILM_CARD_COUNT, CustomFilmData} from '../../utils/utils';
-import CustomFilmDataType from '../../utils/utils';
 import FilmCardForCatalog from './film-card-for-catalog';
-
-
-function сreateJSXArrayFilmsCatalog(props: CustomFilmDataType): JSX.Element[] {
-  const filmsList: JSX.Element[] = Array.from({length: FILM_CARD_COUNT}, (item: JSX.Element) => {
-    item = <FilmCardForCatalog {...props} />;
-    return item;
-  });
-
-  return filmsList;
-}
-
 
 function Catalog(): JSX.Element {
   return (
@@ -54,7 +41,10 @@ function Catalog(): JSX.Element {
 
       <div className="catalog__films-list">
         {
-          сreateJSXArrayFilmsCatalog(CustomFilmData)
+          Array.from({length: FILM_CARD_COUNT}, (item: JSX.Element) => {
+            item = <FilmCardForCatalog {...CustomFilmData} />;
+            return item;
+          })
         }
       </div>
 
