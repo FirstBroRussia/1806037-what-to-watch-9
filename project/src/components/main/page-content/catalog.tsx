@@ -53,7 +53,7 @@ function Catalog(): JSX.Element {
 
       <div className="catalog__films-list">
         {
-          CreateJSXArrayFilmsCatalog(CustomFilmData).map( (item: JSX.Element) => item)
+          CreateJSXArrayFilmsCatalog(CustomFilmData)
         }
       </div>
 
