@@ -4,11 +4,12 @@ import CustomFilmDataType from '../../utils/utils';
 import FilmCardForCatalog from './film-card-for-catalog';
 
 
-function CreateJSXArrayFilmsCatalog(props: CustomFilmDataType): JSX.Element[] {
-  const filmsList: JSX.Element[] = [];
-  for (let index = 1; index <= FILM_CARD_COUNT; index++) {
-    filmsList.push(<FilmCardForCatalog {...props} />);
-  }
+function сreateJSXArrayFilmsCatalog(props: CustomFilmDataType): JSX.Element[] {
+  const filmsList: JSX.Element[] = Array.from({length: FILM_CARD_COUNT}, (item: JSX.Element) => {
+    item = <FilmCardForCatalog {...props} />;
+    return item;
+  });
+
   return filmsList;
 }
 
@@ -53,7 +54,7 @@ function Catalog(): JSX.Element {
 
       <div className="catalog__films-list">
         {
-          CreateJSXArrayFilmsCatalog(CustomFilmData)
+          сreateJSXArrayFilmsCatalog(CustomFilmData)
         }
       </div>
 

@@ -1,4 +1,4 @@
-function PageHeader(): JSX.Element {
+function HeaderElement(): JSX.Element {
   return (
     <header className="page-header film-card__head">
       <div className="logo">
@@ -13,4 +13,4 @@ function PageHeader(): JSX.Element {
   );
 }
 
-export default PageHeader;
+export default HeaderElement;
