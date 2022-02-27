@@ -1,4 +1,4 @@
-function PageFooter(): JSX.Element {
+function FooterElement() {
   return (
     <footer className="page-footer">
       <div className="logo">
@@ -16,4 +16,4 @@ function PageFooter(): JSX.Element {
   );
 }
 
-export default PageFooter;
+export default FooterElement;

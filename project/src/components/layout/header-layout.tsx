@@ -1,8 +1,8 @@
-function PageHeader(): JSX.Element {
+function HeaderElement(): JSX.Element {
   return (
     <header className="page-header film-card__head">
       <div className="logo">
-        <a className="logo__link">
+        <a className="logo__link" href="#todo">
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
@@ -13,4 +13,4 @@ function PageHeader(): JSX.Element {
   );
 }
 
-export default PageHeader;
+export default HeaderElement;
