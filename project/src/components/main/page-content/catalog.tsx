@@ -5,7 +5,7 @@ import {ZERO_VALUE} from '../../utils/const';
 
 import {FilmsDataPropsType} from '../../../types/types';
 
-import FilmCardForCatalog from './film-card-for-catalog';
+import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
 function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
   const [activeFilmID, setActiveFilmID] = useState(ZERO_VALUE);
