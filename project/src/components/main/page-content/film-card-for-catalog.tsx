@@ -1,14 +1,29 @@
-import CustomFilmDataType from '../../utils/utils';
+/* eslint-disable no-console */
+import {Link} from 'react-router-dom';
+import {FilmDataType} from '../../../types/types';
+import {AppRoute} from '../../utils/const';
 
-function FilmCardForCatalog(props: CustomFilmDataType): JSX.Element {
-  const {title, imgSrc} = props;
+type FilmCardForCatalogPropsType = {
+  item: FilmDataType,
+  callback: React.Dispatch<React.SetStateAction<number>>
+};
+
+
+function FilmCardForCatalog({item, callback}: FilmCardForCatalogPropsType): JSX.Element {
+  const {id, name, previewImage} = item;
+
+  const activeFilmCardOnFocusHandler = () => {
+    callback(id);
+  };
+
+
   return (
-    <article className="small-film-card catalog__films-card">
+    <article onMouseEnter={activeFilmCardOnFocusHandler} className="small-film-card catalog__films-card" >
       <div className="small-film-card__image">
-        <img src={imgSrc} alt={title} width="280" height="175" />
+        <img src={previewImage} alt={name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{title}</a>
+        <Link className="small-film-card__link" to={`${AppRoute.Film}/${id}`} state={item}>{name}</Link>
       </h3>
     </article>
   );

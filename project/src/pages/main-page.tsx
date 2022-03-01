@@ -1,11 +1,14 @@
+/* eslint-disable no-console */
+import {dataFromServer} from '../types/types';
+
 import HeaderFilmCard from '../components/main/header-film-card/header-film-card';
 import PageContent from '../components/main/page-content/page-content';
 
-function MainPage(): JSX.Element {
+function MainPage({promoFilm, filmsData}: dataFromServer): JSX.Element {
   return (
     <>
-      <HeaderFilmCard />
-      <PageContent />
+      <HeaderFilmCard promoFilm={promoFilm}/>
+      <PageContent filmsList={filmsData}/>
     </>
   );
 }

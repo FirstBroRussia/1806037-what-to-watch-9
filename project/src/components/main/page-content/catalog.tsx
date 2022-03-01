@@ -1,7 +1,22 @@
-import {FILM_CARD_COUNT, CustomFilmData} from '../../utils/utils';
+/* eslint-disable no-console */
+import {useState} from 'react';
+
+import {ZERO_VALUE} from '../../utils/const';
+
+import {FilmsDataPropsType} from '../../../types/types';
+
 import FilmCardForCatalog from './film-card-for-catalog';
 
-function Catalog(): JSX.Element {
+function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
+  const [activeFilmID, setActiveFilmID] = useState(ZERO_VALUE);
+  console.log(activeFilmID);
+
+  const filmsCatalog: JSX.Element[] = [];
+
+  filmsList.forEach( (item) => {
+    filmsCatalog.push(<FilmCardForCatalog item={item} callback={setActiveFilmID} />);
+  });
+
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -41,10 +56,7 @@ function Catalog(): JSX.Element {
 
       <div className="catalog__films-list">
         {
-          Array.from({length: FILM_CARD_COUNT}, (item: JSX.Element) => {
-            item = <FilmCardForCatalog {...CustomFilmData} />;
-            return item;
-          })
+          filmsCatalog
         }
       </div>
 

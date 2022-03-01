@@ -1,7 +1,10 @@
-function FilmCardBackground(): JSX.Element {
+import {FilmDataPropsType} from '../../../types/types';
+
+function FilmCardBackground({promoFilm}: FilmDataPropsType): JSX.Element {
+  const {backgroundImage, name} = promoFilm;
   return (
     <div className="film-card__bg">
-      <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+      <img src={backgroundImage} alt={name} />
     </div>
   );
 }

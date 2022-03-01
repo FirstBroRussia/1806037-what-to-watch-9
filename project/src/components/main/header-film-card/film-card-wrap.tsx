@@ -1,23 +1,37 @@
-import CustomFilmDataType from '../../utils/utils';
+import {useNavigate} from 'react-router-dom';
+import {FilmDataPropsType} from '../../../types/types';
+import {AppRoute} from '../../utils/const';
 
-function FilmCardWrap(data: CustomFilmDataType): JSX.Element {
-  const {title, imgSrc, genre, year} = data;
+function FilmCardWrap({promoFilm}: FilmDataPropsType): JSX.Element {
+  const {id, name, posterImage, genre, released} = promoFilm;
+  const navigate = useNavigate();
+
+  const navigateToVideoPlayerClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
+    const optionNavigate = {
+      pathname: `${AppRoute.VideoPlayer}/${id}`,
+      state: id,
+      search: 'aaa',
+      hash: '#aaa',
+    };
+    navigate(optionNavigate, {state: promoFilm});
+  };
+
   return (
     <div className="film-card__wrap">
       <div className="film-card__info">
         <div className="film-card__poster">
-          <img src={imgSrc} alt={`${title} poster`} width="218" height="327" />
+          <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
         </div>
 
         <div className="film-card__desc">
-          <h2 className="film-card__title">{title}</h2>
+          <h2 className="film-card__title">{name}</h2>
           <p className="film-card__meta">
             <span className="film-card__genre">{genre}</span>
-            <span className="film-card__year">{year}</span>
+            <span className="film-card__year">{released}</span>
           </p>
 
           <div className="film-card__buttons">
-            <button className="btn btn--play film-card__button" type="button">
+            <button onClick={navigateToVideoPlayerClickHandler} className="btn btn--play film-card__button" type="button">
               <svg viewBox="0 0 19 19" width="19" height="19">
                 <use xlinkHref="#play-s"></use>
               </svg>
