@@ -17,7 +17,6 @@ function FilmCardForCatalog({item, callback}: FilmCardForCatalogPropsType): JSX.
   function activeFilmCardOnFocusHandler (): any {
     callback(id);
     setState(videoFilmCardElement);
-    // return;
   }
 
   function activeFilmCardOutFocusHandler (): any {
@@ -39,7 +38,6 @@ function FilmCardForCatalog({item, callback}: FilmCardForCatalogPropsType): JSX.
     <article onMouseLeave={activeFilmCardOutFocusHandler} className="small-film-card catalog__films-card" >
       <div className="small-film-card__video">
         <video src={previewVideoLink} width="100%" height="100%" autoPlay loop preload="auto"/>
-        {/* <img src={previewImage} alt={name} width="280" height="175" /> */}
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`${AppRoute.Film}/${id}`} state={item}>{name}</Link>
