@@ -3,7 +3,7 @@ import HeaderElement from '../../layout/header-layout';
 
 function PageHeader(): JSX.Element {
   return (
-    <HeaderElement key={null} type={undefined} props={undefined}>
+    <HeaderElement>
       <SignOut/>
     </HeaderElement>
   );

@@ -1,8 +1,11 @@
-import {PropsWithChildren} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../utils/const';
 
-function HeaderElement({children}: PropsWithChildren<JSX.Element>): JSX.Element {
+type HeaderPropsType = {
+  children: JSX.Element,
+}
+
+function HeaderElement({children}: HeaderPropsType): JSX.Element {
   return (
     <header className="page-header film-card__head">
       <div className="logo">
