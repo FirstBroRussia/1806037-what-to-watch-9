@@ -1,36 +1,27 @@
-/* eslint-disable no-console */
-
 import {useState} from 'react';
-import {formDataSubmitType} from '../../types/types';
 
 function SubmitCommentForm(): JSX.Element {
-  const formData: formDataSubmitType = {
-    rating: 0,
-    comment: '',
+  const ratingValue = 0;
+  const commentValue = '';
+
+
+  const [, setRating] = useState(ratingValue);
+  const [comment, setComment] = useState(commentValue);
+
+
+  const ratingStarsChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
+    const valueTargetElement = Number(evt.target.value);
+    setRating(valueTargetElement);
   };
 
-  const [state, setState] = useState(formData);
-  console.log(state);
-
-  const ratingStarsChangeHandler: any = (evt: any) => {
-    const valueTargetElement = evt.target.value;
-    setState({
-      ...state,
-      rating: valueTargetElement,
-    });
-  };
-
-  const textAreaChangeHandler: any = (evt: any) => {
+  const textAreaChangeHandler: React.ChangeEventHandler<HTMLTextAreaElement> = (evt) => {
     const valueTextArea = evt.target.value;
-    setState({
-      ...state,
-      comment: valueTextArea,
-    });
+    setComment(valueTextArea);
   };
 
-  const formSubmitHandler: any = (evt: any) => {
+  const formSubmitHandler: React.FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
-    console.log(evt);
+
   };
 
   return (
@@ -70,11 +61,10 @@ function SubmitCommentForm(): JSX.Element {
       </div>
 
       <div className="add-review__text">
-        <textarea onChange={textAreaChangeHandler} value={state.comment} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+        <textarea onChange={textAreaChangeHandler} value={comment} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit">Post</button>
         </div>
-
       </div>
     </form>
   );

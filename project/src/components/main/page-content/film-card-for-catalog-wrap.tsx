@@ -1,5 +1,3 @@
-/* eslint-disable no-useless-return */
-/* eslint-disable no-console */
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {FilmDataType} from '../../../types/types';
@@ -7,20 +5,21 @@ import {AppRoute} from '../../utils/const';
 
 type FilmCardForCatalogPropsType = {
   item: FilmDataType,
-  callback: React.Dispatch<React.SetStateAction<number>>
 };
 
 
-function FilmCardForCatalog({item, callback}: FilmCardForCatalogPropsType): JSX.Element {
-  const {id, previewImage, name, previewVideoLink} = item;
+function FilmCardForCatalog({item}: FilmCardForCatalogPropsType): JSX.Element {
+  const {id, previewImage, name, previewVideoLink}: FilmDataType = item;
+  const isActiteCard = false;
 
-  function activeFilmCardOnFocusHandler (): any {
-    callback(id);
-    setState(videoFilmCardElement);
+  const [state, setState] = useState(isActiteCard);
+
+  function activeFilmCardOnFocusHandler (): void {
+    setState(!state);
   }
 
-  function activeFilmCardOutFocusHandler (): any {
-    setState(filmCardInfoElement);
+  function activeFilmCardOutFocusHandler (): void {
+    setState(!state);
   }
 
   const filmCardInfoElement: JSX.Element = (
@@ -45,9 +44,11 @@ function FilmCardForCatalog({item, callback}: FilmCardForCatalogPropsType): JSX.
     </article>
   );
 
-  const [state, setState] = useState(filmCardInfoElement);
+  if (state) {
+    return videoFilmCardElement;
+  }
 
-  return state;
+  return filmCardInfoElement;
 }
 
 export default FilmCardForCatalog;

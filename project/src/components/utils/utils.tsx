@@ -1,19 +1,28 @@
 import {RatingLevelCountValue, RatingLevel} from '../utils/const';
 
-function getRatingLevel (ratingCount: number): string | undefined {
-  if (RatingLevelCountValue.ZERO <= ratingCount && ratingCount < RatingLevelCountValue.THREE) {
+function getRatingLevel (ratingCount: number): any {
+  if (RatingLevelCountValue.Zero <= ratingCount && ratingCount < RatingLevelCountValue.Three) {
     return RatingLevel.Bad;}
-  if (RatingLevelCountValue.THREE <= ratingCount && ratingCount < RatingLevelCountValue.FIVE) {
+  if (RatingLevelCountValue.Three <= ratingCount && ratingCount < RatingLevelCountValue.Five) {
     return RatingLevel.Normal;}
-  if (RatingLevelCountValue.FIVE <= ratingCount && ratingCount < RatingLevelCountValue.EIGHT) {
+  if (RatingLevelCountValue.Five <= ratingCount && ratingCount < RatingLevelCountValue.Eight) {
     return RatingLevel.Good;}
-  if (RatingLevelCountValue.EIGHT <= ratingCount && ratingCount < RatingLevelCountValue.TEN) {
+  if (RatingLevelCountValue.Eight <= ratingCount && ratingCount < RatingLevelCountValue.Ten) {
     return RatingLevel.VeryGood;}
-  if (ratingCount === RatingLevelCountValue.TEN) {
+  if (ratingCount === RatingLevelCountValue.Ten) {
     return RatingLevel.Awesome;}
+
+  // switch (ratingCount) {
+  //   case (RatingLevelCountValue.Zero <= ratingCount && ratingCount < RatingLevelCountValue.Three): return RatingLevel.Bad;
+  //   case (RatingLevelCountValue.Three <= ratingCount && ratingCount < RatingLevelCountValue.Five): return RatingLevel.Normal;
+  //   case (RatingLevelCountValue.Five <= ratingCount && ratingCount < RatingLevelCountValue.Eight): return RatingLevel.Good;
+  //   case (RatingLevelCountValue.Eight <= ratingCount && ratingCount < RatingLevelCountValue.Ten): return RatingLevel.VeryGood;
+  //   case (ratingCount === RatingLevelCountValue.Ten): return RatingLevel.Awesome;
+  //   default: return '';
+  // }
 }
 
-function getStarringArrayToString (starring: string[]): string | undefined {
+function getStarringArrayToString (starring: string[]): string {
   return starring.join(', ');
 }
 

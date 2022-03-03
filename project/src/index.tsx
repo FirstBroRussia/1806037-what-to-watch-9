@@ -1,18 +1,17 @@
-/* eslint-disable no-console */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-import {dataFromServer} from './types/types';
+import {DataFromServer} from './types/types';
 
 import {getPromoFilm, getFilmsList} from './fetch/request-to-server';
 
 
-async function StartApp(): Promise<void> {
+async function startApp(): Promise<void> {
   const promoFilm = await getPromoFilm();
   const films = await getFilmsList();
 
-  const data: dataFromServer = {
+  const data: DataFromServer = {
     promoFilm: promoFilm,
     filmsData: films,
   };
@@ -25,5 +24,5 @@ async function StartApp(): Promise<void> {
 }
 
 
-StartApp();
+startApp();
 

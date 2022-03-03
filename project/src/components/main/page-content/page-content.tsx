@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {FilmsDataPropsType} from '../../../types/types';
 
 import Catalog from './catalog';

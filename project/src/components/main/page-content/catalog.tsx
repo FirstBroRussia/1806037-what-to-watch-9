@@ -1,22 +1,8 @@
-/* eslint-disable no-console */
-import {useState} from 'react';
-
-import {ZERO_VALUE} from '../../utils/const';
-
 import {FilmsDataPropsType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
 function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
-  const [activeFilmID, setActiveFilmID] = useState(ZERO_VALUE);
-  console.log(activeFilmID);
-
-  const filmsCatalog: JSX.Element[] = [];
-
-  filmsList.forEach( (item) => {
-    filmsCatalog.push(<FilmCardForCatalog item={item} callback={setActiveFilmID} />);
-  });
-
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -56,7 +42,7 @@ function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
 
       <div className="catalog__films-list">
         {
-          filmsCatalog
+          filmsList.map((item) => <FilmCardForCatalog key={item.id} item={item} />)
         }
       </div>
 

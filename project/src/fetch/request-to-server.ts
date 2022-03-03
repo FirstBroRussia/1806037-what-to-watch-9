@@ -1,6 +1,6 @@
-/* eslint-disable no-alert */
+import {ERROR} from '../components/utils/const';
+
 const linkToServer = 'https://9.react.pages.academy/wtw';
-// const authorizationToken = 'T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=';
 
 const enum RequestMethod {
   Get = 'GET',
@@ -17,54 +17,49 @@ const enum GetRequest {
   Login = '/login'
 }
 
-type objRequest = {
+type ObjRequest = {
   method: string,
   headers: Headers,
-  body: any
 };
 
-const requestToServer = async (link: string, optionRequest: objRequest) => await fetch(link, optionRequest);
-
-const getPromoFilm: any = async () => {
+const getPromoFilm = async () => {
   const link = `${linkToServer}${GetRequest.Promo}`;
   const headers: Headers = new Headers();
 
-  const objRequest: objRequest = {
+  const objRequest: ObjRequest = {
     method: RequestMethod.Get,
     headers: headers,
-    body: null,
   };
 
   try {
-    const response = await requestToServer(link, objRequest);
+    const response = await fetch(link, objRequest);
     if (response.ok) {
       return response.json();
     }
     throw response;
   } catch {
-    alert('ОШИБКА ЗАПРОСА!!!');
+    return ERROR;
   }
 };
 
 
-const getFilmsList: any = async () => {
+const getFilmsList = async () => {
   const link = `${linkToServer}${GetRequest.Films}`;
   const headers: Headers = new Headers();
 
-  const objRequest: objRequest = {
+  const objRequest: ObjRequest = {
     method: RequestMethod.Get,
     headers: headers,
-    body: null,
   };
 
   try {
-    const response = await requestToServer(link, objRequest);
+    const response = await fetch(link, objRequest);
     if (response.ok) {
       return response.json();
     }
     throw response;
   } catch {
-    alert('ОШИБКА ЗАПРОСА!!!');
+    return ERROR;
   }
 };
 

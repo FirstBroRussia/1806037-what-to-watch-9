@@ -2,6 +2,7 @@ function NotFoundPage() {
   return (
     <h1>
         404 Error<br></br>
+      <br></br>
         Not Found Page
     </h1>
   );

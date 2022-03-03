@@ -1,11 +1,13 @@
 const ZERO_VALUE = 0;
 
+const ERROR = 'error';
+
 const enum RatingLevelCountValue {
-  ZERO = 0,
-  THREE = 3,
-  FIVE = 5,
-  EIGHT = 8,
-  TEN = 10
+  Zero = 0,
+  Three = 3,
+  Five = 5,
+  Eight = 8,
+  Ten = 10
 }
 
 const enum RatingLevel {
@@ -21,12 +23,13 @@ const enum AppRoute {
   SignIn = '/login',
   MyList = '/mylist',
   DefaultFilm = '/films/:id',
-  Film = '/films',
-  // AddReview = '/review',
-  AddReview = '/films/:id/review',
+  DefaultAddReview = '/films/:id/review',
   DefaultVideoPlayer = '/player/:id',
+  Film = '/films',
+  AddReview = 'review',
   VideoPlayer = '/player',
-  NotFound = '*'
+  NotFound = '*',
+  ErrorRequest = '/errorrequest'
 }
 
 const enum AuthorizationValue {
@@ -35,4 +38,4 @@ const enum AuthorizationValue {
   Unknown = 'Unknown',
 }
 
-export {ZERO_VALUE, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel};
+export {ZERO_VALUE, ERROR, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel};

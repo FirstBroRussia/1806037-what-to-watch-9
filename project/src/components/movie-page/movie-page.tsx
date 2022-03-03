@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {FilmDataType} from '../../types/types';
 import PageHeader from '../main/header-film-card/page-header';
@@ -8,8 +7,8 @@ import {getRatingLevel, getStarringArrayToString} from '../utils/utils';
 
 function MoviePage() {
   const navigate = useNavigate();
-  const inputState: any = useLocation().state;
-  const {name, genre, released, backgroundImage, posterImage, rating, scoresCount, description, director, starring}: FilmDataType = inputState;
+  const filmData = useLocation().state as FilmDataType;
+  const {id, name, genre, released, backgroundImage, posterImage, rating, scoresCount, description, director, starring}: FilmDataType = filmData;
 
   const navigateToVideoPlayerClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate(AppRoute.DefaultVideoPlayer);
@@ -48,7 +47,7 @@ function MoviePage() {
                 </svg>
                 <span>My list</span>
               </button>
-              <Link to={AppRoute.AddReview} className="btn film-card__button" state={inputState}>Add review</Link>
+              <Link to={`${AppRoute.Film}/${id}/${AppRoute.AddReview}`} className="btn film-card__button" state={filmData}>Add review</Link>
             </div>
           </div>
         </div>

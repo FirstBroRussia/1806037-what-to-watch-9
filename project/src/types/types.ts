@@ -23,17 +23,17 @@ type FilmsDataPropsType = {
 };
 
 type FilmDataPropsType = {
-  [key: string]: FilmDataType
+  filmData: FilmDataType
 };
 
-type dataFromServer = {
-  promoFilm: any,
-  filmsData: FilmDataType[],
+type DataFromServer = {
+  promoFilm: FilmDataType & string,
+  filmsData: FilmDataType[] & string,
 }
 
-type formDataSubmitType = {
+type FormDataSubmitType = {
   rating: number,
   comment: string
 }
 
-export type {FilmDataType, FilmsDataPropsType, FilmDataPropsType, dataFromServer, formDataSubmitType};
+export type {FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType};

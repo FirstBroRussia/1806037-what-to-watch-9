@@ -2,18 +2,12 @@ import {useNavigate} from 'react-router-dom';
 import {FilmDataPropsType} from '../../../types/types';
 import {AppRoute} from '../../utils/const';
 
-function FilmCardWrap({promoFilm}: FilmDataPropsType): JSX.Element {
-  const {id, name, posterImage, genre, released} = promoFilm;
+function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
+  const {id, name, posterImage, genre, released} = filmData;
   const navigate = useNavigate();
 
   const navigateToVideoPlayerClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
-    const optionNavigate = {
-      pathname: `${AppRoute.VideoPlayer}/${id}`,
-      state: id,
-      search: 'aaa',
-      hash: '#aaa',
-    };
-    navigate(optionNavigate, {state: promoFilm});
+    navigate(`${AppRoute.VideoPlayer}/${id}`, {state: filmData});
   };
 
   return (
