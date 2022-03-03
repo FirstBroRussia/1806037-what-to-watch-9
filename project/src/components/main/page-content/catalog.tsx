@@ -1,7 +1,8 @@
-import {FILM_CARD_COUNT, CustomFilmData} from '../../utils/utils';
-import FilmCardForCatalog from './film-card-for-catalog';
+import {FilmsDataPropsType} from '../../../types/types';
 
-function Catalog(): JSX.Element {
+import FilmCardForCatalog from './film-card-for-catalog-wrap';
+
+function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -41,10 +42,7 @@ function Catalog(): JSX.Element {
 
       <div className="catalog__films-list">
         {
-          Array.from({length: FILM_CARD_COUNT}, (item: JSX.Element) => {
-            item = <FilmCardForCatalog {...CustomFilmData} />;
-            return item;
-          })
+          filmsList.map((item) => <FilmCardForCatalog key={item.id} item={item} />)
         }
       </div>
 

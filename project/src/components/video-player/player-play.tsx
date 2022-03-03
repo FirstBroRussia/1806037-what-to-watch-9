@@ -1,9 +1,21 @@
-function PlayerPlay() {
+import {useLocation, useNavigate} from 'react-router-dom';
+import {FilmDataType} from '../../types/types';
+
+function VideoPlayer() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const {videoLink} = location.state as FilmDataType;
+
+  const exitButtonClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={videoLink} className="player__video"></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button onClick={exitButtonClickHandler} type="button" className="player__exit">Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -39,4 +51,4 @@ function PlayerPlay() {
   );
 }
 
-export default PlayerPlay;
+export default VideoPlayer;

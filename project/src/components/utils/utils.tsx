@@ -1,20 +1,22 @@
-const FILM_CARD_COUNT = 20;
+import {RatingLevelCountValue, RatingLevel} from '../utils/const';
 
+function getRatingLevel (ratingCount: number): string {
+  if (RatingLevelCountValue.Zero <= ratingCount && ratingCount < RatingLevelCountValue.Three) {
+    return RatingLevel.Bad;}
+  if (RatingLevelCountValue.Three <= ratingCount && ratingCount < RatingLevelCountValue.Five) {
+    return RatingLevel.Normal;}
+  if (RatingLevelCountValue.Five <= ratingCount && ratingCount < RatingLevelCountValue.Eight) {
+    return RatingLevel.Good;}
+  if (RatingLevelCountValue.Eight <= ratingCount && ratingCount < RatingLevelCountValue.Ten) {
+    return RatingLevel.VeryGood;}
+  if (ratingCount === RatingLevelCountValue.Ten) {
+    return RatingLevel.Awesome;} else {
+    throw new Error('ERROR');
+  }
+}
 
-type CustomFilmDataType = {
-  title: string,
-  imgSrc: string,
-  genre?: string,
-  year?: number,
-};
+function getStarringArrayToString (starring: string[]): string {
+  return starring.join(', ');
+}
 
-const CustomFilmData: CustomFilmDataType = {
-  title: 'The Grand Budapest Hotel',
-  imgSrc: 'img/the-grand-budapest-hotel-poster.jpg',
-  genre: 'Drama',
-  year: 2014,
-};
-
-export default CustomFilmDataType;
-export {CustomFilmData, FILM_CARD_COUNT};
-
+export {getRatingLevel, getStarringArrayToString};

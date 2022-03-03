@@ -1,16 +1,16 @@
-import {CustomFilmData} from '../../utils/utils';
 import FilmCardBackground from './film-card-background';
 import PageHeader from './page-header';
 import FilmCardWrap from './film-card-wrap';
+import {FilmDataPropsType} from '../../../types/types';
 
 
-function HeaderFilmCard(): JSX.Element {
+function HeaderFilmCard({filmData}: FilmDataPropsType): JSX.Element {
   return (
     <section className="film-card">
       <h1 className="visually-hidden">WTW</h1>
-      <FilmCardBackground />
+      <FilmCardBackground filmData={filmData}/>
       <PageHeader />
-      <FilmCardWrap {...CustomFilmData} />
+      <FilmCardWrap filmData={filmData} />
     </section>
   );
 }
