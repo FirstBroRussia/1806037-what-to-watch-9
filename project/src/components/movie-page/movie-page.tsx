@@ -11,9 +11,8 @@ function MoviePage() {
   const {id, name, genre, released, backgroundImage, posterImage, rating, scoresCount, description, director, starring}: FilmDataType = filmData;
 
   const navigateToVideoPlayerClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
-    navigate(AppRoute.DefaultVideoPlayer);
+    navigate(`${AppRoute.VideoPlayer}/${id}`, {state: filmData});
   };
-
 
   return (
     <section className="film-card film-card--full">
