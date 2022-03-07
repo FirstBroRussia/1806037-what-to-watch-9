@@ -19,7 +19,7 @@ function AddReview() {
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
-        <HeaderElement key={null} type={undefined} props={undefined}>
+        <HeaderElement>
           <BreadcrumbsElement filmData={filmData}/>
           <SignOut/>
         </HeaderElement>

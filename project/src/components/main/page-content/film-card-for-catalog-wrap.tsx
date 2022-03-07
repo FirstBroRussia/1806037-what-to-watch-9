@@ -1,4 +1,5 @@
-import {useState} from 'react';
+/* eslint-disable no-console */
+import {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {FilmDataType} from '../../../types/types';
 import {AppRoute} from '../../utils/const';
@@ -14,6 +15,14 @@ function FilmCardForCatalog({item}: FilmCardForCatalogPropsType): JSX.Element {
 
   const [state, setState] = useState(isActiteCard);
 
+  const videoCardRef = useRef<HTMLVideoElement | null>(null);
+
+  const playVideo = () => {
+    if(videoCardRef.current !== null) {
+      videoCardRef.current.play();
+    }
+  };
+
   function activeFilmCardOnFocusHandler (): void {
     setState(!state);
   }
@@ -21,6 +30,19 @@ function FilmCardForCatalog({item}: FilmCardForCatalogPropsType): JSX.Element {
   function activeFilmCardOutFocusHandler (): void {
     setState(!state);
   }
+
+  useEffect( () => {
+    let timeoutFn: NodeJS.Timeout | null = null;
+
+    if (state) {
+      timeoutFn = setTimeout(playVideo, 1000);
+    }
+    return () => {
+      if (timeoutFn !== null) {
+        clearTimeout(timeoutFn);
+      }
+    };
+  }, [state]);
 
   const filmCardInfoElement: JSX.Element = (
     <article onMouseEnter={activeFilmCardOnFocusHandler} className="small-film-card catalog__films-card" >
@@ -36,7 +58,7 @@ function FilmCardForCatalog({item}: FilmCardForCatalogPropsType): JSX.Element {
   const videoFilmCardElement: JSX.Element = (
     <article onMouseLeave={activeFilmCardOutFocusHandler} className="small-film-card catalog__films-card" >
       <div className="small-film-card__video">
-        <video src={previewVideoLink} width="100%" height="100%" autoPlay loop preload="auto"/>
+        <video ref={videoCardRef} src={previewVideoLink} width="100%" height="100%" poster={previewImage} loop preload="auto"/>
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`${AppRoute.Film}/${id}`} state={item}>{name}</Link>
