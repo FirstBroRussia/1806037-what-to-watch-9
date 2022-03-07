@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../utils/const';
 
 type HeaderPropsType = {
-  children: JSX.Element,
+  children: JSX.Element | JSX.Element[],
 }
 
 function HeaderElement({children}: HeaderPropsType): JSX.Element {
