@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
 import {useLocation} from 'react-router-dom';
-import {FilmDataType, TemporaryInputDataType} from '../../types/types';
-import {ModeReceivingStarringData} from '../utils/const';
-import {getStarringArrayToString} from '../utils/utils';
+import {FilmDataType, TemporaryInputDataType} from '../../../types/types';
+import {ModeReceivingStarringData} from '../../utils/const';
+import {getStarringArrayToString} from '../../utils/utils';
 
 function MoviePageDetailsElement () {
-// const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
   const inputData = location.state as TemporaryInputDataType;
   const filmData: FilmDataType = inputData[1];
   const {director, starring, runTime, genre, released}: FilmDataType = filmData;

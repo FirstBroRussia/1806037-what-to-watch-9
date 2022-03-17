@@ -1,19 +1,51 @@
 /* eslint-disable no-console */
-import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {useRef} from 'react';
 import {FilmDataType, TemporaryInputDataType} from '../../types/types';
 import FooterElement from '../layout/footer-layout';
 import PageHeader from '../main/header-film-card/page-header';
-import {AppRoute} from '../utils/const';
+import {ACTIVE_LINK_FROM_MOVIE_PAGE, AppRoute, hashFilmInfo} from '../utils/const';
 import LikeThisFilms from './like-this-films';
+
+import MoviePageOverviewElement from './movie-page-overview/movie-page-overview';
+import MoviePageDetailsElement from './movie-page-details/movie-page-details';
+import MoviePageReviewsElement from './movie-page-reviews/movie-page-reviews';
+import {toggleStyleToLink} from '../utils/utils';
+
 
 function MoviePage() {
   const navigate = useNavigate();
+
   const location = useLocation();
+  const hashLocation = location.hash;
+
+  const reference = useRef(null);
+
   const inputData = location.state as TemporaryInputDataType;
-  console.log(location);
   const idFilm: number = inputData[0];
   const filmData: FilmDataType = inputData[1];
   const {name, genre, released, backgroundImage, posterImage}: FilmDataType = filmData;
+
+  const getSelectedLink = () => {
+    if (reference.current === null) {
+      throw new Error ('Невалидное значение');
+    }
+    const currentReference = reference.current as Element;
+    const currentTargetLink = currentReference.querySelector('.film-nav__item--active');
+    if (!currentTargetLink) {
+      throw new Error ('Невалидное значение');
+    }
+    return currentTargetLink;
+  };
+
+  const getCurrentSelectedLink = (targetElement: Element) => {
+    const currentSelectedLink = targetElement.parentElement;
+    if (!currentSelectedLink) {
+      throw new Error ('Неваледное значение');
+    }
+    return currentSelectedLink;
+  };
+
 
   const navigateToVideoPlayerClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate(`${AppRoute.VideoPlayer}/${idFilm}`, {state: filmData});
@@ -21,33 +53,64 @@ function MoviePage() {
 
   const handleOverviewLinkClick: React.MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
-    const currentLocation: string = location.pathname;
-    const compositeCurrentLocation = `${AppRoute.Film}/${idFilm}`;
-    if (currentLocation === compositeCurrentLocation) {
+    const compositeCurrentLocation = `${AppRoute.Film}/${idFilm}${AppRoute.OverviewFilm}`;
+    if (hashLocation === hashFilmInfo.Overview) {
       return;
     }
+    const targetElement = evt.target as Element;
+    const currentSelectedLink = getCurrentSelectedLink(targetElement);
+    const prevSelectedElement = getSelectedLink();
+    toggleStyleToLink({
+      prevElement: prevSelectedElement,
+      currElement: currentSelectedLink,
+      style: ACTIVE_LINK_FROM_MOVIE_PAGE,
+    });
     navigate(compositeCurrentLocation, {state: inputData});
   };
 
   const handleDetailsLinkClick: React.MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
-    const currentLocation: string = location.pathname;
     const compositeCurrentLocation = `${AppRoute.Film}/${idFilm}${AppRoute.DetailsFilm}`;
-    if (currentLocation === compositeCurrentLocation) {
+    if (hashLocation === hashFilmInfo.Details) {
       return;
     }
+    const targetElement = evt.target as Element;
+    const currentSelectedLink = getCurrentSelectedLink(targetElement);
+    const prevSelectedElement = getSelectedLink();
+    toggleStyleToLink({
+      prevElement: prevSelectedElement,
+      currElement: currentSelectedLink,
+      style: ACTIVE_LINK_FROM_MOVIE_PAGE,
+    });
     navigate(compositeCurrentLocation, {state: inputData});
   };
 
   const handleReviewsLinkClick: React.MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
-    const currentLocation: string = location.pathname;
-    const compositeCurrentLocation = `${AppRoute.Film}/${idFilm}/${AppRoute.ReviewsFilm}`;
-    if (currentLocation === compositeCurrentLocation) {
+    const compositeCurrentLocation = `${AppRoute.Film}/${idFilm}${AppRoute.ReviewsFilm}`;
+    if (hashLocation === hashFilmInfo.Reviews) {
       return;
     }
+    const targetElement = evt.target as Element;
+    const currentSelectedLink = getCurrentSelectedLink(targetElement);
+    const prevSelectedElement = getSelectedLink();
+    toggleStyleToLink({
+      prevElement: prevSelectedElement,
+      currElement: currentSelectedLink,
+      style: ACTIVE_LINK_FROM_MOVIE_PAGE,
+    });
     navigate(compositeCurrentLocation, {state: inputData});
   };
+
+  const currentInfoBlock = () => {
+    switch (true) {
+      case (hashLocation === hashFilmInfo.Overview) : return <MoviePageOverviewElement />;
+      case (hashLocation === hashFilmInfo.Details) : return <MoviePageDetailsElement />;
+      case (hashLocation === hashFilmInfo.Reviews) : return <MoviePageReviewsElement />;
+      default: throw new Error('Невалидное значение');
+    }
+  };
+
 
   return (
     <>
@@ -96,7 +159,7 @@ function MoviePage() {
 
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
+                <ul ref={reference} className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
                     <Link onClick={handleOverviewLinkClick} to="#todo" className="film-nav__link">Overview</Link>
                   </li>
@@ -109,7 +172,9 @@ function MoviePage() {
                 </ul>
               </nav>
 
-              <Outlet />
+              {
+                currentInfoBlock()
+              }
 
             </div>
           </div>

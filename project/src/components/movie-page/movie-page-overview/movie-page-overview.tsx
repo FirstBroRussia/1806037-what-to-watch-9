@@ -1,7 +1,7 @@
 import {useLocation} from 'react-router-dom';
-import {FilmDataType, TemporaryInputDataType} from '../../types/types';
-import {ModeReceivingStarringData} from '../utils/const';
-import {getRatingLevel, getStarringArrayToString} from '../utils/utils';
+import {FilmDataType, TemporaryInputDataType} from '../../../types/types';
+import {ModeReceivingStarringData} from '../../utils/const';
+import {getRatingLevel, getStarringArrayToString} from '../../utils/utils';
 
 function MoviePageOverviewElement () {
   // const navigate = useNavigate();

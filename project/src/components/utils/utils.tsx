@@ -1,3 +1,4 @@
+import {toggleStyleToLinkParamType} from '../../types/types';
 import {RatingLevelCountValue, RatingLevel, ModeReceivingStarringData} from '../utils/const';
 
 function getRatingLevel (ratingCount: number): string {
@@ -20,5 +21,10 @@ function getStarringArrayToString (mode: string, starring: string[]): string {
   }
 }
 
+const toggleStyleToLink = (data: toggleStyleToLinkParamType) => {
+  const {prevElement, currElement, style} = data;
+  prevElement.classList.remove(style);
+  currElement.classList.add(style);
+};
 
-export {getRatingLevel, getStarringArrayToString};
+export {getRatingLevel, getStarringArrayToString, toggleStyleToLink};
