@@ -4,11 +4,48 @@ import {SubmitCommentForm} from './submit-comment-form';
 import HeaderElement from '../layout/header-layout';
 import SignOut from '../header/user-block/sign-out';
 import BreadcrumbsElement from './breadcrumbs';
+import {getFilm} from '../../fetch/request-to-server';
+import {useEffect, useState} from 'react';
 
 function AddReview() {
   const location = useLocation();
+  const [state, setState] = useState(null);
 
-  const filmData = location.state as FilmDataType;
+  const idFilm = location.state as number;
+
+  useEffect(() => {
+    const requestToServer = setTimeout(async () => {
+      const response = await getFilm(idFilm);
+      setState(response);
+    }, 0);
+    return () => {
+      clearTimeout(requestToServer);
+    };
+  }, []);
+
+  if (state === null) {
+    return (
+      <section className="film-card film-card--full">
+        <div className="film-card__header">
+          <div className="film-card__bg">
+          </div>
+
+          <h1 className="visually-hidden">WTW</h1>
+
+
+          <div className="film-card__poster film-card__poster--small">
+          </div>
+        </div>
+
+        <div className="add-review">
+
+        </div>
+
+      </section>
+    );
+  }
+
+  const filmData = state as FilmDataType;
   const {name, backgroundImage, posterImage}: FilmDataType = filmData;
 
   return (

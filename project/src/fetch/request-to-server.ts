@@ -65,6 +65,27 @@ const getFilmsList = async () => {
   }
 };
 
+const getFilm = async (idFilm: number) => {
+  const link = `${linkToServer}${GetRequest.Films}/${idFilm}`;
+  const headers: Headers = new Headers();
+
+  const objRequest: ObjRequest = {
+    method: RequestMethod.Get,
+    headers: headers,
+  };
+
+  try {
+    const response = await fetch(link, objRequest);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+    throw response;
+  } catch {
+    return ERROR;
+  }
+};
+
 const getCommentsFilm = async (idFilm: number) => {
   const link = `${linkToServer}${GetRequest.Comments}/${idFilm}`;
   const headers: Headers = new Headers();
@@ -86,4 +107,4 @@ const getCommentsFilm = async (idFilm: number) => {
   }
 };
 
-export {getPromoFilm, getFilmsList, getCommentsFilm};
+export {getPromoFilm, getFilmsList, getFilm, getCommentsFilm};

@@ -1,13 +1,55 @@
 /* eslint-disable no-console */
+import {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
-import {FilmDataType, TemporaryInputDataType} from '../../../types/types';
+import {getFilm} from '../../../fetch/request-to-server';
+import {FilmDataType} from '../../../types/types';
 import {ModeReceivingStarringData} from '../../utils/const';
 import {getStarringArrayToString} from '../../utils/utils';
 
 function MoviePageDetailsElement () {
   const location = useLocation();
-  const inputData = location.state as TemporaryInputDataType;
-  const filmData: FilmDataType = inputData[1];
+  const idFilm = location.state as number;
+  const [state, setState] = useState(null);
+
+  useEffect(() => {
+    const requestToServer = setTimeout(async () => {
+      const response = await getFilm(idFilm);
+      setState(response);
+    }, 0);
+    return () => {
+      clearTimeout(requestToServer);
+    };
+  }, []);
+
+
+  if (state === null) {
+    return (
+      <div className="film-card__text film-card__row">
+        <div className="film-card__text-col">
+          <p className="film-card__details-item">
+
+          </p>
+          <p className="film-card__details-item">
+
+          </p>
+        </div>
+
+        <div className="film-card__text-col">
+          <p className="film-card__details-item">
+
+          </p>
+          <p className="film-card__details-item">
+
+          </p>
+          <p className="film-card__details-item">
+
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const filmData = state as FilmDataType;
   const {director, starring, runTime, genre, released}: FilmDataType = filmData;
 
   return (

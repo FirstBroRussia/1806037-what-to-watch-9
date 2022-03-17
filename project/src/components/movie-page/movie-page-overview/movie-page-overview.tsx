@@ -1,13 +1,48 @@
+import {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
-import {FilmDataType, TemporaryInputDataType} from '../../../types/types';
+import {getFilm} from '../../../fetch/request-to-server';
+import {FilmDataType} from '../../../types/types';
 import {ModeReceivingStarringData} from '../../utils/const';
 import {getRatingLevel, getStarringArrayToString} from '../../utils/utils';
 
 function MoviePageOverviewElement () {
-  // const navigate = useNavigate();
   const location = useLocation();
-  const inputData = location.state as TemporaryInputDataType;
-  const filmData: FilmDataType = inputData[1];
+  const idFilm = location.state as number;
+  const [state, setState] = useState(null);
+
+  useEffect(() => {
+    const requestToServer = setTimeout(async () => {
+      const response = await getFilm(idFilm);
+      setState(response);
+    }, 0);
+    return () => {
+      clearTimeout(requestToServer);
+    };
+  }, []);
+
+
+  if (state === null) {
+    return (
+      <>
+        <div className="film-rating">
+          <div className="film-rating__score"></div>
+          <p className="film-rating__meta">
+            <span className="film-rating__level"></span>
+            <span className="film-rating__count"></span>
+          </p>
+        </div>
+        <div className="film-card__text">
+          <p></p>
+
+          <p className="film-card__director"><strong></strong></p>
+
+          <p className="film-card__starring"><strong></strong></p>
+        </div>
+      </>
+    );
+  }
+
+  const filmData = state as FilmDataType;
   const {rating, scoresCount, description, director, starring}: FilmDataType = filmData;
 
   return (

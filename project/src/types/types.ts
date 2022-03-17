@@ -1,5 +1,3 @@
-type TemporaryInputDataType = [number, FilmDataType];
-
 type toggleStyleToLinkParamType = {
   prevElement: Element,
   currElement: Element,
@@ -56,4 +54,4 @@ type FormDataSubmitType = {
   comment: string
 }
 
-export type {TemporaryInputDataType, FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType, toggleStyleToLinkParamType, CommentDataType};
+export type {FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType, toggleStyleToLinkParamType, CommentDataType};
