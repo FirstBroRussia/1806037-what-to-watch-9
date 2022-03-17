@@ -25,6 +25,8 @@ function MoviePage() {
 
   const idFilm = location.state as number;
 
+  let currentSelectedLink: Element;
+
   useEffect(() => {
     const requestToServer = setTimeout(async () => {
       const response = await getFilm(idFilm);
@@ -35,30 +37,39 @@ function MoviePage() {
     };
   }, []);
 
-  const getSelectedLink = () => {
+  const setSelectedLink = (hash: string): void => {
     if (reference.current === null) {
       throw new Error ('Невалидное значение');
     }
     const currentReference = reference.current as Element;
-    const currentTargetLink = currentReference.querySelector('.film-nav__item--active');
-    if (!currentTargetLink) {
+    const linkList = currentReference.children;
+    for (const item of linkList) {
+      if (item.id === hash) {
+        item.classList.add(ACTIVE_LINK_FROM_MOVIE_PAGE);
+        currentSelectedLink = item;
+        break;
+      }
+    }
+  };
+
+  const actionsForTargetLink = (targetElement: Element): void => {
+    const prevSelectedElement = currentSelectedLink;
+    const currentTargetLink: Element | null = targetElement.parentElement;
+    if (currentTargetLink === null) {
       throw new Error ('Невалидное значение');
     }
-    return currentTargetLink;
+    currentSelectedLink = currentTargetLink;
+    toggleStyleToLink({
+      prevElement: prevSelectedElement,
+      currElement: currentTargetLink,
+      style: ACTIVE_LINK_FROM_MOVIE_PAGE,
+    });
   };
-
-  const getCurrentSelectedLink = (targetElement: Element) => {
-    const currentSelectedLink = targetElement.parentElement;
-    if (!currentSelectedLink) {
-      throw new Error ('Неваледное значение');
-    }
-    return currentSelectedLink;
-  };
-
 
   const navigateToVideoPlayerClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate(`${AppRoute.VideoPlayer}/${idFilm}`, {state: idFilm});
   };
+
 
   const handleOverviewLinkClick: React.MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
@@ -67,13 +78,7 @@ function MoviePage() {
       return;
     }
     const targetElement = evt.target as Element;
-    const currentSelectedLink = getCurrentSelectedLink(targetElement);
-    const prevSelectedElement = getSelectedLink();
-    toggleStyleToLink({
-      prevElement: prevSelectedElement,
-      currElement: currentSelectedLink,
-      style: ACTIVE_LINK_FROM_MOVIE_PAGE,
-    });
+    actionsForTargetLink(targetElement);
     navigate(compositeCurrentLocation, {state: idFilm});
   };
 
@@ -84,13 +89,7 @@ function MoviePage() {
       return;
     }
     const targetElement = evt.target as Element;
-    const currentSelectedLink = getCurrentSelectedLink(targetElement);
-    const prevSelectedElement = getSelectedLink();
-    toggleStyleToLink({
-      prevElement: prevSelectedElement,
-      currElement: currentSelectedLink,
-      style: ACTIVE_LINK_FROM_MOVIE_PAGE,
-    });
+    actionsForTargetLink(targetElement);
     navigate(compositeCurrentLocation, {state: idFilm});
   };
 
@@ -101,21 +100,22 @@ function MoviePage() {
       return;
     }
     const targetElement = evt.target as Element;
-    const currentSelectedLink = getCurrentSelectedLink(targetElement);
-    const prevSelectedElement = getSelectedLink();
-    toggleStyleToLink({
-      prevElement: prevSelectedElement,
-      currElement: currentSelectedLink,
-      style: ACTIVE_LINK_FROM_MOVIE_PAGE,
-    });
+    actionsForTargetLink(targetElement);
     navigate(compositeCurrentLocation, {state: idFilm});
   };
 
+
   const currentInfoBlock = () => {
     switch (true) {
-      case (hashLocation === hashFilmInfo.Overview) : return <MoviePageOverviewElement />;
-      case (hashLocation === hashFilmInfo.Details) : return <MoviePageDetailsElement />;
-      case (hashLocation === hashFilmInfo.Reviews) : return <MoviePageReviewsElement />;
+      case (hashLocation === hashFilmInfo.Overview) : {
+        setSelectedLink(hashFilmInfo.Overview);
+        return <MoviePageOverviewElement />;}
+      case (hashLocation === hashFilmInfo.Details) : {
+        setSelectedLink(hashFilmInfo.Details);
+        return <MoviePageDetailsElement />;}
+      case (hashLocation === hashFilmInfo.Reviews) : {
+        setSelectedLink(hashFilmInfo.Reviews);
+        return <MoviePageReviewsElement />;}
       default: throw new Error('Невалидное значение');
     }
   };
@@ -166,21 +166,17 @@ function MoviePage() {
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul ref={reference} className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <Link to="#todo" className="film-nav__link">Overview</Link>
+                  <li className="film-nav__item" id="#overview">
+                    <Link to="#overview" className="film-nav__link">Overview</Link>
                   </li>
-                  <li className="film-nav__item">
-                    <Link to="#todo" className="film-nav__link">Details</Link>
+                  <li className="film-nav__item" id="#details">
+                    <Link to="#details" className="film-nav__link">Details</Link>
                   </li>
-                  <li className="film-nav__item">
-                    <Link to="#todo" className="film-nav__link">Reviews</Link>
+                  <li className="film-nav__item" id="#reviews">
+                    <Link to="#reviews" className="film-nav__link">Reviews</Link>
                   </li>
                 </ul>
               </nav>
-
-              {
-                currentInfoBlock()
-              }
 
             </div>
           </div>
@@ -240,13 +236,13 @@ function MoviePage() {
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul ref={reference} className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
+                  <li className="film-nav__item" id="#overview">
                     <Link onClick={handleOverviewLinkClick} to="#todo" className="film-nav__link">Overview</Link>
                   </li>
-                  <li className="film-nav__item">
+                  <li className="film-nav__item" id="#details">
                     <Link onClick={handleDetailsLinkClick} to="#todo" className="film-nav__link">Details</Link>
                   </li>
-                  <li className="film-nav__item">
+                  <li className="film-nav__item" id="#reviews">
                     <Link onClick={handleReviewsLinkClick} to="#todo" className="film-nav__link">Reviews</Link>
                   </li>
                 </ul>

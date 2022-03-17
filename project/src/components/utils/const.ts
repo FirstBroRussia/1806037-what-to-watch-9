@@ -1,4 +1,5 @@
 const ZERO_VALUE = 0;
+const SIXTY_VALUE = 60;
 
 const ERROR = 'error';
 
@@ -54,4 +55,4 @@ const enum AuthorizationValue {
   Unknown = 'Unknown',
 }
 
-export {ZERO_VALUE, ERROR, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, hashFilmInfo, ACTIVE_LINK_FROM_MOVIE_PAGE};
+export {ZERO_VALUE, SIXTY_VALUE, ERROR, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, hashFilmInfo, ACTIVE_LINK_FROM_MOVIE_PAGE};

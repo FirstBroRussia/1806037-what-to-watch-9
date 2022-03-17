@@ -4,7 +4,7 @@ import {useLocation} from 'react-router-dom';
 import {getFilm} from '../../../fetch/request-to-server';
 import {FilmDataType} from '../../../types/types';
 import {ModeReceivingStarringData} from '../../utils/const';
-import {getStarringArrayToString} from '../../utils/utils';
+import {convertRunTime, getStarringArrayToString} from '../../utils/utils';
 
 function MoviePageDetailsElement () {
   const location = useLocation();
@@ -70,7 +70,7 @@ function MoviePageDetailsElement () {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{runTime}</span>
+          <span className="film-card__details-value">{convertRunTime(runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

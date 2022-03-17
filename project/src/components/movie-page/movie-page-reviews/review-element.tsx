@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {CommentDataType} from '../../../types/types';
 
 function ReviewElement(item: CommentDataType) {
@@ -9,7 +10,7 @@ function ReviewElement(item: CommentDataType) {
 
         <footer className="review__details">
           <cite className="review__author">{user.name}</cite>
-          <time className="review__date" dateTime="2016-12-24">{date}</time>
+          <time className="review__date">{dayjs(date).format('MMMM DD, YYYY')}</time>
         </footer>
       </blockquote>
 

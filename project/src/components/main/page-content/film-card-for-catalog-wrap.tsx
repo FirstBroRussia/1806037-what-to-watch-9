@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
-import { setTimeout } from 'timers';
 import {FilmDataType} from '../../../types/types';
 import {AppRoute} from '../../utils/const';
 
@@ -66,6 +65,7 @@ function FilmCardForCatalog({item}: FilmCardForCatalogPropsType): JSX.Element {
       </h3>
     </article>
   );
+
 
   if (state) {
     return videoFilmCardElement;
