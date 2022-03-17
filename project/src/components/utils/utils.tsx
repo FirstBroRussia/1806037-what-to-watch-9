@@ -1,4 +1,4 @@
-import {RatingLevelCountValue, RatingLevel} from '../utils/const';
+import {RatingLevelCountValue, RatingLevel, ModeReceivingStarringData} from '../utils/const';
 
 function getRatingLevel (ratingCount: number): string {
   switch (true) {
@@ -11,8 +11,14 @@ function getRatingLevel (ratingCount: number): string {
   }
 }
 
-function getStarringArrayToString (starring: string[]): string {
-  return starring.join(', ');
+function getStarringArrayToString (mode: string, starring: string[]): string {
+  // console.log(starring);
+  switch (true) {
+    case (mode === ModeReceivingStarringData.Overview) : return starring.join(', ');
+    case (mode === ModeReceivingStarringData.Details) : return starring.join(', <br></br>');
+    default: throw new Error('Передано  невалидное значение в функцию');
+  }
 }
+
 
 export {getRatingLevel, getStarringArrayToString};

@@ -13,6 +13,8 @@ import AddReview from '../add-review/add-review';
 import VideoPlayer from '../video-player/player-play';
 import PrivateRoute from '../private-route/private-route';
 import ErrorRequestPage from '../../pages/error-request';
+import MoviePageOverviewElement from '../movie-page/movie-page-overview';
+import MoviePageDetailsElement from '../movie-page/movie-page-details';
 
 
 function App(data: DataFromServer): JSX.Element {
@@ -27,7 +29,11 @@ function App(data: DataFromServer): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.DefaultFilm} element={<MoviePage />} />
+        <Route path={AppRoute.DefaultFilm} element={<MoviePage />}>
+          <Route index element={<MoviePageOverviewElement />}/>
+          <Route path={AppRoute.DetailsFilm} element={<MoviePageDetailsElement />}/>
+          <Route path={AppRoute.DefaultFilm} element={<MoviePage />}/>
+        </Route>
         <Route path={AppRoute.DefaultVideoPlayer} element={<VideoPlayer />} />
 
         <Route path={AppRoute.DefaultAddReview} element={<AddReview />} />

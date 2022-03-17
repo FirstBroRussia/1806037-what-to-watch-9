@@ -1,3 +1,6 @@
+type TemporaryInputDataType = [any, FilmDataType];
+
+
 type FilmDataType = {
   name: string,
   posterImage: string,
@@ -36,4 +39,4 @@ type FormDataSubmitType = {
   comment: string
 }
 
-export type {FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType};
+export type {TemporaryInputDataType, FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType};

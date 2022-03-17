@@ -18,11 +18,19 @@ const enum RatingLevel {
   Awesome = 'Awesome'
 }
 
+const enum ModeReceivingStarringData {
+  Overview = 'overview',
+  Details = 'details'
+}
+
 const enum AppRoute {
   Main = '/',
   SignIn = '/login',
   MyList = '/mylist',
   DefaultFilm = '/films/:id',
+  OverviewFilm = '#overview',
+  DetailsFilm = '#details',
+  ReviewsFilm = '#reviews',
   DefaultAddReview = '/films/:id/review',
   DefaultVideoPlayer = '/player/:id',
   Film = '/films',
@@ -38,4 +46,4 @@ const enum AuthorizationValue {
   Unknown = 'Unknown',
 }
 
-export {ZERO_VALUE, ERROR, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel};
+export {ZERO_VALUE, ERROR, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData};
