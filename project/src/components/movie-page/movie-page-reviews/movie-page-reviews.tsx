@@ -17,7 +17,7 @@ function MoviePageReviewsElement() {
     return () => {
       clearTimeout(requestToServer);
     };
-  }, []);
+  }, [setState, idFilm]);
 
   if (state === null) {
     return  (

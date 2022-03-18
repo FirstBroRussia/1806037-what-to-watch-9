@@ -19,7 +19,7 @@ function MoviePageDetailsElement () {
     return () => {
       clearTimeout(requestToServer);
     };
-  }, []);
+  }, [setState, idFilm]);
 
 
   if (state === null) {

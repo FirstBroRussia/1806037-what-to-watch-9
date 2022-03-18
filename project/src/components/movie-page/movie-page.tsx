@@ -35,7 +35,7 @@ function MoviePage() {
     return () => {
       clearTimeout(requestToServer);
     };
-  }, []);
+  }, [setState, idFilm]);
 
   const setSelectedLink = (hash: string): void => {
     if (reference.current === null) {
