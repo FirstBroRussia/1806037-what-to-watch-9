@@ -1,3 +1,10 @@
+type toggleStyleToLinkParamType = {
+  prevElement: Element,
+  currElement: Element,
+  style: string
+};
+
+
 type FilmDataType = {
   name: string,
   posterImage: string,
@@ -18,6 +25,17 @@ type FilmDataType = {
   previewVideoLink: string
 };
 
+type CommentDataType = {
+  comment: string,
+  date: Date,
+  id: number,
+  rating: number,
+  user: {
+    id: number,
+    name: string,
+  }
+};
+
 type FilmsDataPropsType = {
   filmsList: FilmDataType[]
 };
@@ -36,4 +54,4 @@ type FormDataSubmitType = {
   comment: string
 }
 
-export type {FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType};
+export type {FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType, toggleStyleToLinkParamType, CommentDataType};

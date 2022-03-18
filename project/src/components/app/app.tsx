@@ -14,7 +14,6 @@ import VideoPlayer from '../video-player/player-play';
 import PrivateRoute from '../private-route/private-route';
 import ErrorRequestPage from '../../pages/error-request';
 
-
 function App(data: DataFromServer): JSX.Element {
   return (
     <BrowserRouter>
