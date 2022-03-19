@@ -14,14 +14,11 @@ function AddReview() {
   const idFilm = location.state as number;
 
   useEffect(() => {
-    const requestToServer = setTimeout(async () => {
+    (async () => {
       const response = await getFilm(idFilm);
       setState(response);
-    }, 0);
-    return () => {
-      clearTimeout(requestToServer);
-    };
-  }, []);
+    })();
+  }, [setState, idFilm]);
 
   if (state === null) {
     return (

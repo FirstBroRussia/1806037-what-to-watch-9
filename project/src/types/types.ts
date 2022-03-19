@@ -1,4 +1,4 @@
-type toggleStyleToLinkParamType = {
+type ToggleStyleToLinkParamType = {
   prevElement: Element,
   currElement: Element,
   style: string
@@ -54,4 +54,4 @@ type FormDataSubmitType = {
   comment: string
 }
 
-export type {FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType, toggleStyleToLinkParamType, CommentDataType};
+export type {FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType, ToggleStyleToLinkParamType, CommentDataType};

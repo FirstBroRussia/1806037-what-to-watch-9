@@ -10,13 +10,10 @@ function MoviePageReviewsElement() {
   const idFilm = location.state as number;
 
   useEffect(() => {
-    const requestToServer = setTimeout(async () => {
+    (async () => {
       const response = await getCommentsFilm(idFilm);
       setState(response);
-    }, 0);
-    return () => {
-      clearTimeout(requestToServer);
-    };
+    })();
   }, [setState, idFilm]);
 
   if (state === null) {
@@ -34,7 +31,7 @@ function MoviePageReviewsElement() {
         {
           commentsList.map( (item, index) => {
             if (index % 2 === 0) {
-              return <ReviewElement {...item} />;
+              return <ReviewElement key={`review-${item.id}`} {...item} />;
             }
           })
         }
@@ -43,7 +40,7 @@ function MoviePageReviewsElement() {
         {
           commentsList.map( (item, index) => {
             if (index % 2 !== 0) {
-              return <ReviewElement {...item} />;
+              return <ReviewElement key={`review-${item.id}`} {...item} />;
             }
           })
         }

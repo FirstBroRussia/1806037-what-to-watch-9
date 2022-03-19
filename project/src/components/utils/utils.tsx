@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import {toggleStyleToLinkParamType} from '../../types/types';
+import {ToggleStyleToLinkParamType} from '../../types/types';
 import {ZERO_VALUE, SIXTY_VALUE, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData} from '../utils/const';
 
 const getRatingLevel = (ratingCount: number): string => {
@@ -21,7 +21,7 @@ const getStarringArrayToString = (mode: string, starring: string[]): string => {
   }
 };
 
-const toggleStyleToLink = (data: toggleStyleToLinkParamType): void => {
+const toggleStyleToLink = (data: ToggleStyleToLinkParamType): void => {
   const {prevElement, currElement, style} = data;
   prevElement.classList.remove(style);
   currElement.classList.add(style);

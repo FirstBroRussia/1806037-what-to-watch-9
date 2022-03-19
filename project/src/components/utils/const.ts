@@ -26,7 +26,7 @@ const enum ModeReceivingStarringData {
   Details = 'details'
 }
 
-const enum hashFilmInfo {
+const enum HashFilmInfo {
   Overview = '#overview',
   Details = '#details',
   Reviews = '#reviews'
@@ -55,4 +55,4 @@ const enum AuthorizationValue {
   Unknown = 'Unknown',
 }
 
-export {ZERO_VALUE, SIXTY_VALUE, ERROR, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, hashFilmInfo, ACTIVE_LINK_FROM_MOVIE_PAGE};
+export {ZERO_VALUE, SIXTY_VALUE, ERROR, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo as hashFilmInfo, ACTIVE_LINK_FROM_MOVIE_PAGE};
