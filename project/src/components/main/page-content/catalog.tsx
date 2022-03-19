@@ -2,8 +2,8 @@
 import {FilmsDataPropsType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
-import {toggleStyleToElement} from  '../../utils/utils';
-import {ACTIVE_FILTER_FROM_CATALOG, FiltersHash} from '../../utils/const';
+// import {toggleStyleToElement} from  '../../utils/utils';
+import {FiltersHash} from '../../utils/const';
 import {useEffect, useRef} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
@@ -13,45 +13,45 @@ function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
 
   const hashLocation: string = location.hash;
 
-  let currentSelectedFilter: Element;
+  // let currentSelectedFilter: Element;
 
   useEffect(() => {
     console.log();
   });
 
-  const handleFiltersListClick: React.MouseEventHandler<HTMLUListElement> = (evt): void  => {
-    getSelectedFilter();
-    const targetElement = evt.target as Element;
-    const isLinkElement = targetElement.matches('a');
-    if (!isLinkElement) {
-      return;
-    }
-    const targetLink = targetElement.closest('a');
-    if (targetLink === null) {
-      return;
-    }
-    const itemListElement = targetLink.parentElement as Element;
-    toggleStyleToElement({
-      prevElement: currentSelectedFilter,
-      currElement: itemListElement,
-      style: ACTIVE_FILTER_FROM_CATALOG,
-    });
-    currentSelectedFilter = itemListElement;
-  };
+  // const handleFiltersListClick: React.MouseEventHandler<HTMLUListElement> = (evt): void  => {
+  //   getSelectedFilter();
+  //   const targetElement = evt.target as Element;
+  //   const isLinkElement = targetElement.matches('a');
+  //   if (!isLinkElement) {
+  //     return;
+  //   }
+  //   const targetLink = targetElement.closest('a');
+  //   if (targetLink === null) {
+  //     return;
+  //   }
+  //   const itemListElement = targetLink.parentElement as Element;
+  //   toggleStyleToElement({
+  //     prevElement: currentSelectedFilter,
+  //     currElement: itemListElement,
+  //     style: ACTIVE_FILTER_FROM_CATALOG,
+  //   });
+  //   currentSelectedFilter = itemListElement;
+  // };
 
-  const getSelectedFilter = (): void => {
-    if (filtersListRef.current === null) {
-      throw new Error ('Невалидное значение');
-    }
-    const currentReference = filtersListRef.current as Element;
-    const linkList = currentReference.children;
-    for (const item of linkList) {
-      if (item.classList.contains (ACTIVE_FILTER_FROM_CATALOG)) {
-        currentSelectedFilter = item;
-        return;
-      }
-    }
-  };
+  // const getSelectedFilter = (): void => {
+  //   if (filtersListRef.current === null) {
+  //     throw new Error ('Невалидное значение');
+  //   }
+  //   const currentReference = filtersListRef.current as Element;
+  //   const linkList = currentReference.children;
+  //   for (const item of linkList) {
+  //     if (item.classList.contains (ACTIVE_FILTER_FROM_CATALOG)) {
+  //       currentSelectedFilter = item;
+  //       return;
+  //     }
+  //   }
+  // };
 
 
   const getCurrentCatalogBlock = () =>
@@ -61,7 +61,7 @@ function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-      <ul ref={filtersListRef} onClick={handleFiltersListClick} className="catalog__genres-list">
+      <ul ref={filtersListRef} className="catalog__genres-list">
         <li
           className={`catalog__genres-item ${hashLocation === FiltersHash.All || hashLocation === '' ? 'catalog__genres-item--active' : ''}`}
         >
