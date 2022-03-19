@@ -10,7 +10,7 @@ import LikeThisFilms from './like-this-films';
 import MoviePageOverviewElement from './movie-page-overview/movie-page-overview';
 import MoviePageDetailsElement from './movie-page-details/movie-page-details';
 import MoviePageReviewsElement from './movie-page-reviews/movie-page-reviews';
-import {toggleStyleToLink} from '../utils/utils';
+import {toggleStyleToElement} from '../utils/utils';
 import {getFilm} from '../../fetch/request-to-server';
 
 
@@ -56,7 +56,7 @@ function MoviePage() {
       throw new Error ('Невалидное значение');
     }
     currentSelectedLink = currentTargetLink;
-    toggleStyleToLink({
+    toggleStyleToElement({
       prevElement: prevSelectedElement,
       currElement: currentTargetLink,
       style: ACTIVE_LINK_FROM_MOVIE_PAGE,
