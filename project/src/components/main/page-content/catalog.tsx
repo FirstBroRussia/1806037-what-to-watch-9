@@ -1,24 +1,90 @@
 /* eslint-disable no-console */
-import {FilmsDataPropsType} from '../../../types/types';
+import {FilmDataType, FilmsDataPropsType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
 import {FiltersHash} from '../../utils/const';
-import {useEffect, useRef} from 'react';
+import {useRef} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
+import {
+  setAllFilmsAction,
+  setComediasFilmsAction,
+  setCrimeFilmsAction,
+  setDocumentaryFilmsAction,
+  setDramasFilmsAction,
+  setHorrorFilmsAction,
+  setFamilyFilmsAction,
+  setRomanceFilmsAction,
+  setSciFiFilmsAction,
+  setThrillersFilmsAction
+} from '../../../store/actions';
+
+import {
+  useAppSelector,
+  useAppDispatch
+} from '../../../store/main';
+
 function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
+  console.log('CATALOG');
+  const dispatch = useAppDispatch();
+  dispatch(setComediasFilmsAction(filmsList));
+
   const location = useLocation();
   const filtersListRef = useRef(null);
 
   const hashLocation: string = location.hash;
 
-  useEffect(() => {
-    console.log();
-  });
+  // switch(true) {
+  //   case (hashLocation === FiltersHash.All || hashLocation === ''): {
+  //     dispatch(setAllFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   case (hashLocation === FiltersHash.Comedies): {
+  //     dispatch(setComediasFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   case (hashLocation === FiltersHash.Crime): {
+  //     dispatch(setCrimeFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   case (hashLocation === FiltersHash.Documentary): {
+  //     dispatch(setDocumentaryFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   case (hashLocation === FiltersHash.Dramas): {
+  //     dispatch(setDramasFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   case (hashLocation === FiltersHash.Horror): {
+  //     dispatch(setHorrorFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   case (hashLocation === FiltersHash.Family): {
+  //     dispatch(setFamilyFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   case (hashLocation === FiltersHash.Romance): {
+  //     dispatch(setRomanceFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   case (hashLocation === FiltersHash.SciFi): {
+  //     dispatch(setSciFiFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   case (hashLocation === FiltersHash.Thrillers): {
+  //     dispatch(setThrillersFilmsAction(filmsList));
+  //     break;
+  //   }
+  //   default: throw new Error('НЕВАЛИДНОЕ ЗНАЧЕНИЕ');
+  // }
 
-  const getCurrentCatalogBlock = () =>
-    filmsList.map((item) => <FilmCardForCatalog key={item.id} item={item} />);
+  const filmsData = useAppSelector((state) => state.filmData);
+  console.log(filmsData);
+
+  if (filmsData === null) {
+    throw new Error('НЕВАЛИДНЫЕ ДАННЫЕ');
+  }
 
   return (
     <section className="catalog">
@@ -61,7 +127,7 @@ function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
 
       <div className="catalog__films-list">
         {
-          getCurrentCatalogBlock()
+          filmsData.map((item: FilmDataType) => <FilmCardForCatalog key={item.id} item={item} />)
         }
       </div>
 

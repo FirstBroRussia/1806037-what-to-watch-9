@@ -3,6 +3,8 @@ const SIXTY_VALUE = 60;
 
 const ERROR = 'error';
 
+const PRIMARY_STATE = 'PRIMARY_STATE';
+
 const ACTIVE_LINK_FROM_MOVIE_PAGE = 'film-nav__item--active';
 const ACTIVE_FILTER_FROM_CATALOG = 'catalog__genres-item--active';
 
@@ -69,4 +71,17 @@ const enum FiltersHash {
   Thrillers = '#thrillers'
 }
 
-export {ZERO_VALUE, SIXTY_VALUE, ERROR,  ACTIVE_LINK_FROM_MOVIE_PAGE, ACTIVE_FILTER_FROM_CATALOG, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo as hashFilmInfo, FiltersHash};
+const enum Genres {
+  Adventure = 'Adventure',
+  Drama = 'Drama',
+  Crime = 'Crime',
+  Fantasy = 'Fantasy',
+  Action = 'Action',
+  Comedy = 'Comedy',
+  Thriller = 'Thriller',
+  Documentary = 'Documentary',
+  Horror = 'Horror',
+  Romance = 'Romance',
+}
+
+export {PRIMARY_STATE, ZERO_VALUE, SIXTY_VALUE, ERROR,  ACTIVE_LINK_FROM_MOVIE_PAGE, ACTIVE_FILTER_FROM_CATALOG, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo as hashFilmInfo, FiltersHash, Genres};

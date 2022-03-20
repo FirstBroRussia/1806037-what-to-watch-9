@@ -13,7 +13,6 @@ import MoviePageReviewsElement from './movie-page-reviews/movie-page-reviews';
 import {toggleStyleToElement} from '../utils/utils';
 import {getFilm} from '../../fetch/request-to-server';
 
-
 function MoviePage() {
   const navigate = useNavigate();
   const [state, setState] = useState(null);
@@ -116,6 +115,7 @@ function MoviePage() {
       default: throw new Error('Невалидное значение');
     }
   };
+
 
   if (state === null) {
     return (
