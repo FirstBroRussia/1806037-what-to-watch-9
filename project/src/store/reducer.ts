@@ -11,11 +11,11 @@ const initialeState: initialStateType = {
   selectedGenre: '',
 };
 
-const updateStore = createReducer(initialeState, (builder) => {
+const commonReducer = createReducer(initialeState, (builder) => {
   builder
     .addCase(setGenresStateAction, (state, action) => {
       state.selectedGenre = action.payload;
     });
 });
 
-export default updateStore;
+export default commonReducer;

@@ -16,82 +16,39 @@ import {
   useAppDispatch
 } from '../../../store/main';
 
-const getFilteredFilms = (filmsData: FilmDataType[], currentStateApp: string): FilmDataType[] | [] => {
+let filteredFilmsMap: Map<string, FilmDataType[]> | null = null;
+
+const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType[] | [] => {
   switch (true) {
-    case (currentStateApp === FiltersHash.All || currentStateApp === ''): {
+    case (hash === FiltersHash.All || hash === ''): {
       return filmsData;
     }
-    case (currentStateApp === FiltersHash.Comedies): {
-      return filmsData.slice().filter((film: FilmDataType) => {
-        if (!(film.genre === Genres.Comedy)) {
-          return false;
-        }
-        return true;
-      });
+    case (hash === FiltersHash.Comedies): {
+      return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Comedy);
     }
-    case (currentStateApp === FiltersHash.Crime): {
-      return filmsData.slice().filter((film: FilmDataType) => {
-        if (!(film.genre === Genres.Crime || film.genre === Genres.Action)) {
-          return false;
-        }
-        return true;
-      });
+    case (hash === FiltersHash.Crime): {
+      return filmsData.slice().filter((film: FilmDataType) => (film.genre === Genres.Crime || film.genre === Genres.Action));
     }
-    case (currentStateApp === FiltersHash.Documentary): {
-      return filmsData.slice().filter((film: FilmDataType) => {
-        if (!(film.genre === Genres.Documentary)) {
-          return false;
-        }
-        return true;
-      });
+    case (hash === FiltersHash.Documentary): {
+      return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Documentary);
     }
-    case (currentStateApp === FiltersHash.Dramas): {
-      return filmsData.slice().filter((film: FilmDataType) => {
-        if (!(film.genre === Genres.Drama)) {
-          return false;
-        }
-        return true;
-      });
+    case (hash === FiltersHash.Dramas): {
+      return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Drama);
     }
-    case (currentStateApp === FiltersHash.Horror): {
-      return filmsData.slice().filter((film: FilmDataType) => {
-        if (!(film.genre === Genres.Horror)) {
-          return false;
-        }
-        return true;
-      });
+    case (hash === FiltersHash.Horror): {
+      return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Horror);
     }
-    case (currentStateApp === FiltersHash.Family): {
-      return filmsData.slice().filter((film: FilmDataType) => {
-        if (!(film.genre === Genres.Adventure)) {
-          return false;
-        }
-        return true;
-      });
+    case (hash === FiltersHash.Family): {
+      return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Adventure);
     }
-    case (currentStateApp === FiltersHash.Romance): {
-      return filmsData.slice().filter((film: FilmDataType) => {
-        if (!(film.genre === Genres.Romance)) {
-          return false;
-        }
-        return true;
-      });
+    case (hash === FiltersHash.Romance): {
+      return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Romance);
     }
-    case (currentStateApp === FiltersHash.SciFi): {
-      return filmsData.slice().filter((film: FilmDataType) => {
-        if (!(film.genre === Genres.Fantasy)) {
-          return false;
-        }
-        return true;
-      });
+    case (hash === FiltersHash.SciFi): {
+      return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Fantasy);
     }
-    case (currentStateApp === FiltersHash.Thrillers): {
-      return filmsData.slice().filter((film: FilmDataType) => {
-        if (!(film.genre === Genres.Thriller)) {
-          return false;
-        }
-        return true;
-      });
+    case (hash === FiltersHash.Thrillers): {
+      return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Thriller);
     }
     default: return [];
   }
@@ -105,12 +62,24 @@ function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
 
   let validHash = false;
 
-  for (const item in FiltersHash) {
-    const key = item as keyof typeof FiltersHash;
-    const value = FiltersHash[key];
-    if (hashLocation === value) {
-      validHash = true;
-      break;
+  if (filteredFilmsMap === null) {
+    filteredFilmsMap = new Map();
+    for (const item in FiltersHash) {
+      const key = item as keyof typeof FiltersHash;
+      const value = FiltersHash[key];
+      if (hashLocation === value) {
+        validHash = true;
+      }
+      filteredFilmsMap.set(value, getFilteredFilms(filmsList, value));
+    }
+  } else {
+    for (const item in FiltersHash) {
+      const key = item as keyof typeof FiltersHash;
+      const value = FiltersHash[key];
+      if (hashLocation === value) {
+        validHash = true;
+        break;
+      }
     }
   }
 
@@ -121,7 +90,7 @@ function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
   }
 
   const genreStateApp = useAppSelector((state) => state.selectedGenre);
-  const convertFilmsData = getFilteredFilms(filmsList, genreStateApp);
+  const convertFilmsData = filteredFilmsMap.get(genreStateApp);
 
 
   return (
@@ -165,7 +134,12 @@ function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
 
       <div className="catalog__films-list">
         {
-          convertFilmsData.map((item: FilmDataType) => <FilmCardForCatalog key={item.id} item={item} />)
+          (() => {
+            if (convertFilmsData === undefined) {
+              return [];
+            }
+            return convertFilmsData.map((item: FilmDataType) => <FilmCardForCatalog key={item.id} item={item} />);
+          })()
         }
       </div>
 
