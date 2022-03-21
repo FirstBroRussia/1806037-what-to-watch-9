@@ -3,7 +3,10 @@ const SIXTY_VALUE = 60;
 
 const ERROR = 'error';
 
+const PRIMARY_STATE = 'PRIMARY_STATE';
+
 const ACTIVE_LINK_FROM_MOVIE_PAGE = 'film-nav__item--active';
+const ACTIVE_FILTER_FROM_CATALOG = 'catalog__genres-item--active';
 
 const enum RatingLevelCountValue {
   Zero = 0,
@@ -26,7 +29,7 @@ const enum ModeReceivingStarringData {
   Details = 'details'
 }
 
-const enum hashFilmInfo {
+const enum HashFilmInfo {
   Overview = '#overview',
   Details = '#details',
   Reviews = '#reviews'
@@ -55,4 +58,30 @@ const enum AuthorizationValue {
   Unknown = 'Unknown',
 }
 
-export {ZERO_VALUE, SIXTY_VALUE, ERROR, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, hashFilmInfo, ACTIVE_LINK_FROM_MOVIE_PAGE};
+const enum Genres {
+  Adventure = 'Adventure',
+  Drama = 'Drama',
+  Crime = 'Crime',
+  Fantasy = 'Fantasy',
+  Action = 'Action',
+  Comedy = 'Comedy',
+  Thriller = 'Thriller',
+  Documentary = 'Documentary',
+  Horror = 'Horror',
+  Romance = 'Romance',
+}
+
+const FiltersHash = {
+  All: '#all',
+  Comedies: '#comedies',
+  Crime: '#crime',
+  Documentary: '#documentary',
+  Dramas: '#dramas',
+  Horror: '#horror',
+  Family: '#family',
+  Romance: '#romance',
+  SciFi: '#sci-fi',
+  Thrillers: '#thrillers',
+};
+
+export {PRIMARY_STATE, ZERO_VALUE, SIXTY_VALUE, ERROR,  ACTIVE_LINK_FROM_MOVIE_PAGE, ACTIVE_FILTER_FROM_CATALOG, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo as hashFilmInfo, FiltersHash, Genres};

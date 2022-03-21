@@ -1,3 +1,4 @@
+import store from './store/main';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
@@ -5,6 +6,7 @@ import App from './components/app/app';
 import {DataFromServer} from './types/types';
 
 import {getPromoFilm, getFilmsList} from './fetch/request-to-server';
+import {Provider} from 'react-redux';
 
 
 async function startApp(): Promise<void> {
@@ -18,11 +20,12 @@ async function startApp(): Promise<void> {
 
   ReactDOM.render(
     <React.StrictMode>
-      <App {...data}/>
+      <Provider store={store}>
+        <App {...data}/>
+      </Provider>
     </React.StrictMode>,
     document.getElementById('root'));
 }
 
 
 startApp();
-

@@ -11,13 +11,10 @@ function MoviePageOverviewElement () {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    const requestToServer = setTimeout(async () => {
+    (async () => {
       const response = await getFilm(idFilm);
       setState(response);
-    }, 0);
-    return () => {
-      clearTimeout(requestToServer);
-    };
+    })();
   }, [setState, idFilm]);
 
 

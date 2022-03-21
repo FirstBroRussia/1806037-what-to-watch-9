@@ -6,8 +6,8 @@ function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
   const {id, name, posterImage, genre, released} = filmData;
   const navigate = useNavigate();
 
-  const navigateToVideoPlayerClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
-    navigate(`${AppRoute.VideoPlayer}/${id}`, {state: filmData});
+  const handleNavigateToVideoPlayerClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    navigate(`${AppRoute.VideoPlayer}/${id}`, {state: id});
   };
 
   return (
@@ -25,7 +25,7 @@ function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
           </p>
 
           <div className="film-card__buttons">
-            <button onClick={navigateToVideoPlayerClickHandler} className="btn btn--play film-card__button" type="button">
+            <button onClick={handleNavigateToVideoPlayerClick} className="btn btn--play film-card__button" type="button">
               <svg viewBox="0 0 19 19" width="19" height="19">
                 <use xlinkHref="#play-s"></use>
               </svg>

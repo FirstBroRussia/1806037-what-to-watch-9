@@ -10,17 +10,14 @@ function VideoPlayer() {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    const requestToServer = setTimeout(async () => {
+    (async () => {
       const response = await getFilm(idFilm);
       setState(response);
-    }, 0);
-    return () => {
-      clearTimeout(requestToServer);
-    };
-  }, []);
+    })();
+  }, [setState, idFilm]);
 
 
-  const exitButtonClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const handleExitButtonClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate(-1);
   };
 
@@ -71,7 +68,7 @@ function VideoPlayer() {
     <div className="player">
       <video src={videoLink} className="player__video"></video>
 
-      <button onClick={exitButtonClickHandler} type="button" className="player__exit">Exit</button>
+      <button onClick={handleExitButtonClick} type="button" className="player__exit">Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">

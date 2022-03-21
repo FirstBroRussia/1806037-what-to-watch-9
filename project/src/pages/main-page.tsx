@@ -15,7 +15,7 @@ function MainPage({promoFilm, filmsData}: DataFromServer): JSX.Element {
 
   return (
     <>
-      <HeaderFilmCard filmData={promoFilm}/>
+      <HeaderFilmCard promoFilm={promoFilm}/>
       <PageContent filmsList={filmsData}/>
     </>
   );

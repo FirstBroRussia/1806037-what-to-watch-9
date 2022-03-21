@@ -17,16 +17,11 @@ const enum GetRequest {
   Login = '/login'
 }
 
-type ObjRequest = {
-  method: string,
-  headers: Headers,
-};
-
 const getPromoFilm = async () => {
   const link = `${linkToServer}${GetRequest.Promo}`;
   const headers: Headers = new Headers();
 
-  const objRequest: ObjRequest = {
+  const objRequest: RequestInit = {
     method: RequestMethod.Get,
     headers: headers,
   };
@@ -48,7 +43,7 @@ const getFilmsList = async () => {
   const link = `${linkToServer}${GetRequest.Films}`;
   const headers: Headers = new Headers();
 
-  const objRequest: ObjRequest = {
+  const objRequest: RequestInit = {
     method: RequestMethod.Get,
     headers: headers,
   };
@@ -69,7 +64,7 @@ const getFilm = async (idFilm: number) => {
   const link = `${linkToServer}${GetRequest.Films}/${idFilm}`;
   const headers: Headers = new Headers();
 
-  const objRequest: ObjRequest = {
+  const objRequest: RequestInit = {
     method: RequestMethod.Get,
     headers: headers,
   };
@@ -90,7 +85,7 @@ const getCommentsFilm = async (idFilm: number) => {
   const link = `${linkToServer}${GetRequest.Comments}/${idFilm}`;
   const headers: Headers = new Headers();
 
-  const objRequest: ObjRequest = {
+  const objRequest: RequestInit = {
     method: RequestMethod.Get,
     headers: headers,
   };

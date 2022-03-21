@@ -10,9 +10,8 @@ import LikeThisFilms from './like-this-films';
 import MoviePageOverviewElement from './movie-page-overview/movie-page-overview';
 import MoviePageDetailsElement from './movie-page-details/movie-page-details';
 import MoviePageReviewsElement from './movie-page-reviews/movie-page-reviews';
-import {toggleStyleToLink} from '../utils/utils';
+import {toggleStyleToElement} from '../utils/utils';
 import {getFilm} from '../../fetch/request-to-server';
-
 
 function MoviePage() {
   const navigate = useNavigate();
@@ -28,13 +27,10 @@ function MoviePage() {
   let currentSelectedLink: Element;
 
   useEffect(() => {
-    const requestToServer = setTimeout(async () => {
+    (async () => {
       const response = await getFilm(idFilm);
       setState(response);
-    }, 0);
-    return () => {
-      clearTimeout(requestToServer);
-    };
+    })();
   }, [setState, idFilm]);
 
   const setSelectedLink = (hash: string): void => {
@@ -59,14 +55,14 @@ function MoviePage() {
       throw new Error ('Невалидное значение');
     }
     currentSelectedLink = currentTargetLink;
-    toggleStyleToLink({
+    toggleStyleToElement({
       prevElement: prevSelectedElement,
       currElement: currentTargetLink,
       style: ACTIVE_LINK_FROM_MOVIE_PAGE,
     });
   };
 
-  const navigateToVideoPlayerClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const handleNavigateToVideoPlayerClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate(`${AppRoute.VideoPlayer}/${idFilm}`, {state: idFilm});
   };
 
@@ -105,7 +101,7 @@ function MoviePage() {
   };
 
 
-  const currentInfoBlock = () => {
+  const getCurrentInfoBlock = () => {
     switch (true) {
       case (hashLocation === hashFilmInfo.Overview) : {
         setSelectedLink(hashFilmInfo.Overview);
@@ -119,6 +115,7 @@ function MoviePage() {
       default: throw new Error('Невалидное значение');
     }
   };
+
 
   if (state === null) {
     return (
@@ -140,7 +137,7 @@ function MoviePage() {
               </p>
 
               <div className="film-card__buttons">
-                <button onClick={navigateToVideoPlayerClickHandler} className="btn btn--play film-card__button" type="button">
+                <button onClick={handleNavigateToVideoPlayerClick} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -209,7 +206,7 @@ function MoviePage() {
               </p>
 
               <div className="film-card__buttons">
-                <button onClick={navigateToVideoPlayerClickHandler} className="btn btn--play film-card__button" type="button">
+                <button onClick={handleNavigateToVideoPlayerClick} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -249,7 +246,7 @@ function MoviePage() {
               </nav>
 
               {
-                currentInfoBlock()
+                getCurrentInfoBlock()
               }
 
             </div>
