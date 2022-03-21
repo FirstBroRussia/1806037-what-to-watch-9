@@ -33,6 +33,7 @@ function MoviePageReviewsElement() {
             if (index % 2 === 0) {
               return <ReviewElement key={`review-${item.id}`} {...item} />;
             }
+            return null;
           })
         }
       </div>
@@ -42,6 +43,7 @@ function MoviePageReviewsElement() {
             if (index % 2 !== 0) {
               return <ReviewElement key={`review-${item.id}`} {...item} />;
             }
+            return null;
           })
         }
       </div>

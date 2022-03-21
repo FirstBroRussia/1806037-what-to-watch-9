@@ -1,10 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import updateStore from './reducer';
+import commonReducer from './reducer';
 
 
 const store = configureStore({
-  reducer: updateStore,
+  reducer: commonReducer,
 // Если требуется отключить Redux DevTools.
 // devTools: false,
 });

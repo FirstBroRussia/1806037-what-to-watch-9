@@ -1,21 +1,32 @@
 import {createReducer} from '@reduxjs/toolkit';
+import {VISIBLE_FILMS_STEP_COUNT} from '../components/utils/const';
 import {
-  setGenresStateAction
+  setGenresStateAction,
+  setInitialVisibleFilmsState,
+  setIncVisibleFilmsState
 } from './actions';
 
 type initialStateType = {
-  selectedGenre: string
+  selectedGenre: string,
+  visibleFilms: number
 };
 
 const initialeState: initialStateType = {
   selectedGenre: '',
+  visibleFilms: 0,
 };
 
-const updateStore = createReducer(initialeState, (builder) => {
+const commonReducer = createReducer(initialeState, (builder) => {
   builder
     .addCase(setGenresStateAction, (state, action) => {
       state.selectedGenre = action.payload;
+    })
+    .addCase(setInitialVisibleFilmsState, (state) => {
+      state.visibleFilms = VISIBLE_FILMS_STEP_COUNT;
+    })
+    .addCase(setIncVisibleFilmsState, (state) => {
+      state.visibleFilms += VISIBLE_FILMS_STEP_COUNT;
     });
 });
 
-export default updateStore;
+export default commonReducer;

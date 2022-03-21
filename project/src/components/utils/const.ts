@@ -1,4 +1,5 @@
 const ZERO_VALUE = 0;
+const VISIBLE_FILMS_STEP_COUNT = 8;
 const SIXTY_VALUE = 60;
 
 const ERROR = 'error';
@@ -84,4 +85,4 @@ const FiltersHash = {
   Thrillers: '#thrillers',
 };
 
-export {PRIMARY_STATE, ZERO_VALUE, SIXTY_VALUE, ERROR,  ACTIVE_LINK_FROM_MOVIE_PAGE, ACTIVE_FILTER_FROM_CATALOG, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo as hashFilmInfo, FiltersHash, Genres};
+export {PRIMARY_STATE, ZERO_VALUE, VISIBLE_FILMS_STEP_COUNT, SIXTY_VALUE, ERROR,  ACTIVE_LINK_FROM_MOVIE_PAGE, ACTIVE_FILTER_FROM_CATALOG, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo as hashFilmInfo, FiltersHash, Genres};
