@@ -1,6 +1,9 @@
 import {createAction} from '@reduxjs/toolkit';
 import {FiltersHash} from '../components/utils/const';
 
+const setGenresStateAction = createAction(FiltersHash.All, (value) => ({
+  payload: value,
+}));
 const setAllFilmsAction = createAction(FiltersHash.All, (value) => ({
   payload: value,
 }));
@@ -33,6 +36,7 @@ const setThrillersFilmsAction = createAction(FiltersHash.Thrillers, (value) => (
 }));
 
 export {
+  setGenresStateAction,
   setAllFilmsAction,
   setComediasFilmsAction,
   setCrimeFilmsAction,

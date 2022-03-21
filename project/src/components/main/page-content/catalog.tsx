@@ -3,21 +3,12 @@ import {FilmDataType, FilmsDataPropsType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
-import {FiltersHash} from '../../utils/const';
+import {FiltersHash, Genres} from '../../utils/const';
 import {useRef} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
 import {
-  setAllFilmsAction,
-  setComediasFilmsAction,
-  setCrimeFilmsAction,
-  setDocumentaryFilmsAction,
-  setDramasFilmsAction,
-  setHorrorFilmsAction,
-  setFamilyFilmsAction,
-  setRomanceFilmsAction,
-  setSciFiFilmsAction,
-  setThrillersFilmsAction
+  setGenresStateAction
 } from '../../../store/actions';
 
 import {
@@ -25,66 +16,113 @@ import {
   useAppDispatch
 } from '../../../store/main';
 
-function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
-  console.log('CATALOG');
-  const dispatch = useAppDispatch();
-  dispatch(setComediasFilmsAction(filmsList));
+const getFilteredFilms = (filmsData: FilmDataType[], currentStateApp: string): FilmDataType[] | [] => {
+  switch (true) {
+    case (currentStateApp === FiltersHash.All || currentStateApp === ''): {
+      return filmsData;
+    }
+    case (currentStateApp === FiltersHash.Comedies): {
+      return filmsData.slice().filter((film: FilmDataType) => {
+        if (!(film.genre === Genres.Comedy)) {
+          return false;
+        }
+        return true;
+      });
+    }
+    case (currentStateApp === FiltersHash.Crime): {
+      return filmsData.slice().filter((film: FilmDataType) => {
+        if (!(film.genre === Genres.Crime || film.genre === Genres.Action)) {
+          return false;
+        }
+        return true;
+      });
+    }
+    case (currentStateApp === FiltersHash.Documentary): {
+      return filmsData.slice().filter((film: FilmDataType) => {
+        if (!(film.genre === Genres.Documentary)) {
+          return false;
+        }
+        return true;
+      });
+    }
+    case (currentStateApp === FiltersHash.Dramas): {
+      return filmsData.slice().filter((film: FilmDataType) => {
+        if (!(film.genre === Genres.Drama)) {
+          return false;
+        }
+        return true;
+      });
+    }
+    case (currentStateApp === FiltersHash.Horror): {
+      return filmsData.slice().filter((film: FilmDataType) => {
+        if (!(film.genre === Genres.Horror)) {
+          return false;
+        }
+        return true;
+      });
+    }
+    case (currentStateApp === FiltersHash.Family): {
+      return filmsData.slice().filter((film: FilmDataType) => {
+        if (!(film.genre === Genres.Adventure)) {
+          return false;
+        }
+        return true;
+      });
+    }
+    case (currentStateApp === FiltersHash.Romance): {
+      return filmsData.slice().filter((film: FilmDataType) => {
+        if (!(film.genre === Genres.Romance)) {
+          return false;
+        }
+        return true;
+      });
+    }
+    case (currentStateApp === FiltersHash.SciFi): {
+      return filmsData.slice().filter((film: FilmDataType) => {
+        if (!(film.genre === Genres.Fantasy)) {
+          return false;
+        }
+        return true;
+      });
+    }
+    case (currentStateApp === FiltersHash.Thrillers): {
+      return filmsData.slice().filter((film: FilmDataType) => {
+        if (!(film.genre === Genres.Thriller)) {
+          return false;
+        }
+        return true;
+      });
+    }
+    default: return [];
+  }
+};
 
+function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const filtersListRef = useRef(null);
-
   const hashLocation: string = location.hash;
 
-  // switch(true) {
-  //   case (hashLocation === FiltersHash.All || hashLocation === ''): {
-  //     dispatch(setAllFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   case (hashLocation === FiltersHash.Comedies): {
-  //     dispatch(setComediasFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   case (hashLocation === FiltersHash.Crime): {
-  //     dispatch(setCrimeFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   case (hashLocation === FiltersHash.Documentary): {
-  //     dispatch(setDocumentaryFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   case (hashLocation === FiltersHash.Dramas): {
-  //     dispatch(setDramasFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   case (hashLocation === FiltersHash.Horror): {
-  //     dispatch(setHorrorFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   case (hashLocation === FiltersHash.Family): {
-  //     dispatch(setFamilyFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   case (hashLocation === FiltersHash.Romance): {
-  //     dispatch(setRomanceFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   case (hashLocation === FiltersHash.SciFi): {
-  //     dispatch(setSciFiFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   case (hashLocation === FiltersHash.Thrillers): {
-  //     dispatch(setThrillersFilmsAction(filmsList));
-  //     break;
-  //   }
-  //   default: throw new Error('НЕВАЛИДНОЕ ЗНАЧЕНИЕ');
-  // }
+  let validHash = false;
 
-  const filmsData = useAppSelector((state) => state.filmData);
-  console.log(filmsData);
-
-  if (filmsData === null) {
-    throw new Error('НЕВАЛИДНЫЕ ДАННЫЕ');
+  for (const item in FiltersHash) {
+    const key = item as keyof typeof FiltersHash;
+    const value = FiltersHash[key];
+    if (hashLocation === value) {
+      validHash = true;
+      break;
+    }
   }
+
+  if (!validHash || hashLocation === '') {
+    dispatch(setGenresStateAction(FiltersHash.All));
+  } else {
+    dispatch(setGenresStateAction(hashLocation));
+  }
+
+  const genreStateApp = useAppSelector((state) => state.selectedGenre);
+  const convertFilmsData = getFilteredFilms(filmsList, genreStateApp);
+
 
   return (
     <section className="catalog">
@@ -127,7 +165,7 @@ function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
 
       <div className="catalog__films-list">
         {
-          filmsData.map((item: FilmDataType) => <FilmCardForCatalog key={item.id} item={item} />)
+          convertFilmsData.map((item: FilmDataType) => <FilmCardForCatalog key={item.id} item={item} />)
         }
       </div>
 

@@ -58,19 +58,6 @@ const enum AuthorizationValue {
   Unknown = 'Unknown',
 }
 
-const enum FiltersHash {
-  All = '#all',
-  Comedies = '#comedies',
-  Crime = '#crime',
-  Documentary = '#documentary',
-  Dramas = '#dramas',
-  Horror = '#horror',
-  Family = '#family',
-  Romance = '#romance',
-  SciFi = '#sci-fi',
-  Thrillers = '#thrillers'
-}
-
 const enum Genres {
   Adventure = 'Adventure',
   Drama = 'Drama',
@@ -83,5 +70,18 @@ const enum Genres {
   Horror = 'Horror',
   Romance = 'Romance',
 }
+
+const FiltersHash = {
+  All: '#all',
+  Comedies: '#comedies',
+  Crime: '#crime',
+  Documentary: '#documentary',
+  Dramas: '#dramas',
+  Horror: '#horror',
+  Family: '#family',
+  Romance: '#romance',
+  SciFi: '#sci-fi',
+  Thrillers: '#thrillers',
+};
 
 export {PRIMARY_STATE, ZERO_VALUE, SIXTY_VALUE, ERROR,  ACTIVE_LINK_FROM_MOVIE_PAGE, ACTIVE_FILTER_FROM_CATALOG, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo as hashFilmInfo, FiltersHash, Genres};
