@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {setIncVisibleFilmsState} from '../../../store/actions';
-import {useAppDispatch} from '../../../store/main';
+import {useAppDispatch} from '../../../store/store';
 
 function ShowMoreButtonElement() {
   const dispatch = useAppDispatch();

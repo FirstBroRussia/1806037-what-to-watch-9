@@ -1,12 +1,10 @@
-import {FilmsDataPropsType} from '../../../types/types';
-
 import Catalog from './catalog';
 import PageFooter from './page-footer';
 
-function PageContent({filmsList}: FilmsDataPropsType): JSX.Element {
+function PageContent(): JSX.Element {
   return (
     <div className="page-content">
-      <Catalog filmsList={filmsList}/>
+      <Catalog />
       <PageFooter />
     </div>
   );

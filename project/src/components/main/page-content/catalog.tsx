@@ -1,4 +1,4 @@
-import {FilmDataType, FilmsDataPropsType} from '../../../types/types';
+import {FilmDataType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
@@ -13,7 +13,7 @@ import {
 import {
   useAppSelector,
   useAppDispatch
-} from '../../../store/main';
+} from '../../../store/store';
 import ShowMoreButtonElement from './show-more-button';
 import {useEffect} from 'react';
 import FiltersElement from './filters';
@@ -56,7 +56,8 @@ const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType
   }
 };
 
-function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
+function Catalog(): JSX.Element {
+  const {filmsData} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const location = useLocation();
   const hashLocation: string = location.hash;
@@ -75,7 +76,7 @@ function Catalog({filmsList}: FilmsDataPropsType): JSX.Element {
       if (hashLocation === value) {
         validHash = true;
       }
-      filteredFilmsMap.set(value, getFilteredFilms(filmsList, value));
+      filteredFilmsMap.set(value, getFilteredFilms(filmsData, value));
     }
   } else {
     for (const item in FiltersHash) {

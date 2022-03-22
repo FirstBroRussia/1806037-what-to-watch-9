@@ -1,31 +1,19 @@
-import store from './store/main';
+import store from './store/store';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-import {DataFromServer} from './types/types';
-
-import {getPromoFilm, getFilmsList} from './fetch/request-to-server';
 import {Provider} from 'react-redux';
+import {fetchGetFilmsDataAction, fetchGetPromoFilmAction} from './api/api-action';
 
+store.dispatch(fetchGetFilmsDataAction());
+store.dispatch(fetchGetPromoFilmAction());
 
-async function startApp(): Promise<void> {
-  const promoFilm = await getPromoFilm();
-  const films = await getFilmsList();
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App/>
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root'));
 
-  const data: DataFromServer = {
-    promoFilm: promoFilm,
-    filmsData: films,
-  };
-
-  ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App {...data}/>
-      </Provider>
-    </React.StrictMode>,
-    document.getElementById('root'));
-}
-
-
-startApp();
