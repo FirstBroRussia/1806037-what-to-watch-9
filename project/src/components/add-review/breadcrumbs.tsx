@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {FilmDataPropsType} from '../../types/types';
-import {AppRoute, hashFilmInfo} from '../utils/const';
+import {AppRoute, hashFilmInfo} from '../../utils/const';
 
 function BreadcrumbsElement({filmData}: FilmDataPropsType): JSX.Element {
   const {id, name} = filmData;

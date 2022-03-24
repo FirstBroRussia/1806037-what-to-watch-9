@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom';
 import {FilmDataPropsType} from '../../../types/types';
-import {AppRoute} from '../../utils/const';
+import {AppRoute} from '../../../utils/const';
 
 function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
   const {id, name, posterImage, genre, released} = filmData;

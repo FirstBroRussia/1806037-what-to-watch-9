@@ -1,4 +1,4 @@
-import {ERROR} from '../components/utils/const';
+import {ERROR} from '../utils/const';
 
 const linkToServer = 'https://9.react.pages.academy/wtw';
 

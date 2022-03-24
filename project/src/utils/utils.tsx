@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import {ToggleStyleToElementParamType} from '../../types/types';
+import {ToggleStyleToElementParamType} from '../types/types';
 import {ZERO_VALUE, SIXTY_VALUE, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData} from '../utils/const';
 
 const getRatingLevel = (ratingCount: number): string => {

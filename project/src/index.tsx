@@ -4,8 +4,10 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
 import {Provider} from 'react-redux';
-import {fetchGetFilmsDataAction, fetchGetPromoFilmAction} from './api/api-action';
+import {fetchGetAuthStatusAction, fetchGetFilmsDataAction, fetchGetPromoFilmAction} from './api/api-action';
 
+store.dispatch(fetchGetAuthStatusAction());
+store.dispatch(fetchGetAuthStatusAction());
 store.dispatch(fetchGetFilmsDataAction());
 store.dispatch(fetchGetPromoFilmAction());
 

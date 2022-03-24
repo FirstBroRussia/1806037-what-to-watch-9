@@ -9,25 +9,25 @@ function SubmitCommentForm(): JSX.Element {
   const [comment, setComment] = useState(commentValue);
 
 
-  const ratingStarsChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
+  const handleRatingStarsChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     const valueTargetElement = Number(evt.target.value);
     setRating(valueTargetElement);
   };
 
-  const textAreaChangeHandler: React.ChangeEventHandler<HTMLTextAreaElement> = (evt) => {
+  const handleTextAreaChange: React.ChangeEventHandler<HTMLTextAreaElement> = (evt) => {
     const valueTextArea = evt.target.value;
     setComment(valueTextArea);
   };
 
-  const formSubmitHandler: React.FormEventHandler<HTMLFormElement> = (evt) => {
+  const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
 
   };
 
   return (
-    <form onSubmit={formSubmitHandler} action="#" className="add-review__form">
+    <form onSubmit={handleFormSubmit} action="#" className="add-review__form">
       <div className="rating">
-        <div onChange={ratingStarsChangeHandler} className="rating__stars">
+        <div onChange={handleRatingStarsChange} className="rating__stars">
           <input className="rating__input" id="star-10" type="radio" name="rating" value="10" />
           <label className="rating__label" htmlFor="star-10">Rating 10</label>
 
@@ -61,7 +61,7 @@ function SubmitCommentForm(): JSX.Element {
       </div>
 
       <div className="add-review__text">
-        <textarea onChange={textAreaChangeHandler} value={comment} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+        <textarea onChange={handleTextAreaChange} value={comment} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit">Post</button>
         </div>

@@ -1,12 +1,12 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-import {AppRoute, AuthorizationValue} from '../utils/const';
+import {AppRoute, AuthorizationValue} from '../../utils/const';
 
 import NotFoundPage from '../../pages/not-fount-page';
 import MainPage from '../../pages/main-page';
 
 
-import SignIn from '../sign-in/sing-in';
+import SignInPageElement from '../sign-in-page/sign-in-page';
 import MyList from '../my-list/my-list';
 import MoviePage from '../movie-page/movie-page';
 import AddReview from '../add-review/add-review';
@@ -19,7 +19,7 @@ function App(): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<MainPage />}/>
-        <Route path={AppRoute.SignIn} element={<SignIn />}/>
+        <Route path={AppRoute.SignIn} element={<SignInPageElement />}/>
         <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={AuthorizationValue.Auth}>
             <MyList />

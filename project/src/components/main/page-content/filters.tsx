@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {Link, useLocation} from 'react-router-dom';
-import {FiltersHash} from '../../utils/const';
+import {FiltersHash} from '../../../utils/const';
 
 type FiltersElementPropsType = {
   validHash: boolean

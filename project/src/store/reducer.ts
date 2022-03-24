@@ -1,7 +1,10 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {VISIBLE_FILMS_STEP_COUNT} from '../components/utils/const';
-import { FilmDataType } from '../types/types';
+import {VISIBLE_FILMS_STEP_COUNT, AuthorizationValue} from '../utils/const';
+import {FilmDataType} from '../types/types';
 import {
+  setAuthStatusAction,
+  setUserDataAction,
+  deleteUserDataAction,
   setFilmsDataAction,
   setPromoFilmDataAction,
 
@@ -11,14 +14,18 @@ import {
 } from './actions';
 
 type initialStateType = {
+  authorizationStatus: string,
+  userData: any,
   isPrimaryLoadData: boolean,
-  filmsData: [],
+  filmsData: FilmDataType[] | [],
   promoFilm: FilmDataType | [],
   selectedGenre: string,
   visibleFilms: number
 };
 
 const initialeState: initialStateType = {
+  authorizationStatus: AuthorizationValue.Unknown,
+  userData: null,
   isPrimaryLoadData: false,
   filmsData: [],
   promoFilm: [],
@@ -28,6 +35,15 @@ const initialeState: initialStateType = {
 
 const commonReducer = createReducer(initialeState, (builder) => {
   builder
+    .addCase(setAuthStatusAction, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserDataAction, (state, action) => {
+      state.userData = action.payload;
+    })
+    .addCase(deleteUserDataAction, (state) => {
+      state.userData = null;
+    })
     .addCase(setFilmsDataAction, (state, action) => {
       state.isPrimaryLoadData = true;
       state.filmsData = action.payload;

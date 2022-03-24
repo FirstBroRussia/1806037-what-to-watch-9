@@ -1,11 +1,11 @@
+import FooterElement from '../../layout/footer-layout';
 import Catalog from './catalog';
-import PageFooter from './page-footer';
 
 function PageContent(): JSX.Element {
   return (
     <div className="page-content">
       <Catalog />
-      <PageFooter />
+      <FooterElement/>
     </div>
   );
 }

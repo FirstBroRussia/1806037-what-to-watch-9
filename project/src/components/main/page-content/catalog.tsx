@@ -2,7 +2,7 @@ import {FilmDataType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
-import {FiltersHash, Genres, VISIBLE_FILMS_STEP_COUNT, ZERO_VALUE} from '../../utils/const';
+import {FiltersHash, Genres, VISIBLE_FILMS_STEP_COUNT, ZERO_VALUE} from '../../../utils/const';
 import {useLocation} from 'react-router-dom';
 
 import {
