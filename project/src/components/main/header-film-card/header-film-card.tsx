@@ -6,7 +6,7 @@ import {useAppSelector} from '../../../store/store';
 
 
 function HeaderFilmCard(): JSX.Element {
-  const {promoFilm} = useAppSelector((state) => state);
+  const promoFilm = useAppSelector((state) => state.promoFilm);
   const filmData = promoFilm as FilmDataType;
 
   return (

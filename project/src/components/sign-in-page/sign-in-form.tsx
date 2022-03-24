@@ -1,35 +1,63 @@
-import {useEffect, useState} from 'react';
+/* eslint-disable no-console */
+import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {fetchPostLoginToServerAction} from '../../api/api-action';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import { AppRoute, AuthorizationValue } from '../../utils/const';
+import {AppRoute, AuthorizationValue, ZERO_VALUE} from '../../utils/const';
 
 type SignInFormType = {
   email: string,
   password: string
 };
 
-// const aaa: SignInFormType = {
-//   email: 'Oliver.conner@gmail.com',
-//   password: '12345678',
-// };
+const checkValidForm = (formNodeElement: any): boolean => {
+  const emailInput = formNodeElement.querySelector('#user-email');
+  const passwordInput = formNodeElement.querySelector('#user-password');
+  if (emailInput.value.length === ZERO_VALUE) {
+    emailInput.setCustomValidity('Пустое поле!');
+    emailInput.reportValidity();
+    setTimeout( () => {
+      emailInput.setCustomValidity('');
+      emailInput.reportValidity();
+    }, 2000);
+
+    return false;
+  }
+  if (passwordInput.value.length === ZERO_VALUE) {
+    passwordInput.setCustomValidity('Пустое поле!');
+    passwordInput.reportValidity();
+    setTimeout( () => {
+      passwordInput.setCustomValidity('');
+      passwordInput.reportValidity();
+    }, 2000);
+
+    return false;
+  }
+
+  return true;
+};
+
 
 function SignInFormElement() {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const {authorizationStatus} = useAppSelector((state) => state);
   const initEmail = 'Oliver.conner@gmail.com';
   const initPassword = '12345678';
+
+  const formRef = useRef(null);
+  const [formElement, setFormElement] = useState(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const {authorizationStatus} = useAppSelector((state) => state);
 
   const [email, setEmail] = useState(initEmail);
   const [password, setPassword] = useState(initPassword);
 
   useEffect(() => {
+    setFormElement(formRef.current);
     if (authorizationStatus === AuthorizationValue.Auth) {
       navigate(AppRoute.MyList);
     }
-  });
-
+  }, [authorizationStatus, navigate]);
 
   const handleEmailInputChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     const emailValue = String(evt.target.value);
@@ -47,18 +75,23 @@ function SignInFormElement() {
       email: email,
       password: password,
     };
+    const isValid = checkValidForm(formElement);
+    if (!isValid) {
+      return;
+    }
+
     dispatch(fetchPostLoginToServerAction(signInFormData));
   };
 
   return (
-    <form onSubmit={handleSignInFormSubmit} action="#" className="sign-in__form">
+    <form ref={formRef} onSubmit={handleSignInFormSubmit} action="#" className="sign-in__form">
       <div className="sign-in__fields">
         <div className="sign-in__field">
-          <input onChange={handleEmailInputChange} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" value={email}/>
+          <input onChange={handleEmailInputChange} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" value={email} minLength={1} />
           <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
         </div>
         <div className="sign-in__field">
-          <input onChange={handlePasswordInputChange} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" value={password}/>
+          <input onChange={handlePasswordInputChange} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" value={password} minLength={1}/>
           <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
         </div>
       </div>

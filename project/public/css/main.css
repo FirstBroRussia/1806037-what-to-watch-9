@@ -1410,7 +1410,27 @@ main {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%); }
 
-/* Кастомныестили для прелоадера */
+/* Стиль для элемента ошибкок ответов от сервера */
+
+.fetch-error {
+  position: absolute;
+  z-index: 1000;
+  max-width: 500px;
+  top: 30px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border-radius: 10px;
+  border: 2px solid white;
+  background-color: #ff0000;
+  padding: 20px;
+  color: white;
+  font-size: 30px;
+  text-align: center;
+}
+
+
+/* Кастомные стили для прелоадера */
 
 .preloader {
   /*фиксированное позиционирование*/

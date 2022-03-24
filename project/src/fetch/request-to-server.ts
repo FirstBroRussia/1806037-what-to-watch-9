@@ -1,5 +1,3 @@
-import {ERROR} from '../utils/const';
-
 const linkToServer = 'https://9.react.pages.academy/wtw';
 
 const enum RequestMethod {
@@ -34,7 +32,7 @@ const getPromoFilm = async () => {
     }
     throw response;
   } catch {
-    return ERROR;
+    return 'error';
   }
 };
 
@@ -56,7 +54,7 @@ const getFilmsList = async () => {
     }
     throw response;
   } catch {
-    return ERROR;
+    return 'error';
   }
 };
 
@@ -77,7 +75,7 @@ const getFilm = async (idFilm: number) => {
     }
     throw response;
   } catch {
-    return ERROR;
+    return 'error';
   }
 };
 
@@ -98,7 +96,7 @@ const getCommentsFilm = async (idFilm: number) => {
     }
     throw response;
   } catch {
-    return ERROR;
+    return 'error';
   }
 };
 

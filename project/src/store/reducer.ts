@@ -10,7 +10,9 @@ import {
 
   setGenresStateAction,
   setInitialVisibleFilmsState,
-  setIncVisibleFilmsState
+  setIncVisibleFilmsState,
+
+  setFetchErrorAction
 } from './actions';
 
 type initialStateType = {
@@ -20,7 +22,8 @@ type initialStateType = {
   filmsData: FilmDataType[] | [],
   promoFilm: FilmDataType | [],
   selectedGenre: string,
-  visibleFilms: number
+  visibleFilms: number,
+  fetchError: string | null
 };
 
 const initialeState: initialStateType = {
@@ -31,6 +34,7 @@ const initialeState: initialStateType = {
   promoFilm: [],
   selectedGenre: '',
   visibleFilms: 0,
+  fetchError: null,
 };
 
 const commonReducer = createReducer(initialeState, (builder) => {
@@ -59,6 +63,9 @@ const commonReducer = createReducer(initialeState, (builder) => {
     })
     .addCase(setIncVisibleFilmsState, (state) => {
       state.visibleFilms += VISIBLE_FILMS_STEP_COUNT;
+    })
+    .addCase(setFetchErrorAction, (state, action) => {
+      state.fetchError = action.payload;
     });
 });
 

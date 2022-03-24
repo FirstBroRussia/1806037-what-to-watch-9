@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationValue} from '../../utils/const';
 
 import NotFoundPage from '../../pages/not-fount-page';
-import MainPage from '../../pages/main-page';
+import MainPage from '../main/main-page';
 
 
 import SignInPageElement from '../sign-in-page/sign-in-page';

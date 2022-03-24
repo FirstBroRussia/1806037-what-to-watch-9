@@ -6,7 +6,7 @@ import {deleteUserDataAction, setAuthStatusAction, setFilmsDataAction, setPromoF
 import store, {api} from '../store/store';
 import {SignInFormType} from '../components/sign-in-page/sign-in-form';
 import {deleteToken, setToken} from '../token/token';
-
+import {handleErrors} from '../utils/handle-errors';
 
 const fetchGetAuthStatusAction = createAsyncThunk(
   'login/status',
@@ -16,8 +16,7 @@ const fetchGetAuthStatusAction = createAsyncThunk(
       store.dispatch(setAuthStatusAction(AuthorizationValue.Auth));
       store.dispatch(setUserDataAction(data));
     } catch (error) {
-      // ТУТ НАДО ВЫВОДИТЬ ОШИБКУ НА ЭКРАН ЧТОБ БЫЛО ПОНЯТНО
-      console.log(error);
+      handleErrors(error);
       store.dispatch(setAuthStatusAction(AuthorizationValue.NoAuth));
     }
   },
@@ -34,12 +33,12 @@ const fetchPostLoginToServerAction = createAsyncThunk(
       store.dispatch(setUserDataAction(userData));
       store.dispatch(setAuthStatusAction(AuthorizationValue.Auth));
     } catch (error) {
-      console.log(error);
+      handleErrors(error);
     }
   },
 );
 
-const fetchLoginOutToServerAction = createAsyncThunk(
+const fetchLogoutToServerAction = createAsyncThunk(
   'login/signOut',
   async () => {
     try {
@@ -48,7 +47,7 @@ const fetchLoginOutToServerAction = createAsyncThunk(
       store.dispatch(deleteUserDataAction());
       store.dispatch(setAuthStatusAction(AuthorizationValue.NoAuth));
     } catch (error) {
-      console.log(error);
+      handleErrors(error);
     }
   },
 );
@@ -56,18 +55,26 @@ const fetchLoginOutToServerAction = createAsyncThunk(
 const fetchGetFilmsDataAction = createAsyncThunk(
   'data/getFilmsData',
   async () => {
-    const {data} = await api.get<FilmDataType[]>(Requests.Films);
-    store.dispatch(setFilmsDataAction(data));
+    try {
+      const {data} = await api.get<FilmDataType[]>(Requests.Films);
+      store.dispatch(setFilmsDataAction(data));
+    } catch (error) {
+      handleErrors(error);
+    }
   },
 );
 
 const fetchGetPromoFilmAction = createAsyncThunk(
   'data/getPromoFilm',
   async () => {
-    const {data} = await api.get<FilmDataType>(Requests.Promo);
-    store.dispatch(setPromoFilmDataAction(data));
+    try {
+      const {data} = await api.get<FilmDataType>(Requests.Promo);
+      store.dispatch(setPromoFilmDataAction(data));
+    } catch (error) {
+      handleErrors(error);
+    }
   },
 );
 
 
-export {fetchGetAuthStatusAction, fetchPostLoginToServerAction, fetchLoginOutToServerAction, fetchGetFilmsDataAction, fetchGetPromoFilmAction};
+export {fetchGetAuthStatusAction, fetchPostLoginToServerAction, fetchLogoutToServerAction, fetchGetFilmsDataAction, fetchGetPromoFilmAction};
