@@ -4,6 +4,7 @@ type ToggleStyleToElementParamType = {
   style: string
 };
 
+type promoFilmType = FilmDataType | [];
 
 type FilmDataType = {
   name: string,
@@ -44,14 +45,9 @@ type FilmDataPropsType = {
   filmData: FilmDataType
 };
 
-type DataFromServer = {
-  promoFilm: FilmDataType & string,
-  filmsData: FilmDataType[] & string,
-}
-
 type FormDataSubmitType = {
   rating: number,
   comment: string
 }
 
-export type {FilmDataType, FilmsDataPropsType, FilmDataPropsType, DataFromServer, FormDataSubmitType, ToggleStyleToElementParamType, CommentDataType};
+export type {promoFilmType, FilmDataType, FilmsDataPropsType, FilmDataPropsType, FormDataSubmitType, ToggleStyleToElementParamType, CommentDataType};
