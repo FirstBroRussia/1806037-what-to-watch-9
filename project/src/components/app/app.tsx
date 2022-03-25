@@ -1,10 +1,11 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
+import {browserHistory} from '../../utils/browser-history';
+import HistoryRouter from '../history-router/history-router';
 
 import {AppRoute, AuthorizationValue} from '../../utils/const';
 
 import NotFoundPage from '../../pages/not-fount-page';
 import MainPage from '../main/main-page';
-
 
 import SignInPageElement from '../sign-in-page/sign-in-page';
 import MyList from '../my-list/my-list';
@@ -16,7 +17,7 @@ import ErrorRequestPage from '../../pages/error-request';
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={<MainPage />}/>
         <Route path={AppRoute.SignIn} element={<SignInPageElement />}/>
@@ -34,9 +35,8 @@ function App(): JSX.Element {
         <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
         <Route path={AppRoute.ErrorRequest} element={<ErrorRequestPage />}/>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
-
 }
 
 
