@@ -2,7 +2,7 @@ import {FilmDataType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
-import {FiltersHash, Genres, VISIBLE_FILMS_STEP_COUNT, ZERO_VALUE} from '../../utils/const';
+import {FiltersHash, Genres, VISIBLE_FILMS_STEP_COUNT, ZERO_VALUE} from '../../../utils/const';
 import {useLocation} from 'react-router-dom';
 
 import {
@@ -22,7 +22,10 @@ let filteredFilmsMap: Map<string, FilmDataType[]> | null = null;
 
 const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType[] | [] => {
   switch (true) {
-    case (hash === FiltersHash.All || hash === ''): {
+    case (hash === FiltersHash.All): {
+      return filmsData;
+    }
+    case (hash === ''): {
       return filmsData;
     }
     case (hash === FiltersHash.Comedies): {
@@ -57,7 +60,7 @@ const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType
 };
 
 function Catalog(): JSX.Element {
-  const {filmsData} = useAppSelector((state) => state);
+  const filmsData = useAppSelector((state) => state.filmsData);
   const dispatch = useAppDispatch();
   const location = useLocation();
   const hashLocation: string = location.hash;

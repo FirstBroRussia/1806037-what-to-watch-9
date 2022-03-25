@@ -2,20 +2,31 @@ const ZERO_VALUE = 0;
 const VISIBLE_FILMS_STEP_COUNT = 8;
 const SIXTY_VALUE = 60;
 
-const ERROR = 'error';
-
 const PRIMARY_STATE = 'PRIMARY_STATE';
 
 const ACTIVE_LINK_FROM_MOVIE_PAGE = 'film-nav__item--active';
 const ACTIVE_FILTER_FROM_CATALOG = 'catalog__genres-item--active';
 
-const enum GetRequest {
+const enum AuthorizationValue {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'Unknown',
+}
+
+const enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
+
+const enum Requests {
   Promo = '/promo',
   Films = '/films',
   Similar = '/similar',
   Favorite = '/favorite',
   Comments = '/comments',
-  Login = '/login'
+  Login = '/login',
+  Logout = '/logout'
 }
 
 const enum RatingLevelCountValue {
@@ -62,12 +73,6 @@ const enum AppRoute {
   ErrorRequest = '/errorrequest'
 }
 
-const enum AuthorizationValue {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'Unknown',
-}
-
 const enum Genres {
   Adventure = 'Adventure',
   Drama = 'Drama',
@@ -94,4 +99,4 @@ const FiltersHash = {
   Thrillers: '#thrillers',
 };
 
-export {PRIMARY_STATE, ZERO_VALUE, VISIBLE_FILMS_STEP_COUNT, SIXTY_VALUE, ERROR,  ACTIVE_LINK_FROM_MOVIE_PAGE, ACTIVE_FILTER_FROM_CATALOG, GetRequest, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo as hashFilmInfo, FiltersHash, Genres};
+export {PRIMARY_STATE, ZERO_VALUE, VISIBLE_FILMS_STEP_COUNT, SIXTY_VALUE, ACTIVE_LINK_FROM_MOVIE_PAGE, ACTIVE_FILTER_FROM_CATALOG, Requests, HTTP_CODE, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo as hashFilmInfo, FiltersHash, Genres};

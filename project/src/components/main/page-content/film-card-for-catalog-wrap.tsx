@@ -2,7 +2,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {FilmDataType} from '../../../types/types';
-import {AppRoute} from '../../utils/const';
+import {AppRoute} from '../../../utils/const';
 
 type FilmCardForCatalogPropsType = {
   item: FilmDataType,

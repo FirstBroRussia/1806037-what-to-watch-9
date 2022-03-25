@@ -4,13 +4,13 @@ import {useEffect, useRef, useState} from 'react';
 import {FilmDataType} from '../../types/types';
 import FooterElement from '../layout/footer-layout';
 import PageHeader from '../main/header-film-card/page-header';
-import {ACTIVE_LINK_FROM_MOVIE_PAGE, AppRoute, hashFilmInfo} from '../utils/const';
+import {ACTIVE_LINK_FROM_MOVIE_PAGE, AppRoute, hashFilmInfo} from '../../utils/const';
 import LikeThisFilms from './like-this-films';
 
 import MoviePageOverviewElement from './movie-page-overview/movie-page-overview';
 import MoviePageDetailsElement from './movie-page-details/movie-page-details';
 import MoviePageReviewsElement from './movie-page-reviews/movie-page-reviews';
-import {toggleStyleToElement} from '../utils/utils';
+import {toggleStyleToElement} from '../../utils/utils';
 import {getFilm} from '../../fetch/request-to-server';
 
 function MoviePage() {

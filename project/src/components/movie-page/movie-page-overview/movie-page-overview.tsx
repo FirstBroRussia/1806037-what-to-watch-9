@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {getFilm} from '../../../fetch/request-to-server';
 import {FilmDataType} from '../../../types/types';
-import {ModeReceivingStarringData} from '../../utils/const';
-import {getRatingLevel, getStarringArrayToString} from '../../utils/utils';
+import {ModeReceivingStarringData} from '../../../utils/const';
+import {getRatingLevel, getStarringArrayToString} from '../../../utils/utils';
 
 function MoviePageOverviewElement () {
   const location = useLocation();
