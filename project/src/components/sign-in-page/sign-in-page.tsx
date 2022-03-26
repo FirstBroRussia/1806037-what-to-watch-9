@@ -5,7 +5,7 @@ import {AppRoute, AuthorizationValue} from '../../utils/const';
 import FooterElement from '../layout/footer-layout';
 import SignInForm from './sign-in-form';
 
-function SignInPageElement(): JSX.Element | null {
+function SignInPageElement(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const navigate = useNavigate();
 
@@ -14,11 +14,6 @@ function SignInPageElement(): JSX.Element | null {
       navigate(AppRoute.MyList);
     }
   });
-
-  if (authStatus === AuthorizationValue.Auth) {
-    navigate(AppRoute.MyList);
-    return null;
-  }
 
   return (
     <div className="user-page">

@@ -4,23 +4,28 @@ import {SubmitCommentForm} from './submit-comment-form';
 import HeaderElement from '../layout/header-layout';
 import SignOut from '../header/user-block/sign-out';
 import BreadcrumbsElement from './breadcrumbs';
-import {getFilm} from '../../fetch/request-to-server';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
+import {getIdFilmFromCurrentPathLocation} from '../../utils/utils';
+import {useAppDispatch, useAppSelector} from '../../store/store';
+import {fetchGetIdFilmAction} from '../../api/api-action';
+import {setFilmIdDataAction} from '../../store/actions';
 
 function AddReview() {
+  const dispatch = useAppDispatch();
+  const selector = useAppSelector;
   const location = useLocation();
-  const [state, setState] = useState(null);
-
-  const idFilm = location.state as number;
+  const idFilm = getIdFilmFromCurrentPathLocation(location.pathname) as unknown as number;
 
   useEffect(() => {
-    (async () => {
-      const response = await getFilm(idFilm);
-      setState(response);
-    })();
-  }, [setState, idFilm]);
+    dispatch(fetchGetIdFilmAction(idFilm));
+    return () => {
+      dispatch(setFilmIdDataAction(null));
+    };
+  }, [dispatch, idFilm]);
 
-  if (state === null) {
+  const idFilmData = selector((state) => state.idFilmData);
+
+  if (idFilmData === null) {
     return (
       <section className="film-card film-card--full">
         <div className="film-card__header">
@@ -42,8 +47,7 @@ function AddReview() {
     );
   }
 
-  const filmData = state as FilmDataType;
-  const {name, backgroundImage, posterImage}: FilmDataType = filmData;
+  const {name, backgroundImage, posterImage}: FilmDataType = idFilmData;
 
   return (
     <section className="film-card film-card--full">
@@ -54,7 +58,7 @@ function AddReview() {
 
         <h1 className="visually-hidden">WTW</h1>
         <HeaderElement>
-          <BreadcrumbsElement filmData={filmData}/>
+          <BreadcrumbsElement filmData={idFilmData}/>
           <SignOut/>
         </HeaderElement>
 
@@ -65,7 +69,7 @@ function AddReview() {
       </div>
 
       <div className="add-review">
-        <SubmitCommentForm />
+        <SubmitCommentForm idFilm={idFilm}/>
       </div>
 
     </section>

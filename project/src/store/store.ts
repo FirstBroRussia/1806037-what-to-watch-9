@@ -2,6 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import commonReducer from './reducer';
 import {createApi} from '../api/api';
+import {redirect} from '../utils/redirect';
 
 const api = createApi();
 
@@ -12,7 +13,7 @@ const store = configureStore({
     thunk: {
       extraArgument: api,
     },
-  }),
+  }).concat(redirect),
 // Если требуется отключить Redux DevTools.
 // devTools: false,
 });

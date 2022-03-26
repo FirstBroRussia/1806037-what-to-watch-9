@@ -131,7 +131,7 @@ function Catalog(): JSX.Element {
                 <h2 className='catalog__title'>There are no films in this category</h2>
               );
             }
-            return convertFilmsData.slice(0, visibleFilmsCount).map((item: FilmDataType) => <FilmCardForCatalog key={item.id} item={item} />);
+            return convertFilmsData.slice(0, visibleFilmsCount).map((item: FilmDataType) => <FilmCardForCatalog key={item.id} film={item} />);
           })()
         }
       </div>
