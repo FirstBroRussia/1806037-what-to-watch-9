@@ -1,13 +1,13 @@
-/* eslint-disable no-console */
 import {useAppSelector} from '../../store/store';
 
-function ErrorElement() {
-  const fetchError = useAppSelector((state) => state.fetchError);
+function ErrorElement(): JSX.Element | null {
+  const selector = useAppSelector;
+  const errorText = selector((state) => state.fetchError);
 
-  if (fetchError) {
+  if (errorText !== null) {
     return (
       <div className="fetch-error">
-        {fetchError}
+        {errorText}
       </div>
     );
   }

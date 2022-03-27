@@ -1,25 +1,15 @@
 /* eslint-disable no-console */
-import {useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom';
-import {getFilm} from '../../../fetch/request-to-server';
+import {useAppSelector} from '../../../store/store';
 import {FilmDataType} from '../../../types/types';
 import {ModeReceivingStarringData} from '../../../utils/const';
 import {convertRunTime, getStarringArrayToString} from '../../../utils/utils';
 
 function MoviePageDetailsElement () {
-  const location = useLocation();
-  const idFilm = location.state as number;
-  const [state, setState] = useState(null);
+  const selector = useAppSelector;
 
-  useEffect(() => {
-    (async () => {
-      const response = await getFilm(idFilm);
-      setState(response);
-    })();
-  }, [setState, idFilm]);
+  const idFilmData: FilmDataType | null = selector((state) => state.idFilmData);
 
-
-  if (state === null) {
+  if (idFilmData === null) {
     return (
       <div className="film-card__text film-card__row">
         <div className="film-card__text-col">
@@ -46,8 +36,7 @@ function MoviePageDetailsElement () {
     );
   }
 
-  const filmData = state as FilmDataType;
-  const {director, starring, runTime, genre, released}: FilmDataType = filmData;
+  const {director, starring, runTime, genre, released}: FilmDataType = idFilmData;
 
   return (
     <div className="film-card__text film-card__row">

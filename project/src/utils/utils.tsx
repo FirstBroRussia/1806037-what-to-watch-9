@@ -1,6 +1,5 @@
 import * as dayjs from 'dayjs';
-import {ToggleStyleToElementParamType} from '../types/types';
-import {ZERO_VALUE, SIXTY_VALUE, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData} from '../utils/const';
+import {searchAreaNumberRegExp, searchAllNumbersRegExp, ZERO_VALUE, SIXTY_VALUE, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData} from '../utils/const';
 
 const getRatingLevel = (ratingCount: number): string => {
   switch (true) {
@@ -21,12 +20,6 @@ const getStarringArrayToString = (mode: string, starring: string[]): string => {
   }
 };
 
-const toggleStyleToElement = (data: ToggleStyleToElementParamType): void => {
-  const {prevElement, currElement, style} = data;
-  prevElement.classList.remove(style);
-  currElement.classList.add(style);
-};
-
 const convertRunTime = (runTime: number): string => {
   switch (true) {
     case (runTime < SIXTY_VALUE) : return `${runTime}m`;
@@ -40,4 +33,11 @@ const convertRunTime = (runTime: number): string => {
   }
 };
 
-export {dayjs, getRatingLevel, getStarringArrayToString, toggleStyleToElement, convertRunTime};
+const getIdFilmFromCurrentPathLocation = (pathname: string) => {
+  const intermediateValue = pathname.match(searchAreaNumberRegExp)?.join('');
+  const idFilm = intermediateValue?.match(searchAllNumbersRegExp)?.join('');
+
+  return idFilm;
+};
+
+export {dayjs, getRatingLevel, getStarringArrayToString, convertRunTime, getIdFilmFromCurrentPathLocation};

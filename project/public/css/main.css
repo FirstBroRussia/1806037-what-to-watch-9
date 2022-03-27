@@ -1410,7 +1410,7 @@ main {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%); }
 
-/* Стиль для элемента ошибкок ответов от сервера */
+/* Стиль для элемента ошибки ответа от сервера */
 
 .fetch-error {
   position: absolute;
@@ -1423,12 +1423,18 @@ main {
   border-radius: 10px;
   border: 2px solid white;
   background-color: #ff0000;
-  padding: 20px;
+  padding: 10px;
   color: white;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
+  line-height: 1.5;
 }
 
+/* Блокировка формы */
+
+.block-form {
+  pointer-events: none;
+}
 
 /* Кастомные стили для прелоадера */
 

@@ -10,12 +10,7 @@ function PageHeader(): JSX.Element {
   return (
     <HeaderElement>
       {
-        (() => {
-          if (authorizationStatus === AuthorizationValue.Auth) {
-            return <SignOut/>;
-          }
-          return <SignIn/>;
-        })()
+        authorizationStatus === AuthorizationValue.Auth ? <SignOut/> : <SignIn/>
       }
     </HeaderElement>
   );

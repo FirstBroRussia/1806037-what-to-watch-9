@@ -1,3 +1,4 @@
+import he from 'he';
 import dayjs from 'dayjs';
 import {CommentDataType} from '../../../types/types';
 
@@ -6,7 +7,7 @@ function ReviewElement(item: CommentDataType) {
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">{comment}</p>
+        <p className="review__text">{he.encode(comment)}</p>
 
         <footer className="review__details">
           <cite className="review__author">{user.name}</cite>

@@ -1,35 +1,38 @@
-import {useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom';
-import {CommentDataType} from '../../../types/types';
-import {getCommentsFilm} from '../../../fetch/request-to-server';
+import {useEffect} from 'react';
 import ReviewElement from './review-element';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
+import {CommentDataType} from '../../../types/types';
+import {fetchGetIdFilmCommentsListAction} from '../../../api/api-action';
+import {setFilmIdCommentsDataAction} from '../../../store/actions';
 
-function MoviePageReviewsElement() {
-  const location = useLocation();
-  const [state, setState] = useState(null);
-  const idFilm = location.state as number;
+type MoviePageReviewsElementPropsType ={
+  idFilm: number
+}
 
+function MoviePageReviewsElement({idFilm}: MoviePageReviewsElementPropsType) {
+  const dispatch = useAppDispatch();
+  const selector = useAppSelector;
   useEffect(() => {
-    (async () => {
-      const response = await getCommentsFilm(idFilm);
-      setState(response);
-    })();
-  }, [setState, idFilm]);
+    dispatch(fetchGetIdFilmCommentsListAction(idFilm));
+    return () => {
+      dispatch(setFilmIdCommentsDataAction(null));
+    };
+  }, [dispatch, idFilm]);
 
-  if (state === null) {
+  const commentsData: CommentDataType[] | null = selector((state) => state.idFilmCommentsData);
+
+  if (commentsData === null) {
     return  (
       <div className="film-card__reviews film-card__row">
       </div>
     );
   }
 
-  const commentsList = state as CommentDataType[];
-
   return  (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
         {
-          commentsList.map( (item, index) => {
+          commentsData.map( (item, index) => {
             if (index % 2 === 0) {
               return <ReviewElement key={`review-${item.id}`} {...item} />;
             }
@@ -39,7 +42,7 @@ function MoviePageReviewsElement() {
       </div>
       <div className="film-card__reviews-col">
         {
-          commentsList.map( (item, index) => {
+          commentsData.map( (item, index) => {
             if (index % 2 !== 0) {
               return <ReviewElement key={`review-${item.id}`} {...item} />;
             }

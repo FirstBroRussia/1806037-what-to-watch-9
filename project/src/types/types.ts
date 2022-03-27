@@ -1,9 +1,3 @@
-type ToggleStyleToElementParamType = {
-  prevElement: Element,
-  currElement: Element,
-  style: string
-};
-
 type promoFilmType = FilmDataType | [];
 
 type FilmDataType = {
@@ -37,6 +31,11 @@ type CommentDataType = {
   }
 };
 
+type NewCommentDataType = {
+  comment: string,
+  rating: number
+};
+
 type FilmsDataPropsType = {
   filmsList: FilmDataType[]
 };
@@ -50,4 +49,9 @@ type FormDataSubmitType = {
   comment: string
 }
 
-export type {promoFilmType, FilmDataType, FilmsDataPropsType, FilmDataPropsType, FormDataSubmitType, ToggleStyleToElementParamType, CommentDataType};
+type PostCommentAsyncParamType = {
+  idFilm: number,
+  commentData: NewCommentDataType
+}
+
+export type {promoFilmType, FilmDataType, FilmsDataPropsType, FilmDataPropsType, FormDataSubmitType, CommentDataType, NewCommentDataType, PostCommentAsyncParamType};
