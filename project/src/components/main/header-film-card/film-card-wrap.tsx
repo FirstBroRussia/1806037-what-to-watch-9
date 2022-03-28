@@ -1,13 +1,29 @@
 import {useNavigate} from 'react-router-dom';
-import {FilmDataPropsType} from '../../../types/types';
-import {AppRoute} from '../../../utils/const';
+import {fetchSetStatusFavotiteFilmAction} from '../../../api/api-action';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
+import {FilmDataPropsType, FilmDataType, SetStatusFavoriteFilmAsyncFilmParamsType} from '../../../types/types';
+import {AppRoute, AuthorizationValue} from '../../../utils/const';
+import MyListSvgElement from '../../my-list-svg/my-list-svg';
 
 function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
-  const {id, name, posterImage, genre, released} = filmData;
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const {id, name, posterImage, genre, released, isFavorite}: FilmDataType = filmData;
+
   const handleNavigateToVideoPlayerClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    navigate(`${AppRoute.VideoPlayer}/${id}`, {state: id});
+    navigate(`${AppRoute.VideoPlayer}/${id}`);
+  };
+
+  const handleMyListButtonClick: React.MouseEventHandler<HTMLButtonElement> = (evt) => {
+    evt.preventDefault();
+    const paramsData: SetStatusFavoriteFilmAsyncFilmParamsType = {
+      idFilm: Number(id),
+      status: Number(!isFavorite),
+      promo: true,
+    };
+    dispatch(fetchSetStatusFavotiteFilmAction(paramsData));
   };
 
   return (
@@ -31,12 +47,19 @@ function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
               </svg>
               <span>Play</span>
             </button>
-            <button className="btn btn--list film-card__button" type="button">
-              <svg viewBox="0 0 19 20" width="19" height="20">
-                <use xlinkHref="#add"></use>
-              </svg>
-              <span>My list</span>
-            </button>
+            {
+              (() => {
+                if (!(authStatus === AuthorizationValue.Auth)) {
+                  return;
+                }
+                return (
+                  <button onClick={handleMyListButtonClick} className="btn btn--list film-card__button" type="button">
+                    <MyListSvgElement isFavorite={isFavorite}/>
+                    <span>My list</span>
+                  </button>
+                );
+              })()
+            }
           </div>
         </div>
       </div>

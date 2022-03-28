@@ -54,4 +54,10 @@ type PostCommentAsyncParamType = {
   commentData: NewCommentDataType
 }
 
-export type {promoFilmType, FilmDataType, FilmsDataPropsType, FilmDataPropsType, FormDataSubmitType, CommentDataType, NewCommentDataType, PostCommentAsyncParamType};
+type SetStatusFavoriteFilmAsyncFilmParamsType = {
+  idFilm: number,
+  status: number,
+  promo?: boolean
+}
+
+export type {promoFilmType, FilmDataType, FilmsDataPropsType, FilmDataPropsType, FormDataSubmitType, CommentDataType, NewCommentDataType, PostCommentAsyncParamType, SetStatusFavoriteFilmAsyncFilmParamsType};

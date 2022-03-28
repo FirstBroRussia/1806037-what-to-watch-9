@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {getFilm} from '../../fetch/request-to-server';
 import {FilmDataType} from '../../types/types';
 
 function VideoPlayer() {
@@ -10,10 +9,7 @@ function VideoPlayer() {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      const response = await getFilm(idFilm);
-      setState(response);
-    })();
+    setState(null);
   }, [setState, idFilm]);
 
 
@@ -26,7 +22,7 @@ function VideoPlayer() {
       <div className="player">
         <video className="player__video"></video>
 
-        <button type="button" className="player__exit">Exit</button>
+        <button onClick={handleExitButtonClick}  type="button" className="player__exit">Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">

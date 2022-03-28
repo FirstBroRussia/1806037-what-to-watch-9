@@ -1,9 +1,9 @@
 import {useEffect} from 'react';
 import {fetchGetSimilarFilmsAction} from '../../../api/api-action';
-import {setSimilarFilmsDataAction} from '../../../store/actions';
+import {setSimilarFilmsDataAction} from '../../../store/slices/data-slice';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {FilmDataType} from '../../../types/types';
-import {FOUR_VALUE, ZERO_VALUE} from '../../../utils/const';
+import {Values} from '../../../utils/const';
 import FilmCardForCatalog from '../../main/page-content/film-card-for-catalog-wrap';
 
 type LikeThisFilmsElementPropsType = {
@@ -12,7 +12,6 @@ type LikeThisFilmsElementPropsType = {
 
 function LikeThisFilmsElement({idFilm}: LikeThisFilmsElementPropsType) {
   const dispatch = useAppDispatch();
-  const selector = useAppSelector;
 
   useEffect(() => {
     dispatch(fetchGetSimilarFilmsAction(idFilm));
@@ -21,7 +20,7 @@ function LikeThisFilmsElement({idFilm}: LikeThisFilmsElementPropsType) {
     };
   }, [dispatch, idFilm]);
 
-  const similarFilms: FilmDataType[] | null = selector((state) => state.similarFilmsData);
+  const similarFilms: FilmDataType[] | null = useAppSelector(({DATA}) => DATA.similarFilmsData);
 
   if (similarFilms === null) {
     return (
@@ -38,7 +37,7 @@ function LikeThisFilmsElement({idFilm}: LikeThisFilmsElementPropsType) {
 
       <div className="catalog__films-list">
         {
-          similarFilms.slice(ZERO_VALUE, FOUR_VALUE).map((item: FilmDataType) => <FilmCardForCatalog key={item.id} film={item} />)
+          similarFilms.slice(Values.ZERO_VALUE, Values.FOUR_VALUE).map((item: FilmDataType) => <FilmCardForCatalog key={item.id} film={item} />)
         }
       </div>
     </section>

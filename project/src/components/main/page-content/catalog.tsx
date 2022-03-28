@@ -2,13 +2,8 @@ import {FilmDataType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
-import {FiltersHash, Genres, VISIBLE_FILMS_STEP_COUNT, ZERO_VALUE} from '../../../utils/const';
-import {useLocation} from 'react-router-dom';
-
-import {
-  setGenresStateAction,
-  setInitialVisibleFilmsState
-} from '../../../store/actions';
+import {AppRoute, FiltersHash, Genres, Values, VISIBLE_FILMS_STEP_COUNT} from '../../../utils/const';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 import {
   useAppSelector,
@@ -17,42 +12,43 @@ import {
 import ShowMoreButtonElement from './show-more-button';
 import {useEffect} from 'react';
 import FiltersElement from './filters';
+import { setInitialVisibleFilmsState, setGenresStateAction } from '../../../store/slices/other-slice';
 
-let filteredFilmsMap: Map<string, FilmDataType[]> | null = null;
+const filteredFilmsMap: Map<string, FilmDataType[]> = new Map();
 
 const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType[] | [] => {
-  switch (true) {
-    case (hash === FiltersHash.All): {
+  switch (hash) {
+    case (FiltersHash.All): {
       return filmsData;
     }
-    case (hash === ''): {
+    case (''): {
       return filmsData;
     }
-    case (hash === FiltersHash.Comedies): {
+    case (FiltersHash.Comedies): {
       return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Comedy);
     }
-    case (hash === FiltersHash.Crime): {
+    case (FiltersHash.Crime): {
       return filmsData.slice().filter((film: FilmDataType) => (film.genre === Genres.Crime || film.genre === Genres.Action));
     }
-    case (hash === FiltersHash.Documentary): {
+    case (FiltersHash.Documentary): {
       return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Documentary);
     }
-    case (hash === FiltersHash.Dramas): {
+    case (FiltersHash.Dramas): {
       return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Drama);
     }
-    case (hash === FiltersHash.Horror): {
+    case (FiltersHash.Horror): {
       return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Horror);
     }
-    case (hash === FiltersHash.Family): {
+    case (FiltersHash.Family): {
       return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Adventure);
     }
-    case (hash === FiltersHash.Romance): {
+    case (FiltersHash.Romance): {
       return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Romance);
     }
-    case (hash === FiltersHash.SciFi): {
+    case (FiltersHash.SciFi): {
       return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Fantasy);
     }
-    case (hash === FiltersHash.Thrillers): {
+    case (FiltersHash.Thrillers): {
       return filmsData.slice().filter((film: FilmDataType) => film.genre === Genres.Thriller);
     }
     default: return [];
@@ -60,7 +56,8 @@ const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType
 };
 
 function Catalog(): JSX.Element {
-  const filmsData = useAppSelector((state) => state.filmsData);
+  const filmsData = useAppSelector(({DATA}) => DATA.filmsData);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const hashLocation: string = location.hash;
@@ -71,38 +68,30 @@ function Catalog(): JSX.Element {
     dispatch(setInitialVisibleFilmsState());
   }, [dispatch, hashLocation]);
 
-  if (filteredFilmsMap === null) {
-    filteredFilmsMap = new Map();
-    for (const item in FiltersHash) {
-      const key = item as keyof typeof FiltersHash;
-      const value = FiltersHash[key];
+  if (filteredFilmsMap.size === Values.ZERO_VALUE) {
+    Object.values(FiltersHash).forEach((value) => {
       if (hashLocation === value) {
         validHash = true;
       }
       filteredFilmsMap.set(value, getFilteredFilms(filmsData, value));
-    }
+    });
   } else {
-    for (const item in FiltersHash) {
-      const key = item as keyof typeof FiltersHash;
-      const value = FiltersHash[key];
-      if (hashLocation === value) {
-        validHash = true;
-        break;
-      }
-    }
+    validHash = Object.values(FiltersHash).some((value) => hashLocation === value);
   }
 
-  if (!validHash || hashLocation === '') {
+  if (hashLocation === '') {
     dispatch(setGenresStateAction(FiltersHash.All));
+  } else if (!validHash) {
+    navigate(AppRoute.NotFound);
   } else {
     dispatch(setGenresStateAction(hashLocation));
   }
 
-  const genreStateApp = useAppSelector((state) => state.selectedGenre);
-  const visibleFilmsCount = useAppSelector((state) => state.visibleFilms);
+  const genreStateApp = useAppSelector(({OTHER}) => OTHER.selectedGenre);
+  const visibleFilmsCount = useAppSelector(({OTHER}) => OTHER.visibleFilms);
   const convertFilmsData = filteredFilmsMap.get(genreStateApp);
 
-  if (convertFilmsData === undefined) {
+  if (!convertFilmsData) {
     return (
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -126,7 +115,7 @@ function Catalog(): JSX.Element {
       <div className="catalog__films-list">
         {
           (() => {
-            if (convertFilmsData.length === ZERO_VALUE) {
+            if (convertFilmsData.length === Values.ZERO_VALUE) {
               return (
                 <h2 className='catalog__title'>There are no films in this category</h2>
               );

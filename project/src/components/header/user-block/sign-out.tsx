@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {fetchLogoutToServerAction} from '../../../api/api-action';
@@ -8,7 +7,7 @@ import {AppRoute} from '../../../utils/const';
 function SignOut(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const userData = useAppSelector((state) => state.userData);
+  const userData = useAppSelector(({USER}) => USER.userData);
 
   useEffect(() => {
     if (userData === null) {

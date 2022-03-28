@@ -2,19 +2,34 @@ import FilmCardBackground from './film-card-background';
 import PageHeader from './page-header';
 import FilmCardWrap from './film-card-wrap';
 import {FilmDataType} from '../../../types/types';
-import {useAppSelector} from '../../../store/store';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
+import {fetchGetPromoFilmAction } from '../../../api/api-action';
+import {useEffect} from 'react';
 
 
 function HeaderFilmCard(): JSX.Element {
-  const promoFilm = useAppSelector((state) => state.promoFilm);
-  const filmData = promoFilm as FilmDataType;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchGetPromoFilmAction());
+  }, [dispatch]);
+
+  const promoFilm: FilmDataType | null = useAppSelector(({DATA}) => DATA.promoFilm);
+
+  if (promoFilm === null) {
+    return (
+      <section className="film-card">
+        <h1 className="visually-hidden">WTW</h1>
+      </section>
+    );
+  }
 
   return (
     <section className="film-card">
       <h1 className="visually-hidden">WTW</h1>
-      <FilmCardBackground filmData={filmData}/>
+      <FilmCardBackground filmData={promoFilm}/>
       <PageHeader />
-      <FilmCardWrap filmData={filmData} />
+      <FilmCardWrap filmData={promoFilm} />
     </section>
   );
 }

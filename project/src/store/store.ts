@@ -6,7 +6,6 @@ import {redirect} from '../utils/redirect';
 
 const api = createApi();
 
-
 const store = configureStore({
   reducer: commonReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

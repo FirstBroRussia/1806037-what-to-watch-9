@@ -5,7 +5,6 @@ import {browserHistory} from './browser-history';
 
 type Reducer = ReturnType<typeof reducer>;
 
-
 const redirect: Middleware<unknown, Reducer> = (store) => (dispatch) => (action) => {
   if (action.type === REDIRECT_TO_ROUTE) {
     browserHistory.push(action.payload);

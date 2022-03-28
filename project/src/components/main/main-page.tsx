@@ -4,7 +4,7 @@ import PreloaderElement from '../preloader/preloader';
 import {useAppSelector} from '../../store/store';
 
 function MainPage(): JSX.Element {
-  const {isPrimaryLoadData} = useAppSelector( (state) => state);
+  const isPrimaryLoadData = useAppSelector( ({DATA}) => DATA.isPrimaryLoadData);
 
   if (!isPrimaryLoadData) {
     return (

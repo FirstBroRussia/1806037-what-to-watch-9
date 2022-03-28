@@ -1,20 +1,18 @@
-import {useLocation} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {FilmDataType} from '../../types/types';
 import {SubmitCommentForm} from './submit-comment-form';
 import HeaderElement from '../layout/header-layout';
 import SignOut from '../header/user-block/sign-out';
 import BreadcrumbsElement from './breadcrumbs';
 import {useEffect} from 'react';
-import {getIdFilmFromCurrentPathLocation} from '../../utils/utils';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {fetchGetIdFilmAction} from '../../api/api-action';
-import {setFilmIdDataAction} from '../../store/actions';
+import { setFilmIdDataAction } from '../../store/slices/data-slice';
 
 function AddReview() {
+  const params = useParams();
+  const idFilm = Number(params.id);
   const dispatch = useAppDispatch();
-  const selector = useAppSelector;
-  const location = useLocation();
-  const idFilm = getIdFilmFromCurrentPathLocation(location.pathname) as unknown as number;
 
   useEffect(() => {
     dispatch(fetchGetIdFilmAction(idFilm));
@@ -23,7 +21,7 @@ function AddReview() {
     };
   }, [dispatch, idFilm]);
 
-  const idFilmData = selector((state) => state.idFilmData);
+  const idFilmData = useAppSelector(({DATA}) => DATA.idFilmData);
 
   if (idFilmData === null) {
     return (

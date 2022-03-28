@@ -5,7 +5,7 @@ import SignOut from '../../header/user-block/sign-out';
 import HeaderElement from '../../layout/header-layout';
 
 function PageHeader(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
 
   return (
     <HeaderElement>
