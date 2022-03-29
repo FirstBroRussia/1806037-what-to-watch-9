@@ -10,6 +10,7 @@ const VISIBLE_FILMS_STEP_COUNT = 8;
 const enum NameSpace {
   USER = 'USER',
   DATA = 'DATA',
+  PLAYER = 'PLAYER',
   OTHER = 'OTHER'
 }
 
@@ -105,4 +106,11 @@ const FiltersHash = {
   Thrillers: '#thrillers',
 };
 
-export {VISIBLE_FILMS_STEP_COUNT, Values, NameSpace, Requests, HTTP_CODE, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo, FiltersHash, Genres};
+const enum VideoEvent {
+  LoadedData = 'loadeddata',
+  CanPlay = 'canplay',
+  Play = 'play',
+  Pause = 'pause'
+}
+
+export {VISIBLE_FILMS_STEP_COUNT, Values, NameSpace, Requests, HTTP_CODE, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo, FiltersHash, Genres, VideoEvent};

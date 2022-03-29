@@ -2,7 +2,7 @@ import {FilmDataType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
-import {AppRoute, FiltersHash, Genres, Values, VISIBLE_FILMS_STEP_COUNT} from '../../../utils/const';
+import {AppRoute, FiltersHash, Genres, NameSpace, Values, VISIBLE_FILMS_STEP_COUNT} from '../../../utils/const';
 import {useLocation, useNavigate} from 'react-router-dom';
 
 import {
@@ -12,15 +12,13 @@ import {
 import ShowMoreButtonElement from './show-more-button';
 import {useEffect} from 'react';
 import FiltersElement from './filters';
-import { setInitialVisibleFilmsState, setGenresStateAction } from '../../../store/slices/other-slice';
+import {setInitialVisibleFilmsState, setGenresStateAction} from '../../../store/slices/other-slice';
 
 const filteredFilmsMap: Map<string, FilmDataType[]> = new Map();
 
 const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType[] | [] => {
   switch (hash) {
-    case (FiltersHash.All): {
-      return filmsData;
-    }
+    case (FiltersHash.All):
     case (''): {
       return filmsData;
     }
@@ -56,7 +54,7 @@ const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType
 };
 
 function Catalog(): JSX.Element {
-  const filmsData = useAppSelector(({DATA}) => DATA.filmsData);
+  const filmsData = useAppSelector((state) => state[NameSpace.DATA].filmsData);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();

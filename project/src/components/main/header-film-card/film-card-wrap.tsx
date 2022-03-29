@@ -49,7 +49,7 @@ function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
             </button>
             {
               (() => {
-                if (!(authStatus === AuthorizationValue.Auth)) {
+                if (authStatus !== AuthorizationValue.Auth) {
                   return;
                 }
                 return (
