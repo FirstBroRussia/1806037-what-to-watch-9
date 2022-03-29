@@ -1,14 +1,15 @@
 import {Link} from 'react-router-dom';
 import {useAppSelector} from '../../store/store';
-import {ACTIVE_LINK_FROM_MOVIE_PAGE, AuthorizationValue, HashFilmInfo} from '../../utils/const';
+import {AuthorizationValue, HashFilmInfo} from '../../utils/const';
+
+const ACTIVE_LINK_FROM_MOVIE_PAGE = 'film-nav__item--active';
 
 type TabListElementPropsType = {
   hash: string
 }
 
 function TabListElement({hash}: TabListElementPropsType) {
-  const selector = useAppSelector;
-  const authStatus = selector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
 
   let isValidHash = false;
 
@@ -51,7 +52,7 @@ function TabListElement({hash}: TabListElementPropsType) {
       </li>
       {
         authStatus === AuthorizationValue.Auth ? (
-          <li className="film-nav__item">
+          <li className={`film-nav__item ${hash === HashFilmInfo.Reviews ? ACTIVE_LINK_FROM_MOVIE_PAGE : ''}`}>
             <Link to="#reviews" className="film-nav__link">Reviews</Link>
           </li>
         ) : ''

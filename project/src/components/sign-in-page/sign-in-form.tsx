@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {fetchPostLoginToServerAction} from '../../api/api-action';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import {AppRoute, AuthorizationValue, ZERO_VALUE} from '../../utils/const';
+import {AppRoute, AuthorizationValue, Values} from '../../utils/const';
 
 type SignInFormType = {
   email: string,
@@ -13,7 +12,7 @@ type SignInFormType = {
 const checkValidForm = (formNodeElement: any): boolean => {
   const emailInput = formNodeElement.querySelector('#user-email');
   const passwordInput = formNodeElement.querySelector('#user-password');
-  if (emailInput.value.length === ZERO_VALUE) {
+  if (emailInput.value.length === Values.ZERO_VALUE) {
     emailInput.setCustomValidity('Пустое поле!');
     emailInput.reportValidity();
     setTimeout( () => {
@@ -23,7 +22,7 @@ const checkValidForm = (formNodeElement: any): boolean => {
 
     return false;
   }
-  if (passwordInput.value.length === ZERO_VALUE) {
+  if (passwordInput.value.length === Values.ZERO_VALUE) {
     passwordInput.setCustomValidity('Пустое поле!');
     passwordInput.reportValidity();
     setTimeout( () => {
@@ -43,21 +42,19 @@ function SignInFormElement() {
   const initPassword = '12345678';
 
   const formRef = useRef(null);
-  const [formElement, setFormElement] = useState(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
 
   const [email, setEmail] = useState(initEmail);
   const [password, setPassword] = useState(initPassword);
 
   useEffect(() => {
-    setFormElement(formRef.current);
-    if (authorizationStatus === AuthorizationValue.Auth) {
+    if (authStatus === AuthorizationValue.Auth) {
       navigate(AppRoute.MyList);
     }
-  }, [authorizationStatus, navigate]);
+  }, [authStatus, navigate]);
 
   const handleEmailInputChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     const emailValue = String(evt.target.value);
@@ -75,7 +72,7 @@ function SignInFormElement() {
       email: email,
       password: password,
     };
-    const isValid = checkValidForm(formElement);
+    const isValid = checkValidForm(formRef.current);
     if (!isValid) {
       return;
     }

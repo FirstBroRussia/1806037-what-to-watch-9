@@ -1,4 +1,4 @@
-import {useAppSelector} from '../../../store/main';
+import {useAppSelector} from '../../../store/store';
 import {FilmDataType} from '../../../types/types';
 import {ModeReceivingStarringData} from '../../../utils/const';
 import {getRatingLevel, getStarringArrayToString} from '../../../utils/utils';
@@ -6,7 +6,7 @@ import {getRatingLevel, getStarringArrayToString} from '../../../utils/utils';
 function MoviePageOverviewElement () {
   const selector = useAppSelector;
 
-  const idFilmData: FilmDataType | null = selector((state) => state.idFilmData);
+  const idFilmData: FilmDataType | null = selector(({DATA}) => DATA.idFilmData);
 
   if (idFilmData === null) {
     return (

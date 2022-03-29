@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
-import {FilmDataType} from '../../types/types';
+import {FilmDataType, SetStatusFavoriteFilmAsyncFilmParamsType} from '../../types/types';
 import FooterElement from '../layout/footer-layout';
 import PageHeader from '../main/header-film-card/page-header';
 import {AppRoute, AuthorizationValue, HashFilmInfo} from '../../utils/const';
@@ -11,21 +10,23 @@ import MoviePageOverviewElement from './movie-page-overview/movie-page-overview'
 import MoviePageDetailsElement from './movie-page-details/movie-page-details';
 import MoviePageReviewsElement from './movie-page-reviews/movie-page-reviews';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import {fetchGetIdFilmAction} from '../../api/api-action';
-import {setFilmIdDataAction} from '../../store/actions';
+import {fetchGetIdFilmAction, fetchSetStatusFavotiteFilmAction} from '../../api/api-action';
 import TabListElement from './tab-list-element';
 import {browserHistory} from '../../utils/browser-history';
-import {getIdFilmFromCurrentPathLocation} from '../../utils/utils';
+import MyListSvgElement from '../my-list-svg/my-list-svg';
+import { setFilmIdDataAction } from '../../store/slices/data-slice';
 
 function MoviePage() {
+  const params = useParams();
+  const idFilm = Number(params.id);
+
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const selector = useAppSelector;
   const location = useLocation();
   const currentPath = location.pathname;
   const hashLocation: string = location.hash;
-  const idFilm = getIdFilmFromCurrentPathLocation(location.pathname) as unknown as number;
-  const authStatus = selector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
 
   useEffect(() => {
     dispatch(fetchGetIdFilmAction(idFilm));
@@ -37,7 +38,7 @@ function MoviePage() {
     };
   }, [currentPath, dispatch, idFilm]);
 
-  const idFilmData: FilmDataType | null = selector((state) => state.idFilmData);
+  const idFilmData: FilmDataType | null = useAppSelector(({DATA}) => DATA.idFilmData);
 
   const handleNavigateToVideoPlayerClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate(`${AppRoute.VideoPlayer}/${idFilm}`, {state: idFilm});
@@ -53,12 +54,12 @@ function MoviePage() {
   };
 
   const getCurrentInfoBlock = () => {
-    switch (true) {
-      case (hashLocation === HashFilmInfo.Overview) : {
+    switch (hashLocation) {
+      case (HashFilmInfo.Overview) : {
         return <MoviePageOverviewElement />;}
-      case (hashLocation === HashFilmInfo.Details) : {
+      case (HashFilmInfo.Details) : {
         return <MoviePageDetailsElement />;}
-      case (hashLocation === HashFilmInfo.Reviews) : {
+      case (HashFilmInfo.Reviews) : {
         return <MoviePageReviewsElement idFilm={idFilm}/>;}
       default: throw new Error('Невалидное значение');
     }
@@ -121,7 +122,16 @@ function MoviePage() {
     );
   }
 
-  const {name, genre, released, backgroundImage, posterImage}: FilmDataType = idFilmData;
+  const {name, genre, released, backgroundImage, posterImage, isFavorite}: FilmDataType = idFilmData;
+
+  const handleMyListButtonClick: React.MouseEventHandler<HTMLButtonElement> = (evt) => {
+    evt.preventDefault();
+    const paramsData: SetStatusFavoriteFilmAsyncFilmParamsType = {
+      idFilm: Number(idFilm),
+      status: Number(!isFavorite),
+    };
+    dispatch(fetchSetStatusFavotiteFilmAction(paramsData));
+  };
 
   return (
     <>
@@ -150,12 +160,19 @@ function MoviePage() {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                {
+                  (() => {
+                    if (!(authStatus === AuthorizationValue.Auth)) {
+                      return;
+                    }
+                    return (
+                      <button onClick={handleMyListButtonClick} className="btn btn--list film-card__button" type="button">
+                        <MyListSvgElement isFavorite={isFavorite}/>
+                        <span>My list</span>
+                      </button>
+                    );
+                  })()
+                }
                 <Link onClick={handleAddReviewLinkClick} to="#" className="btn film-card__button" state={idFilm}>Add review</Link>
               </div>
             </div>

@@ -6,7 +6,7 @@ import FooterElement from '../layout/footer-layout';
 import SignInForm from './sign-in-form';
 
 function SignInPageElement(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
   const navigate = useNavigate();
 
   useEffect(() => {

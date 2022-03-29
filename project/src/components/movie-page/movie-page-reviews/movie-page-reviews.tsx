@@ -3,7 +3,8 @@ import ReviewElement from './review-element';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {CommentDataType} from '../../../types/types';
 import {fetchGetIdFilmCommentsListAction} from '../../../api/api-action';
-import {setFilmIdCommentsDataAction} from '../../../store/actions';
+import { setFilmIdCommentsDataAction } from '../../../store/slices/data-slice';
+// import {setFilmIdCommentsDataAction} from '../../../store/actions';
 
 type MoviePageReviewsElementPropsType ={
   idFilm: number
@@ -11,7 +12,7 @@ type MoviePageReviewsElementPropsType ={
 
 function MoviePageReviewsElement({idFilm}: MoviePageReviewsElementPropsType) {
   const dispatch = useAppDispatch();
-  const selector = useAppSelector;
+
   useEffect(() => {
     dispatch(fetchGetIdFilmCommentsListAction(idFilm));
     return () => {
@@ -19,7 +20,7 @@ function MoviePageReviewsElement({idFilm}: MoviePageReviewsElementPropsType) {
     };
   }, [dispatch, idFilm]);
 
-  const commentsData: CommentDataType[] | null = selector((state) => state.idFilmCommentsData);
+  const commentsData: CommentDataType[] | null = useAppSelector(({DATA}) => DATA.idFilmCommentsData);
 
   if (commentsData === null) {
     return  (

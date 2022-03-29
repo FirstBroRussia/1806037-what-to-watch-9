@@ -11,7 +11,7 @@ export type PrivateRoutePropsType = {
 
 function PrivateRouteToMyList(props: PrivateRoutePropsType): JSX.Element {
   const {authorizationStatus, children} = props;
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
 
   return authorizationStatus === authStatus ? children : <Navigate to={AppRoute.SignIn} />;
 }

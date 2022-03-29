@@ -1,8 +1,8 @@
 import {useEffect, useRef, useState} from 'react';
-import { fetchPostCommentAction } from '../../api/api-action';
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import { PostCommentAsyncParamType } from '../../types/types';
-import {FIFTY_VALUE, ZERO_VALUE} from '../../utils/const';
+import {fetchPostCommentAction} from '../../api/api-action';
+import {useAppDispatch, useAppSelector} from '../../store/store';
+import {PostCommentAsyncParamType} from '../../types/types';
+import {Values} from '../../utils/const';
 
 type SubmitCommentFormPropsType = {
   idFilm: number
@@ -10,29 +10,28 @@ type SubmitCommentFormPropsType = {
 
 function SubmitCommentForm({idFilm}: SubmitCommentFormPropsType): JSX.Element {
   const dispatch = useAppDispatch();
-  const selector = useAppSelector;
   const formRef = useRef(null);
-  const [formElement, setFormElement] = useState(formRef.current);
+
   const ratingValue = 0;
   const commentValue = '';
   const [rating, setRating] = useState(ratingValue);
   const [comment, setComment] = useState(commentValue);
-  const isFailPostComment = selector((state) => state.isFailPostComment);
+  const isFailPostComment = useAppSelector(({OTHER}) => OTHER.isFailPostComment);
 
   useEffect(() => {
-    if (isFailPostComment) {
-      removeClassToForm(formElement);
+    checkFormDataValue(formRef.current);
+    if (!isFailPostComment) {
       return;
     }
-    setFormElement(formRef.current);
-  }, [setFormElement, isFailPostComment, formElement]);
+    removeClassToForm(formRef.current);
+  });
 
   const checkFormDataValue = (form: Element | null) => {
     if (form === null) {
       return;
     }
     const submitButtonElement = form.querySelector('button') as HTMLButtonElement;
-    if (rating === ZERO_VALUE || comment.length < FIFTY_VALUE) {
+    if (rating === Values.ZERO_VALUE || comment.length < Values.FIFTY_VALUE) {
       submitButtonElement.disabled = true;
       return;
     }
@@ -56,6 +55,7 @@ function SubmitCommentForm({idFilm}: SubmitCommentFormPropsType): JSX.Element {
   const handleRatingStarsChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     const valueTargetElement = Number(evt.target.value);
     setRating(valueTargetElement);
+
   };
 
   const handleTextAreaChange: React.ChangeEventHandler<HTMLTextAreaElement> = (evt) => {
@@ -72,11 +72,9 @@ function SubmitCommentForm({idFilm}: SubmitCommentFormPropsType): JSX.Element {
         rating: rating,
       },
     };
-    addClassToForm(formElement);
+    addClassToForm(formRef.current);
     dispatch(fetchPostCommentAction(postCommentData));
   };
-
-  checkFormDataValue(formElement);
 
   return (
     <form ref={formRef} onSubmit={handleFormSubmit} action="#" className="add-review__form">

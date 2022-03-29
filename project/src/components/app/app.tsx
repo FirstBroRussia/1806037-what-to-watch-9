@@ -13,7 +13,6 @@ import MoviePage from '../movie-page/movie-page';
 import AddReview from '../add-review/add-review';
 import VideoPlayer from '../video-player/player-play';
 import PrivateRouteToMyList from '../private-route/private-route-to-my-list';
-import ErrorRequestPage from '../../pages/error-request';
 import PrivateRouteToAddReview from '../private-route/private-route-to-add-review';
 
 function App(): JSX.Element {
@@ -37,9 +36,7 @@ function App(): JSX.Element {
           </PrivateRouteToAddReview>
         }
         />
-
         <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
-        <Route path={AppRoute.ErrorRequest} element={<ErrorRequestPage />}/>
       </Routes>
     </HistoryRouter>
   );

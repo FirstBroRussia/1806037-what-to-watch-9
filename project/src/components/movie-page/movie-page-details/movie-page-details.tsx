@@ -1,13 +1,10 @@
-/* eslint-disable no-console */
 import {useAppSelector} from '../../../store/store';
 import {FilmDataType} from '../../../types/types';
 import {ModeReceivingStarringData} from '../../../utils/const';
 import {convertRunTime, getStarringArrayToString} from '../../../utils/utils';
 
 function MoviePageDetailsElement () {
-  const selector = useAppSelector;
-
-  const idFilmData: FilmDataType | null = selector((state) => state.idFilmData);
+  const idFilmData: FilmDataType | null = useAppSelector(({DATA}) => DATA.idFilmData);
 
   if (idFilmData === null) {
     return (

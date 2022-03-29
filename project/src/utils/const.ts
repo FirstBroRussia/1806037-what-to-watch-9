@@ -1,17 +1,17 @@
-const ZERO_VALUE = 0;
-const FOUR_VALUE = 4;
-const FIFTY_VALUE = 50;
-const SIXTY_VALUE = 60;
+const enum Values {
+  ZERO_VALUE = 0,
+  FOUR_VALUE = 4,
+  FIFTY_VALUE = 50,
+  SIXTY_VALUE = 60,
+}
 
 const VISIBLE_FILMS_STEP_COUNT = 8;
 
-const PRIMARY_STATE = 'PRIMARY_STATE';
-
-const ACTIVE_LINK_FROM_MOVIE_PAGE = 'film-nav__item--active';
-const ACTIVE_FILTER_FROM_CATALOG = 'catalog__genres-item--active';
-
-const searchAreaNumberRegExp = /films\/\d{1,}/g;
-const searchAllNumbersRegExp = /\d/g;
+const enum NameSpace {
+  USER = 'USER',
+  DATA = 'DATA',
+  OTHER = 'OTHER'
+}
 
 const enum AuthorizationValue {
   Auth = 'AUTH',
@@ -105,4 +105,4 @@ const FiltersHash = {
   Thrillers: '#thrillers',
 };
 
-export {searchAreaNumberRegExp, searchAllNumbersRegExp, PRIMARY_STATE, ZERO_VALUE, FOUR_VALUE, VISIBLE_FILMS_STEP_COUNT, FIFTY_VALUE, SIXTY_VALUE, ACTIVE_LINK_FROM_MOVIE_PAGE, ACTIVE_FILTER_FROM_CATALOG, Requests, HTTP_CODE, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo, FiltersHash, Genres};
+export {VISIBLE_FILMS_STEP_COUNT, Values, NameSpace, Requests, HTTP_CODE, AppRoute, AuthorizationValue, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, HashFilmInfo, FiltersHash, Genres};

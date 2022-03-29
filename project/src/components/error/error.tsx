@@ -1,8 +1,7 @@
 import {useAppSelector} from '../../store/store';
 
 function ErrorElement(): JSX.Element | null {
-  const selector = useAppSelector;
-  const errorText = selector((state) => state.fetchError);
+  const errorText = useAppSelector(({OTHER}) => OTHER.fetchError);
 
   if (errorText !== null) {
     return (

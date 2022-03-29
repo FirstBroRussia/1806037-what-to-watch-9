@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {useEffect, useRef, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {FilmDataType} from '../../../types/types';
@@ -7,7 +6,6 @@ import {AppRoute} from '../../../utils/const';
 type FilmCardForCatalogPropsType = {
   film: FilmDataType,
 };
-
 
 function FilmCardForCatalog({film}: FilmCardForCatalogPropsType): JSX.Element {
   const {id, previewImage, name, previewVideoLink}: FilmDataType = film;

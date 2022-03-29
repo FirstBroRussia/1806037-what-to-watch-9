@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import {searchAreaNumberRegExp, searchAllNumbersRegExp, ZERO_VALUE, SIXTY_VALUE, RatingLevelCountValue, RatingLevel, ModeReceivingStarringData} from '../utils/const';
+import {RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, Values} from '../utils/const';
 
 const getRatingLevel = (ratingCount: number): string => {
   switch (true) {
@@ -22,22 +22,15 @@ const getStarringArrayToString = (mode: string, starring: string[]): string => {
 
 const convertRunTime = (runTime: number): string => {
   switch (true) {
-    case (runTime < SIXTY_VALUE) : return `${runTime}m`;
-    case (runTime % SIXTY_VALUE === ZERO_VALUE) : return `${runTime/SIXTY_VALUE}h`;
-    case (runTime > SIXTY_VALUE) : {
-      const hours = Math.floor(runTime/SIXTY_VALUE);
-      const minutes = runTime - (hours * SIXTY_VALUE);
+    case (runTime < Values.SIXTY_VALUE) : return `${runTime}m`;
+    case (runTime % Values.SIXTY_VALUE === Values.ZERO_VALUE) : return `${runTime/Values.SIXTY_VALUE}h`;
+    case (runTime > Values.SIXTY_VALUE) : {
+      const hours = Math.floor(runTime/Values.SIXTY_VALUE);
+      const minutes = runTime - (hours * Values.SIXTY_VALUE);
       return `${hours}h ${minutes}m`;
     }
     default : throw new Error ('Невалидное значение');
   }
 };
 
-const getIdFilmFromCurrentPathLocation = (pathname: string) => {
-  const intermediateValue = pathname.match(searchAreaNumberRegExp)?.join('');
-  const idFilm = intermediateValue?.match(searchAllNumbersRegExp)?.join('');
-
-  return idFilm;
-};
-
-export {dayjs, getRatingLevel, getStarringArrayToString, convertRunTime, getIdFilmFromCurrentPathLocation};
+export {dayjs, getRatingLevel, getStarringArrayToString, convertRunTime};

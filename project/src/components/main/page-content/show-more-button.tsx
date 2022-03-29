@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import {setIncVisibleFilmsState} from '../../../store/actions';
+import { setIncVisibleFilmsState } from '../../../store/slices/other-slice';
 import {useAppDispatch} from '../../../store/store';
 
 function ShowMoreButtonElement() {
@@ -8,7 +7,6 @@ function ShowMoreButtonElement() {
   const handleShowMoreButtonClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     dispatch(setIncVisibleFilmsState());
   };
-
 
   return (
     <div className="catalog__more">
