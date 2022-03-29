@@ -1,12 +1,12 @@
 import {useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppSelector} from '../../store/store';
-import {AppRoute, AuthorizationValue} from '../../utils/const';
+import {AppRoute, AuthorizationValue, NameSpace} from '../../utils/const';
 import FooterElement from '../layout/footer-layout';
 import SignInForm from './sign-in-form';
 
 function SignInPageElement(): JSX.Element {
-  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const authStatus = useAppSelector((state) => state[NameSpace.USER].authorizationStatus);
   const navigate = useNavigate();
 
   useEffect(() => {

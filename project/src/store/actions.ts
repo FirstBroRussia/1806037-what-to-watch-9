@@ -1,8 +1,9 @@
-import {createAction} from '@reduxjs/toolkit';
+import {createAction, PrepareAction} from '@reduxjs/toolkit';
+import {BrowserHistory} from 'history';
 
 const REDIRECT_TO_ROUTE = 'REDIRECT_TO_ROUTE';
 
-const redirectToRouteAction = createAction(REDIRECT_TO_ROUTE, (value) => ({
+const redirectToRouteAction = createAction<PrepareAction<BrowserHistory>>(REDIRECT_TO_ROUTE, (value) => ({
   payload: value,
 }));
 

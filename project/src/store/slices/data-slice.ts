@@ -1,20 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { FilmDataType } from '../../types/types';
-import { NameSpace } from '../../utils/const';
+import {createSlice} from '@reduxjs/toolkit';
+import {FavoriteFilmsDataType, FilmDataType, IdFilmCommentsDataType, SimilarFilmsDataType} from '../../types/types';
+import {NameSpace} from '../../utils/const';
 
 type InitialDataSliceStateType = {
   isPrimaryLoadData: boolean,
-  filmsData: FilmDataType[] | [],
+  filmsData: FilmDataType[] | null,
   promoFilm: FilmDataType | null,
-  favoriteFilmsData: FilmDataType[] | null,
+  favoriteFilmsData: FavoriteFilmsDataType,
   idFilmData: FilmDataType | null,
-  idFilmCommentsData: [] | null,
-  similarFilmsData: [] | null,
+  idFilmCommentsData: IdFilmCommentsDataType,
+  similarFilmsData: SimilarFilmsDataType,
 }
 
 const initialDataSliceState: InitialDataSliceStateType = {
   isPrimaryLoadData: false,
-  filmsData: [],
+  filmsData: null,
   promoFilm: null,
   favoriteFilmsData: null,
   idFilmData: null,

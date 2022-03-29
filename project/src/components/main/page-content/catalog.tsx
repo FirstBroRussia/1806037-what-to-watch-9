@@ -71,22 +71,31 @@ function Catalog(): JSX.Element {
       if (hashLocation === value) {
         validHash = true;
       }
+      if (filmsData === null) {
+        throw new Error('НЕВАЛИДНОЕ ЗНАЧЕНИЕ');
+      }
       filteredFilmsMap.set(value, getFilteredFilms(filmsData, value));
     });
   } else {
     validHash = Object.values(FiltersHash).some((value) => hashLocation === value);
   }
 
-  if (hashLocation === '') {
-    dispatch(setGenresStateAction(FiltersHash.All));
-  } else if (!validHash) {
-    navigate(AppRoute.NotFound);
-  } else {
-    dispatch(setGenresStateAction(hashLocation));
+  switch (true) {
+    case (hashLocation === ''): {
+      dispatch(setGenresStateAction(FiltersHash.All));
+      break;
+    }
+    case (!validHash): {
+      navigate(AppRoute.NotFound);
+      break;
+    }
+    default: {
+      dispatch(setGenresStateAction(hashLocation));
+    }
   }
 
-  const genreStateApp = useAppSelector(({OTHER}) => OTHER.selectedGenre);
-  const visibleFilmsCount = useAppSelector(({OTHER}) => OTHER.visibleFilms);
+  const genreStateApp = useAppSelector((state) => state[NameSpace.OTHER].selectedGenre);
+  const visibleFilmsCount = useAppSelector((state) => state[NameSpace.OTHER].visibleFilms);
   const convertFilmsData = filteredFilmsMap.get(genreStateApp);
 
   if (!convertFilmsData) {

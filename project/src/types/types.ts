@@ -31,6 +31,14 @@ type CommentDataType = {
   }
 };
 
+type UserDataType = {
+  avatarUrl: string,
+  email: string,
+  id: number,
+  name: string,
+  token: string,
+}
+
 type NewCommentDataType = {
   comment: string,
   rating: number
@@ -60,4 +68,14 @@ type SetStatusFavoriteFilmAsyncFilmParamsType = {
   promo?: boolean
 }
 
-export type {promoFilmType, FilmDataType, FilmsDataPropsType, FilmDataPropsType, FormDataSubmitType, CommentDataType, NewCommentDataType, PostCommentAsyncParamType, SetStatusFavoriteFilmAsyncFilmParamsType};
+type IdFilmType = number;
+
+type AuthorizationStatusType = string;
+
+type FavoriteFilmsDataType = FilmDataType[] | [] | null;
+
+type IdFilmCommentsDataType = CommentDataType[] | [] | null;
+
+type SimilarFilmsDataType = FilmDataType[] | [] | null;
+
+export type {FavoriteFilmsDataType, IdFilmCommentsDataType, SimilarFilmsDataType, AuthorizationStatusType, IdFilmType, promoFilmType, FilmDataType, FilmsDataPropsType, UserDataType, FilmDataPropsType, FormDataSubmitType, CommentDataType, NewCommentDataType, PostCommentAsyncParamType, SetStatusFavoriteFilmAsyncFilmParamsType};

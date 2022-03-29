@@ -1,9 +1,9 @@
 import {Link} from 'react-router-dom';
-import {FilmDataPropsType} from '../../types/types';
+import {FilmDataPropsType, FilmDataType} from '../../types/types';
 import {AppRoute, HashFilmInfo} from '../../utils/const';
 
 function BreadcrumbsElement({filmData}: FilmDataPropsType): JSX.Element {
-  const {id, name} = filmData;
+  const {id, name}: FilmDataType = filmData;
   return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">

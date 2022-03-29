@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/store';
 import { NameSpace, VideoEvent } from '../../../utils/const';
 
 type PlayPauseButtonElementPropsType = {
-  videoRef: React.MutableRefObject<null>;
+  videoRef: React.MutableRefObject<HTMLVideoElement | null>;
 }
 
 function PlayPauseButtonElement({videoRef}: PlayPauseButtonElementPropsType) {

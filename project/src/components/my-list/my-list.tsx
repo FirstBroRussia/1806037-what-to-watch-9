@@ -1,17 +1,17 @@
 import {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {fetchGetFavoriteFilmsDataAction} from '../../api/api-action';
-import { setFavoriteFilmsDataAction } from '../../store/slices/data-slice';
+import {setFavoriteFilmsDataAction} from '../../store/slices/data-slice';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import {FilmDataType} from '../../types/types';
-import {AppRoute} from '../../utils/const';
+import {FavoriteFilmsDataType, FilmDataType} from '../../types/types';
+import {AppRoute, NameSpace} from '../../utils/const';
 import SignOut from '../header/user-block/sign-out';
 import FooterElement from '../layout/footer-layout';
 import FilmCardForCatalog from '../main/page-content/film-card-for-catalog-wrap';
 
 function MyList() {
   const dispatch = useAppDispatch();
-  const favoriteFilmsData = useAppSelector(({DATA}) => DATA.favoriteFilmsData);
+  const favoriteFilmsData: FavoriteFilmsDataType = useAppSelector((state) => state[NameSpace.DATA].favoriteFilmsData);
 
   useEffect(() => {
     dispatch(fetchGetFavoriteFilmsDataAction());

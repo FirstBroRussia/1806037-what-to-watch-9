@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Requests, AuthorizationValue, AppRoute, HashFilmInfo} from '../utils/const';
-import {FilmDataType, PostCommentAsyncParamType, SetStatusFavoriteFilmAsyncFilmParamsType} from '../types/types';
+import {FilmDataType, CommentDataType, PostCommentAsyncParamType, SetStatusFavoriteFilmAsyncFilmParamsType, UserDataType} from '../types/types';
 import store, {api} from '../store/store';
 import {SignInFormType} from '../components/sign-in-page/sign-in-form';
 import {deleteToken, setToken} from '../token/token';
@@ -14,7 +14,7 @@ const fetchGetAuthStatusAction = createAsyncThunk(
   'login/status',
   async () => {
     try {
-      const {data} = await api.get<any>(Requests.Login);
+      const {data} = await api.get<UserDataType>(Requests.Login);
       store.dispatch(setAuthStatusAction(AuthorizationValue.Auth));
       store.dispatch(setUserDataAction(data));
     } catch (error) {
@@ -28,7 +28,7 @@ const fetchPostLoginToServerAction = createAsyncThunk(
   'login/signIn',
   async (signInFormData: SignInFormType) => {
     try {
-      const response = await api.post<any>(Requests.Login, signInFormData);
+      const response = await api.post<UserDataType>(Requests.Login, signInFormData);
       const userData = response.data;
       const token = response.data.token;
       setToken(token);
@@ -82,7 +82,7 @@ const fetchGetFavoriteFilmsDataAction = createAsyncThunk(
   'data/getFavoriteFilms',
   async () => {
     try {
-      const {data} = await api.get(Requests.Favorite);
+      const {data} = await api.get<FilmDataType[]>(Requests.Favorite);
       store.dispatch(setFavoriteFilmsDataAction(data));
     } catch (error) {
       handleErrors(error);
@@ -94,7 +94,7 @@ const fetchSetStatusFavotiteFilmAction = createAsyncThunk(
   'data/setStatusFilm',
   async ({idFilm, status, promo}: SetStatusFavoriteFilmAsyncFilmParamsType) => {
     try {
-      const {data} = await api.post(`${Requests.Favorite}/${idFilm}/${status}`);
+      const {data} = await api.post<FilmDataType>(`${Requests.Favorite}/${idFilm}/${status}`);
       promo ? store.dispatch(setPromoFilmDataAction(data)) : store.dispatch(setFilmIdDataAction(data));
     } catch (error) {
       handleErrors(error);
@@ -118,7 +118,7 @@ const fetchGetIdFilmCommentsListAction = createAsyncThunk(
   'data/filmIDCommentsList',
   async (idFilm: number) => {
     try {
-      const {data} = await api.get(`${Requests.Comments}/${idFilm}`);
+      const {data} = await api.get<CommentDataType[]>(`${Requests.Comments}/${idFilm}`);
       store.dispatch(setFilmIdCommentsDataAction(data));
     } catch (error) {
       handleErrors(error);
@@ -130,7 +130,7 @@ const fetchGetSimilarFilmsAction = createAsyncThunk(
   'data/similarFilms',
   async (idFilm: number) => {
     try {
-      const {data} = await api.get(`${Requests.Films}/${idFilm}${Requests.Similar}`);
+      const {data} = await api.get<FilmDataType[]>(`${Requests.Films}/${idFilm}${Requests.Similar}`);
       store.dispatch(setSimilarFilmsDataAction(data));
     } catch (error) {
       handleErrors(error);
@@ -142,7 +142,7 @@ const fetchPostCommentAction = createAsyncThunk(
   'data/postComment',
   async ({idFilm, commentData}: PostCommentAsyncParamType) => {
     try {
-      const {data} = await api.post(`${Requests.Comments}/${idFilm}`, commentData);
+      const {data} = await api.post<CommentDataType[]>(`${Requests.Comments}/${idFilm}`, commentData);
       store.dispatch(setFilmIdCommentsDataAction(data));
       store.dispatch(redirectToRouteAction(`${AppRoute.Film}/${idFilm}${HashFilmInfo.Reviews}`));
     } catch (error) {

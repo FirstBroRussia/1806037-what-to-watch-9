@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {FilmDataType} from '../../types/types';
+import {FilmDataType, IdFilmType} from '../../types/types';
 import {SubmitCommentForm} from './submit-comment-form';
 import HeaderElement from '../layout/header-layout';
 import SignOut from '../header/user-block/sign-out';
@@ -7,11 +7,12 @@ import BreadcrumbsElement from './breadcrumbs';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {fetchGetIdFilmAction} from '../../api/api-action';
-import { setFilmIdDataAction } from '../../store/slices/data-slice';
+import {setFilmIdDataAction} from '../../store/slices/data-slice';
+import {NameSpace} from '../../utils/const';
 
 function AddReview() {
   const params = useParams();
-  const idFilm = Number(params.id);
+  const idFilm: IdFilmType = Number(params.id);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -21,7 +22,7 @@ function AddReview() {
     };
   }, [dispatch, idFilm]);
 
-  const idFilmData = useAppSelector(({DATA}) => DATA.idFilmData);
+  const idFilmData = useAppSelector((state) => state[NameSpace.DATA].idFilmData);
 
   if (idFilmData === null) {
     return (

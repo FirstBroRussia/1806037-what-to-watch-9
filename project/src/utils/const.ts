@@ -1,11 +1,11 @@
+const VISIBLE_FILMS_STEP_COUNT = 8;
+
 const enum Values {
   ZERO_VALUE = 0,
   FOUR_VALUE = 4,
   FIFTY_VALUE = 50,
   SIXTY_VALUE = 60,
 }
-
-const VISIBLE_FILMS_STEP_COUNT = 8;
 
 const enum NameSpace {
   USER = 'USER',

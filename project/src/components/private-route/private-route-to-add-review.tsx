@@ -4,7 +4,7 @@ import {AppRoute} from '../../utils/const';
 import {PrivateRoutePropsType} from './private-route-to-my-list';
 
 function PrivateRouteToAddReview(props: PrivateRoutePropsType): JSX.Element {
-  const {authorizationStatus, children} = props;
+  const {authorizationStatus, children}: PrivateRoutePropsType = props;
   const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
 
   return authorizationStatus === authStatus ? children : <Navigate to={AppRoute.SignIn} />;

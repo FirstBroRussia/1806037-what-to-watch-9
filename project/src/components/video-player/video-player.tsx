@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {useEffect, useRef} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {fetchGetIdFilmAction} from '../../api/api-action';
@@ -13,7 +14,7 @@ function VideoPlayer() {
   const params = useParams();
   const idFilm = Number(params.id);
 
-  const videoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -21,8 +22,9 @@ function VideoPlayer() {
     dispatch(fetchGetIdFilmAction(idFilm));
     return () => {
       dispatch(setFilmIdDataAction(null));
+      dispatch(setCurrentVideoPlayerStateAction(null));
     };
-  }, [dispatch, idFilm]);
+  }, [dispatch]);
 
   const idFilmData: FilmDataType | null = useAppSelector((state) => state[NameSpace.DATA].idFilmData);
   const videoLink = idFilmData?.videoLink;

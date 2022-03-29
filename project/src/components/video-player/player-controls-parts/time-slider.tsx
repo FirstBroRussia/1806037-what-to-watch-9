@@ -1,21 +1,20 @@
-/* eslint-disable no-console */
-
 import {useState} from 'react';
 import {useAppSelector} from '../../../store/store';
 import {NameSpace} from '../../../utils/const';
 import {getDurationFormatTime} from '../../../utils/utils';
 
 type TimeSliderElementPropsType = {
-  videoRef: React.MutableRefObject<null>;
+  videoRef: React.MutableRefObject<HTMLVideoElement | null>;
 }
 
-function TimeSliderElement({videoRef}: TimeSliderElementPropsType) {
+function TimeSliderElement({videoRef}: TimeSliderElementPropsType): JSX.Element | null {
   const durationVideo = useAppSelector((state) => state[NameSpace.PLAYER].durationVideo);
   const videoElement = videoRef.current as unknown as HTMLVideoElement;
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(durationVideo);
   const [percent, setPercent] = useState(0);
+  const isVideoState = useAppSelector((state) => state[NameSpace.PLAYER].isCurrentVideoPlayerState);
 
-  const videoElementTimeUpdateHandler = (evt: any) => {
+  const videoElementProgressiveActionHandler = (evt: any) => {
     evt.preventDefault();
     const currentTime = Number(evt.target.currentTime);
     const viewedAsAPercentage = Math.floor((currentTime/Number(durationVideo))*100);
@@ -24,8 +23,8 @@ function TimeSliderElement({videoRef}: TimeSliderElementPropsType) {
     setTime(remainingTime);
   };
 
-  if (videoRef.current !== null) {
-    videoElement.addEventListener('timeupdate', videoElementTimeUpdateHandler);
+  if (isVideoState) {
+    videoElement.addEventListener('timeupdate', videoElementProgressiveActionHandler);
   }
 
   return (

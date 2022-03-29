@@ -1,9 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {AuthorizationStatusType, UserDataType} from '../../types/types';
 import {AuthorizationValue, NameSpace} from '../../utils/const';
 
 type InitialUserSliceStateType = {
-  authorizationStatus: string,
-  userData: any,
+  authorizationStatus: AuthorizationStatusType,
+  userData: UserDataType | null,
 }
 
 const initialUserSliceState: InitialUserSliceStateType = {

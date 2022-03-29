@@ -1,9 +1,9 @@
 import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
-import {FilmDataType, SetStatusFavoriteFilmAsyncFilmParamsType} from '../../types/types';
+import {FilmDataType, IdFilmType, SetStatusFavoriteFilmAsyncFilmParamsType} from '../../types/types';
 import FooterElement from '../layout/footer-layout';
 import PageHeader from '../main/header-film-card/page-header';
-import {AppRoute, AuthorizationValue, HashFilmInfo} from '../../utils/const';
+import {AppRoute, AuthorizationValue, HashFilmInfo, NameSpace} from '../../utils/const';
 import LikeThisFilmsElement from './like-this-films/like-this-films';
 
 import MoviePageOverviewElement from './movie-page-overview/movie-page-overview';
@@ -14,19 +14,18 @@ import {fetchGetIdFilmAction, fetchSetStatusFavotiteFilmAction} from '../../api/
 import TabListElement from './tab-list-element';
 import {browserHistory} from '../../utils/browser-history';
 import MyListSvgElement from '../my-list-svg/my-list-svg';
-import { setFilmIdDataAction } from '../../store/slices/data-slice';
+import {setFilmIdDataAction} from '../../store/slices/data-slice';
 
 function MoviePage() {
   const params = useParams();
-  const idFilm = Number(params.id);
-
+  const idFilm: IdFilmType = Number(params.id);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const currentPath = location.pathname;
+  const currentPath: string = location.pathname;
   const hashLocation: string = location.hash;
-  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const authStatus = useAppSelector((state) => state[NameSpace.USER].authorizationStatus);
 
   useEffect(() => {
     dispatch(fetchGetIdFilmAction(idFilm));
@@ -53,7 +52,7 @@ function MoviePage() {
     navigate(AppRoute.SignIn);
   };
 
-  const getCurrentInfoBlock = () => {
+  const getCurrentInfoBlock = (): JSX.Element => {
     switch (hashLocation) {
       case (HashFilmInfo.Overview) : {
         return <MoviePageOverviewElement />;}

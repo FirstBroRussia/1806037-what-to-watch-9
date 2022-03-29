@@ -1,8 +1,8 @@
 import PlayPauseButtonElement from './player-controls-parts/play-pause-button';
-import TimeSliderElement from './player-controls-parts/slider';
+import TimeSliderElement from './player-controls-parts/time-slider';
 
 type PlayerControlsElementPropsType = {
-  videoRef: React.MutableRefObject<null>;
+  videoRef: React.MutableRefObject<HTMLVideoElement | null>;
 }
 
 function PlayerControlsElement({videoRef}: PlayerControlsElementPropsType) {

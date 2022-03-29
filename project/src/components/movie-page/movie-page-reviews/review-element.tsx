@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import {CommentDataType} from '../../../types/types';
 
 function ReviewElement(item: CommentDataType) {
-  const {comment, date, rating, user} = item;
+  const {comment, date, rating, user}: CommentDataType = item;
   return (
     <div className="review">
       <blockquote className="review__quote">
