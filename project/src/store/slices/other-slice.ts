@@ -5,7 +5,7 @@ type InitialOtherSliceStateType = {
   selectedGenre: string,
   visibleFilms: number,
   fetchError: string | null,
-  isFailPostComment: boolean
+  isFailPostComment: boolean,
 }
 
 const initialOtherSliceState: InitialOtherSliceStateType = {

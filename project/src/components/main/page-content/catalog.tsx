@@ -2,7 +2,7 @@ import {FilmDataType} from '../../../types/types';
 
 import FilmCardForCatalog from './film-card-for-catalog-wrap';
 
-import {AppRoute, FiltersHash, Genres, Values, VISIBLE_FILMS_STEP_COUNT} from '../../../utils/const';
+import {AppRoute, FiltersHash, Genres, NameSpace, Values, VISIBLE_FILMS_STEP_COUNT} from '../../../utils/const';
 import {useLocation, useNavigate} from 'react-router-dom';
 
 import {
@@ -12,15 +12,13 @@ import {
 import ShowMoreButtonElement from './show-more-button';
 import {useEffect} from 'react';
 import FiltersElement from './filters';
-import { setInitialVisibleFilmsState, setGenresStateAction } from '../../../store/slices/other-slice';
+import {setInitialVisibleFilmsState, setGenresStateAction} from '../../../store/slices/other-slice';
 
 const filteredFilmsMap: Map<string, FilmDataType[]> = new Map();
 
 const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType[] | [] => {
   switch (hash) {
-    case (FiltersHash.All): {
-      return filmsData;
-    }
+    case (FiltersHash.All):
     case (''): {
       return filmsData;
     }
@@ -56,7 +54,7 @@ const getFilteredFilms = (filmsData: FilmDataType[], hash: string): FilmDataType
 };
 
 function Catalog(): JSX.Element {
-  const filmsData = useAppSelector(({DATA}) => DATA.filmsData);
+  const filmsData = useAppSelector((state) => state[NameSpace.DATA].filmsData);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -73,22 +71,31 @@ function Catalog(): JSX.Element {
       if (hashLocation === value) {
         validHash = true;
       }
+      if (filmsData === null) {
+        throw new Error('НЕВАЛИДНОЕ ЗНАЧЕНИЕ');
+      }
       filteredFilmsMap.set(value, getFilteredFilms(filmsData, value));
     });
   } else {
     validHash = Object.values(FiltersHash).some((value) => hashLocation === value);
   }
 
-  if (hashLocation === '') {
-    dispatch(setGenresStateAction(FiltersHash.All));
-  } else if (!validHash) {
-    navigate(AppRoute.NotFound);
-  } else {
-    dispatch(setGenresStateAction(hashLocation));
+  switch (true) {
+    case (hashLocation === ''): {
+      dispatch(setGenresStateAction(FiltersHash.All));
+      break;
+    }
+    case (!validHash): {
+      navigate(AppRoute.NotFound);
+      break;
+    }
+    default: {
+      dispatch(setGenresStateAction(hashLocation));
+    }
   }
 
-  const genreStateApp = useAppSelector(({OTHER}) => OTHER.selectedGenre);
-  const visibleFilmsCount = useAppSelector(({OTHER}) => OTHER.visibleFilms);
+  const genreStateApp = useAppSelector((state) => state[NameSpace.OTHER].selectedGenre);
+  const visibleFilmsCount = useAppSelector((state) => state[NameSpace.OTHER].visibleFilms);
   const convertFilmsData = filteredFilmsMap.get(genreStateApp);
 
   if (!convertFilmsData) {

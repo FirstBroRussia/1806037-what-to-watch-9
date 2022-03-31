@@ -11,7 +11,7 @@ import SignInPageElement from '../sign-in-page/sign-in-page';
 import MyList from '../my-list/my-list';
 import MoviePage from '../movie-page/movie-page';
 import AddReview from '../add-review/add-review';
-import VideoPlayer from '../video-player/player-play';
+import VideoPlayer from '../video-player/video-player';
 import PrivateRouteToMyList from '../private-route/private-route-to-my-list';
 import PrivateRouteToAddReview from '../private-route/private-route-to-add-review';
 

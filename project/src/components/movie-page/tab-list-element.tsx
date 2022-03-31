@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import {useAppSelector} from '../../store/store';
-import {AuthorizationValue, HashFilmInfo} from '../../utils/const';
+import {AuthorizationStatusType} from '../../types/types';
+import {AuthorizationValue, HashFilmInfo, NameSpace} from '../../utils/const';
 
 const ACTIVE_LINK_FROM_MOVIE_PAGE = 'film-nav__item--active';
 
@@ -9,7 +10,7 @@ type TabListElementPropsType = {
 }
 
 function TabListElement({hash}: TabListElementPropsType) {
-  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const authStatus: AuthorizationStatusType = useAppSelector((state) => state[NameSpace.USER].authorizationStatus);
 
   let isValidHash = false;
 

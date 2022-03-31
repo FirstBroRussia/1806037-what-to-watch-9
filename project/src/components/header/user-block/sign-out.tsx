@@ -2,12 +2,12 @@ import {useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {fetchLogoutToServerAction} from '../../../api/api-action';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {AppRoute} from '../../../utils/const';
+import {AppRoute, NameSpace} from '../../../utils/const';
 
 function SignOut(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const userData = useAppSelector(({USER}) => USER.userData);
+  const userData = useAppSelector((state) => state[NameSpace.USER].userData);
 
   useEffect(() => {
     if (userData === null) {

@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {fetchPostCommentAction} from '../../api/api-action';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {PostCommentAsyncParamType} from '../../types/types';
-import {Values} from '../../utils/const';
+import {NameSpace, Values} from '../../utils/const';
 
 type SubmitCommentFormPropsType = {
   idFilm: number
@@ -16,7 +16,7 @@ function SubmitCommentForm({idFilm}: SubmitCommentFormPropsType): JSX.Element {
   const commentValue = '';
   const [rating, setRating] = useState(ratingValue);
   const [comment, setComment] = useState(commentValue);
-  const isFailPostComment = useAppSelector(({OTHER}) => OTHER.isFailPostComment);
+  const isFailPostComment = useAppSelector((state) => state[NameSpace.OTHER].isFailPostComment);
 
   useEffect(() => {
     checkFormDataValue(formRef.current);
@@ -26,7 +26,7 @@ function SubmitCommentForm({idFilm}: SubmitCommentFormPropsType): JSX.Element {
     removeClassToForm(formRef.current);
   });
 
-  const checkFormDataValue = (form: Element | null) => {
+  const checkFormDataValue = (form: Element | null): void => {
     if (form === null) {
       return;
     }

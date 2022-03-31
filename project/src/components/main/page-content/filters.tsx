@@ -7,7 +7,7 @@ type FiltersElementPropsType = {
 
 function FiltersElement({validHash}: FiltersElementPropsType) {
   const location = useLocation();
-  const hashLocation = location.hash as string;
+  const hashLocation: string = location.hash;
 
   if (!validHash) {
     return (

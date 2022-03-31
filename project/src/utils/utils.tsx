@@ -1,5 +1,8 @@
 import * as dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import {RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, Values} from '../utils/const';
+
+dayjs.extend(duration);
 
 const getRatingLevel = (ratingCount: number): string => {
   switch (true) {
@@ -33,4 +36,23 @@ const convertRunTime = (runTime: number): string => {
   }
 };
 
-export {dayjs, getRatingLevel, getStarringArrayToString, convertRunTime};
+const getDurationFormatTime = (value: number): string => {
+  const MINUTE_IN_SECONDS = 60;
+  const HOUR_IN_SECONDS = 3600;
+  const time = Number(value);
+
+  switch (true) {
+    case (time < MINUTE_IN_SECONDS): {
+      return dayjs.duration(time, 'seconds').format('-ss');
+    }
+    case (time >= MINUTE_IN_SECONDS && time < HOUR_IN_SECONDS): {
+      return dayjs.duration(time, 'seconds').format('-mm:ss');
+    }
+    case (time >= HOUR_IN_SECONDS): {
+      return dayjs.duration(time, 'seconds').format('-HH:mm:ss');
+    }
+    default: throw new Error('Невалидное значение');
+  }
+};
+
+export {dayjs, getRatingLevel, getStarringArrayToString, convertRunTime, getDurationFormatTime};

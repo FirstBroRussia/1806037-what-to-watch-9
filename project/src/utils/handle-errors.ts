@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {redirectToRouteAction} from '../store/actions';
-import { setFetchErrorAction } from '../store/slices/other-slice';
+import {setFetchErrorAction} from '../store/slices/other-slice';
 import store from '../store/store';
 import {AppRoute, HTTP_CODE} from './const';
 

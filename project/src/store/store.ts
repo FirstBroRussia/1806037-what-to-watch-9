@@ -13,8 +13,6 @@ const store = configureStore({
       extraArgument: api,
     },
   }).concat(redirect),
-// Если требуется отключить Redux DevTools.
-// devTools: false,
 });
 
 type State = ReturnType<typeof store.getState>;

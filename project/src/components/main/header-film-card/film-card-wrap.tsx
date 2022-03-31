@@ -2,14 +2,14 @@ import {useNavigate} from 'react-router-dom';
 import {fetchSetStatusFavotiteFilmAction} from '../../../api/api-action';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {FilmDataPropsType, FilmDataType, SetStatusFavoriteFilmAsyncFilmParamsType} from '../../../types/types';
-import {AppRoute, AuthorizationValue} from '../../../utils/const';
+import {AppRoute, AuthorizationValue, NameSpace} from '../../../utils/const';
 import MyListSvgElement from '../../my-list-svg/my-list-svg';
 
 function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const authStatus = useAppSelector((state) => state[NameSpace.USER].authorizationStatus);
   const {id, name, posterImage, genre, released, isFavorite}: FilmDataType = filmData;
 
   const handleNavigateToVideoPlayerClick: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -49,7 +49,7 @@ function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
             </button>
             {
               (() => {
-                if (!(authStatus === AuthorizationValue.Auth)) {
+                if (authStatus !== AuthorizationValue.Auth) {
                   return;
                 }
                 return (

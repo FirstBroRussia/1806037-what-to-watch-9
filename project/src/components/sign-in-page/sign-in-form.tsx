@@ -2,7 +2,8 @@ import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {fetchPostLoginToServerAction} from '../../api/api-action';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import {AppRoute, AuthorizationValue, Values} from '../../utils/const';
+import {AuthorizationStatusType} from '../../types/types';
+import {AppRoute, AuthorizationValue, NameSpace, Values} from '../../utils/const';
 
 type SignInFormType = {
   email: string,
@@ -41,11 +42,11 @@ function SignInFormElement() {
   const initEmail = 'Oliver.conner@gmail.com';
   const initPassword = '12345678';
 
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const authStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const authStatus: AuthorizationStatusType = useAppSelector((state) => state[NameSpace.USER].authorizationStatus);
 
   const [email, setEmail] = useState(initEmail);
   const [password, setPassword] = useState(initPassword);

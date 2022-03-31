@@ -4,9 +4,7 @@ import {ModeReceivingStarringData} from '../../../utils/const';
 import {getRatingLevel, getStarringArrayToString} from '../../../utils/utils';
 
 function MoviePageOverviewElement () {
-  const selector = useAppSelector;
-
-  const idFilmData: FilmDataType | null = selector(({DATA}) => DATA.idFilmData);
+  const idFilmData: FilmDataType | null = useAppSelector(({DATA}) => DATA.idFilmData);
 
   if (idFilmData === null) {
     return (
