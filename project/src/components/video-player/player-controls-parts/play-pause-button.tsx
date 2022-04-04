@@ -6,9 +6,9 @@ type PlayPauseButtonElementPropsType = {
   videoRef: React.MutableRefObject<HTMLVideoElement | null>;
 }
 
-function PlayPauseButtonElement({videoRef}: PlayPauseButtonElementPropsType) {
+function PlayPauseButton({videoRef}: PlayPauseButtonElementPropsType) {
   const dispatch = useAppDispatch();
-  const isCurrentVideoPlayerState = useAppSelector((state) => state[NameSpace.PLAYER].isCurrentVideoPlayerState);
+  const isCurrentVideoPlayerState: string | null = useAppSelector((state) => state[NameSpace.PLAYER].isCurrentVideoPlayerState);
 
   const handlePlayButtonClick: React.MouseEventHandler<HTMLButtonElement> = (evt) => {
     evt.preventDefault();
@@ -33,4 +33,4 @@ function PlayPauseButtonElement({videoRef}: PlayPauseButtonElementPropsType) {
   );
 }
 
-export default PlayPauseButtonElement;
+export default PlayPauseButton;

@@ -2,7 +2,7 @@ type MyListSvgElementPropsType = {
   isFavorite: boolean
 }
 
-function MyListSvgElement({isFavorite}: MyListSvgElementPropsType) {
+function MyListSvg({isFavorite}: MyListSvgElementPropsType) {
   if (isFavorite) {
     return (
       <svg viewBox="0 0 18 14" width="18" height="14">
@@ -17,4 +17,4 @@ function MyListSvgElement({isFavorite}: MyListSvgElementPropsType) {
   );
 }
 
-export default MyListSvgElement;
+export default MyListSvg;

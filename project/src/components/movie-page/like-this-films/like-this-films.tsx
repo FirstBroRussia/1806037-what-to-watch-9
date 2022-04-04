@@ -3,14 +3,14 @@ import {fetchGetSimilarFilmsAction} from '../../../api/api-action';
 import {setSimilarFilmsDataAction} from '../../../store/slices/data-slice';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {FilmDataType} from '../../../types/types';
-import {Values} from '../../../utils/const';
-import FilmCardForCatalog from '../../main/page-content/film-card-for-catalog-wrap';
+import {NameSpace, Values} from '../../../utils/const';
+import FilmCardForCatalog from '../../main/page-content/film-card-for-catalog';
 
 type LikeThisFilmsElementPropsType = {
   idFilm: number
 }
 
-function LikeThisFilmsElement({idFilm}: LikeThisFilmsElementPropsType) {
+function LikeThisFilms({idFilm}: LikeThisFilmsElementPropsType) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function LikeThisFilmsElement({idFilm}: LikeThisFilmsElementPropsType) {
     };
   }, [dispatch, idFilm]);
 
-  const similarFilms: FilmDataType[] | null = useAppSelector(({DATA}) => DATA.similarFilmsData);
+  const similarFilms: FilmDataType[] | null = useAppSelector((state) => state[NameSpace.DATA].similarFilmsData);
 
   if (similarFilms === null) {
     return (
@@ -44,4 +44,4 @@ function LikeThisFilmsElement({idFilm}: LikeThisFilmsElementPropsType) {
   );
 }
 
-export default LikeThisFilmsElement;
+export default LikeThisFilms;

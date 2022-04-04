@@ -5,21 +5,24 @@ import {useAppDispatch, useAppSelector} from '../../store/store';
 import {AuthorizationStatusType} from '../../types/types';
 import {AppRoute, AuthorizationValue, NameSpace, Values} from '../../utils/const';
 
+const TIMEOUT_INVALID_ERROR = 2000;
+
 type SignInFormType = {
   email: string,
   password: string
 };
 
-const checkValidForm = (formNodeElement: any): boolean => {
-  const emailInput = formNodeElement.querySelector('#user-email');
-  const passwordInput = formNodeElement.querySelector('#user-password');
+const checkValidForm = (formNodeElement: HTMLFormElement): boolean => {
+  const emailInput = formNodeElement.querySelector('#user-email') as HTMLInputElement;
+  const passwordInput = formNodeElement.querySelector('#user-password') as HTMLInputElement;
+
   if (emailInput.value.length === Values.ZERO_VALUE) {
     emailInput.setCustomValidity('Пустое поле!');
     emailInput.reportValidity();
     setTimeout( () => {
       emailInput.setCustomValidity('');
       emailInput.reportValidity();
-    }, 2000);
+    }, TIMEOUT_INVALID_ERROR);
 
     return false;
   }
@@ -29,7 +32,17 @@ const checkValidForm = (formNodeElement: any): boolean => {
     setTimeout( () => {
       passwordInput.setCustomValidity('');
       passwordInput.reportValidity();
-    }, 2000);
+    }, TIMEOUT_INVALID_ERROR);
+
+    return false;
+  }
+  if (!((/[0-9]/g).test(passwordInput.value) && (/[a-zA-Zа-яА-Я]/g).test(passwordInput.value))) {
+    passwordInput.setCustomValidity('Пароль должен состоять минимум из одной цифры и одной буквы!');
+    passwordInput.reportValidity();
+    setTimeout( () => {
+      passwordInput.setCustomValidity('');
+      passwordInput.reportValidity();
+    }, TIMEOUT_INVALID_ERROR);
 
     return false;
   }
@@ -38,7 +51,7 @@ const checkValidForm = (formNodeElement: any): boolean => {
 };
 
 
-function SignInFormElement() {
+function SignInForm() {
   const initEmail = 'Oliver.conner@gmail.com';
   const initPassword = '12345678';
 
@@ -68,6 +81,9 @@ function SignInFormElement() {
   };
 
   const handleSignInFormSubmit: React.FormEventHandler<HTMLFormElement> = (evt) => {
+    if (!formRef.current) {
+      return;
+    }
     evt.preventDefault();
     const signInFormData: SignInFormType = {
       email: email,
@@ -100,5 +116,6 @@ function SignInFormElement() {
   );
 }
 
-export default SignInFormElement;
+export default SignInForm;
 export type {SignInFormType};
+

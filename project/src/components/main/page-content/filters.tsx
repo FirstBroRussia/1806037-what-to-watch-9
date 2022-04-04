@@ -5,7 +5,7 @@ type FiltersElementPropsType = {
   validHash: boolean
 }
 
-function FiltersElement({validHash}: FiltersElementPropsType) {
+function Filters({validHash}: FiltersElementPropsType) {
   const location = useLocation();
   const hashLocation: string = location.hash;
 
@@ -84,4 +84,4 @@ function FiltersElement({validHash}: FiltersElementPropsType) {
   );
 }
 
-export default FiltersElement;
+export default Filters;

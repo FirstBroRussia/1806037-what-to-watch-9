@@ -3,6 +3,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import {FilmDataType} from '../../../types/types';
 import {AppRoute} from '../../../utils/const';
 
+const TIMEOUT_HOVER_FILM_CARD = 1000;
+
 type FilmCardForCatalogPropsType = {
   film: FilmDataType,
 };
@@ -16,7 +18,7 @@ function FilmCardForCatalog({film}: FilmCardForCatalogPropsType): JSX.Element {
 
   const videoCardRef = useRef<HTMLVideoElement | null>(null);
 
-  const playVideo = () => {
+  const playVideo = (): void => {
     if(videoCardRef.current !== null) {
       videoCardRef.current.play();
     }
@@ -39,7 +41,7 @@ function FilmCardForCatalog({film}: FilmCardForCatalogPropsType): JSX.Element {
     let timeoutFn: NodeJS.Timeout | null = null;
 
     if (state) {
-      timeoutFn = setTimeout(playVideo, 1000);
+      timeoutFn = setTimeout(playVideo, TIMEOUT_HOVER_FILM_CARD);
     }
     return () => {
       if (timeoutFn !== null) {

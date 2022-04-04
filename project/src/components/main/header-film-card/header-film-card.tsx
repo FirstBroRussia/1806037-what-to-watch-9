@@ -3,8 +3,9 @@ import PageHeader from './page-header';
 import FilmCardWrap from './film-card-wrap';
 import {FilmDataType} from '../../../types/types';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {fetchGetPromoFilmAction } from '../../../api/api-action';
+import {fetchGetPromoFilmAction} from '../../../api/api-action';
 import {useEffect} from 'react';
+import {NameSpace} from '../../../utils/const';
 
 
 function HeaderFilmCard(): JSX.Element {
@@ -14,7 +15,7 @@ function HeaderFilmCard(): JSX.Element {
     dispatch(fetchGetPromoFilmAction());
   }, [dispatch]);
 
-  const promoFilm: FilmDataType | null = useAppSelector(({DATA}) => DATA.promoFilm);
+  const promoFilm: FilmDataType | null = useAppSelector((state) => state[NameSpace.DATA].promoFilm);
 
   if (promoFilm === null) {
     return (

@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {FilmDataPropsType, FilmDataType} from '../../types/types';
 import {AppRoute, HashFilmInfo} from '../../utils/const';
 
-function BreadcrumbsElement({filmData}: FilmDataPropsType): JSX.Element {
+function Breadcrumbs({filmData}: FilmDataPropsType): JSX.Element {
   const {id, name}: FilmDataType = filmData;
   return (
     <nav className="breadcrumbs">
@@ -22,4 +22,4 @@ function BreadcrumbsElement({filmData}: FilmDataPropsType): JSX.Element {
   );
 }
 
-export default BreadcrumbsElement;
+export default Breadcrumbs;

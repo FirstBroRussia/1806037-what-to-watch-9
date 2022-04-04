@@ -1,9 +1,9 @@
 import {useParams} from 'react-router-dom';
 import {FilmDataType, IdFilmType} from '../../types/types';
 import {SubmitCommentForm} from './submit-comment-form';
-import HeaderElement from '../layout/header-layout';
+import HeaderElement from '../layout/header-element';
 import SignOut from '../header/user-block/sign-out';
-import BreadcrumbsElement from './breadcrumbs';
+import Breadcrumbs from './breadcrumbs';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {fetchGetIdFilmAction} from '../../api/api-action';
@@ -57,7 +57,7 @@ function AddReview() {
 
         <h1 className="visually-hidden">WTW</h1>
         <HeaderElement>
-          <BreadcrumbsElement filmData={idFilmData}/>
+          <Breadcrumbs filmData={idFilmData}/>
           <SignOut/>
         </HeaderElement>
 

@@ -1,5 +1,3 @@
-type promoFilmType = FilmDataType | [];
-
 type FilmDataType = {
   name: string,
   posterImage: string,
@@ -44,18 +42,9 @@ type NewCommentDataType = {
   rating: number
 };
 
-type FilmsDataPropsType = {
-  filmsList: FilmDataType[]
-};
-
 type FilmDataPropsType = {
   filmData: FilmDataType
 };
-
-type FormDataSubmitType = {
-  rating: number,
-  comment: string
-}
 
 type PostCommentAsyncParamType = {
   idFilm: number,
@@ -78,4 +67,4 @@ type IdFilmCommentsDataType = CommentDataType[] | [] | null;
 
 type SimilarFilmsDataType = FilmDataType[] | [] | null;
 
-export type {FavoriteFilmsDataType, IdFilmCommentsDataType, SimilarFilmsDataType, AuthorizationStatusType, IdFilmType, promoFilmType, FilmDataType, FilmsDataPropsType, UserDataType, FilmDataPropsType, FormDataSubmitType, CommentDataType, NewCommentDataType, PostCommentAsyncParamType, SetStatusFavoriteFilmAsyncFilmParamsType};
+export type {FavoriteFilmsDataType, IdFilmCommentsDataType, SimilarFilmsDataType, AuthorizationStatusType, IdFilmType, FilmDataType,  UserDataType, FilmDataPropsType, CommentDataType, NewCommentDataType, PostCommentAsyncParamType, SetStatusFavoriteFilmAsyncFilmParamsType};

@@ -1,10 +1,10 @@
 import {useAppSelector} from '../../../store/store';
 import {FilmDataType} from '../../../types/types';
-import {ModeReceivingStarringData} from '../../../utils/const';
+import {ModeReceivingStarringData, NameSpace} from '../../../utils/const';
 import {convertRunTime, getStarringArrayToString} from '../../../utils/utils';
 
-function MoviePageDetailsElement () {
-  const idFilmData: FilmDataType | null = useAppSelector(({DATA}) => DATA.idFilmData);
+function MoviePageDetails () {
+  const idFilmData: FilmDataType | null = useAppSelector((state) => state[NameSpace.DATA].idFilmData);
 
   if (idFilmData === null) {
     return (
@@ -68,4 +68,4 @@ function MoviePageDetailsElement () {
   );
 }
 
-export default MoviePageDetailsElement;
+export default MoviePageDetails;

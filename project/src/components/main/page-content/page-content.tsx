@@ -1,4 +1,4 @@
-import FooterElement from '../../layout/footer-layout';
+import FooterElement from '../../layout/footer-element';
 import Catalog from './catalog';
 
 function PageContent(): JSX.Element {

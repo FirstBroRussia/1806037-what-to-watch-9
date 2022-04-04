@@ -5,7 +5,7 @@ import App from './components/app/app';
 
 import {Provider} from 'react-redux';
 import {fetchGetAuthStatusAction, fetchGetFilmsDataAction, fetchGetPromoFilmAction} from './api/api-action';
-import ErrorElement from './components/error/error';
+import ErrorElement from './components/error/error-element';
 
 store.dispatch(fetchGetAuthStatusAction());
 store.dispatch(fetchGetFilmsDataAction());

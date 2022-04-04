@@ -10,7 +10,7 @@ type MoviePageReviewsElementPropsType ={
   idFilm: number
 }
 
-function MoviePageReviewsElement({idFilm}: MoviePageReviewsElementPropsType) {
+function MoviePageReviews({idFilm}: MoviePageReviewsElementPropsType) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -57,4 +57,4 @@ function MoviePageReviewsElement({idFilm}: MoviePageReviewsElementPropsType) {
 
 }
 
-export default MoviePageReviewsElement;
+export default MoviePageReviews;
