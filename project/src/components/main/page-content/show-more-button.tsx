@@ -1,7 +1,7 @@
-import { setIncVisibleFilmsState } from '../../../store/slices/other-slice';
+import {setIncVisibleFilmsState} from '../../../store/slices/other-slice';
 import {useAppDispatch} from '../../../store/store';
 
-function ShowMoreButtonElement() {
+function ShowMoreButton() {
   const dispatch = useAppDispatch();
 
   const handleShowMoreButtonClick: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -15,4 +15,4 @@ function ShowMoreButtonElement() {
   );
 }
 
-export default ShowMoreButtonElement;
+export default ShowMoreButton;

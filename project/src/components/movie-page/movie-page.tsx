@@ -1,19 +1,19 @@
 import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {FilmDataType, IdFilmType, SetStatusFavoriteFilmAsyncFilmParamsType} from '../../types/types';
-import FooterElement from '../layout/footer-layout';
+import FooterElement from '../layout/footer-element';
 import PageHeader from '../main/header-film-card/page-header';
 import {AppRoute, AuthorizationValue, HashFilmInfo, NameSpace} from '../../utils/const';
-import LikeThisFilmsElement from './like-this-films/like-this-films';
+import LikeThisFilms from './like-this-films/like-this-films';
 
-import MoviePageOverviewElement from './movie-page-overview/movie-page-overview';
-import MoviePageDetailsElement from './movie-page-details/movie-page-details';
-import MoviePageReviewsElement from './movie-page-reviews/movie-page-reviews';
+import MoviePageOverview from './movie-page-overview/movie-page-overview';
+import MoviePageDetails from './movie-page-details/movie-page-details';
+import MoviePageReviews from './movie-page-reviews/movie-page-reviews';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {fetchGetIdFilmAction, fetchSetStatusFavotiteFilmAction} from '../../api/api-action';
 import TabListElement from './tab-list-element';
 import {browserHistory} from '../../utils/browser-history';
-import MyListSvgElement from '../my-list-svg/my-list-svg';
+import MyListSvg from '../my-list-svg/my-list-svg';
 import {setFilmIdDataAction} from '../../store/slices/data-slice';
 
 function MoviePage() {
@@ -55,11 +55,11 @@ function MoviePage() {
   const getCurrentInfoBlock = (): JSX.Element => {
     switch (hashLocation) {
       case (HashFilmInfo.Overview) : {
-        return <MoviePageOverviewElement />;}
+        return <MoviePageOverview />;}
       case (HashFilmInfo.Details) : {
-        return <MoviePageDetailsElement />;}
+        return <MoviePageDetails />;}
       case (HashFilmInfo.Reviews) : {
-        return <MoviePageReviewsElement idFilm={idFilm}/>;}
+        return <MoviePageReviews idFilm={idFilm}/>;}
       default: throw new Error('Невалидное значение');
     }
   };
@@ -166,7 +166,7 @@ function MoviePage() {
                     }
                     return (
                       <button onClick={handleMyListButtonClick} className="btn btn--list film-card__button" type="button">
-                        <MyListSvgElement isFavorite={isFavorite}/>
+                        <MyListSvg isFavorite={isFavorite}/>
                         <span>My list</span>
                       </button>
                     );
@@ -199,7 +199,7 @@ function MoviePage() {
       </section>
 
       <div className="page-content">
-        <LikeThisFilmsElement idFilm={idFilm}/>
+        <LikeThisFilms idFilm={idFilm}/>
         <FooterElement />
       </div>
     </>

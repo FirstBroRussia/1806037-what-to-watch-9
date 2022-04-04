@@ -7,20 +7,20 @@ import {AppRoute, AuthorizationValue} from '../../utils/const';
 import NotFoundPage from '../../pages/not-fount-page';
 import MainPage from '../main/main-page';
 
-import SignInPageElement from '../sign-in-page/sign-in-page';
+import SignInPage from '../sign-in-page/sign-in-page';
 import MyList from '../my-list/my-list';
 import MoviePage from '../movie-page/movie-page';
 import AddReview from '../add-review/add-review';
-import VideoPlayer from '../video-player/video-player';
 import PrivateRouteToMyList from '../private-route/private-route-to-my-list';
 import PrivateRouteToAddReview from '../private-route/private-route-to-add-review';
+import VideoPlayer from '../video-player/video-player';
 
 function App(): JSX.Element {
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={<MainPage />}/>
-        <Route path={AppRoute.SignIn} element={<SignInPageElement />}/>
+        <Route path={AppRoute.SignIn} element={<SignInPage />}/>
         <Route path={AppRoute.MyList} element={
           <PrivateRouteToMyList authorizationStatus={AuthorizationValue.Auth}>
             <MyList />

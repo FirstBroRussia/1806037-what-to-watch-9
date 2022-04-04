@@ -6,8 +6,8 @@ import {useAppDispatch, useAppSelector} from '../../store/store';
 import {FavoriteFilmsDataType, FilmDataType} from '../../types/types';
 import {AppRoute, NameSpace} from '../../utils/const';
 import SignOut from '../header/user-block/sign-out';
-import FooterElement from '../layout/footer-layout';
-import FilmCardForCatalog from '../main/page-content/film-card-for-catalog-wrap';
+import FooterElement from '../layout/footer-element';
+import FilmCardForCatalog from '../main/page-content/film-card-for-catalog';
 
 function MyList() {
   const dispatch = useAppDispatch();

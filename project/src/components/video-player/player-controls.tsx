@@ -1,18 +1,18 @@
-import PlayPauseButtonElement from './player-controls-parts/play-pause-button';
-import TimeSliderElement from './player-controls-parts/time-slider';
+import PlayPauseButton from './player-controls-parts/play-pause-button';
+import TimeSliderElement from './player-controls-parts/time-slider-element';
 
 type PlayerControlsElementPropsType = {
   videoRef: React.MutableRefObject<HTMLVideoElement | null>;
 }
 
-function PlayerControlsElement({videoRef}: PlayerControlsElementPropsType) {
+function PlayerControls({videoRef}: PlayerControlsElementPropsType) {
   return (
     <div className="player__controls">
       <TimeSliderElement videoRef={videoRef} />
 
       <div className="player__controls-row">
 
-        <PlayPauseButtonElement videoRef={videoRef} />
+        <PlayPauseButton videoRef={videoRef} />
 
         <div className="player__name">Transpotting</div>
 
@@ -27,5 +27,5 @@ function PlayerControlsElement({videoRef}: PlayerControlsElementPropsType) {
   );
 }
 
-export default PlayerControlsElement;
+export default PlayerControls;
 

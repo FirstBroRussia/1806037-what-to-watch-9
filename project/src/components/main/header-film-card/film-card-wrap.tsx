@@ -3,7 +3,7 @@ import {fetchSetStatusFavotiteFilmAction} from '../../../api/api-action';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {FilmDataPropsType, FilmDataType, SetStatusFavoriteFilmAsyncFilmParamsType} from '../../../types/types';
 import {AppRoute, AuthorizationValue, NameSpace} from '../../../utils/const';
-import MyListSvgElement from '../../my-list-svg/my-list-svg';
+import MyListSvg from '../../my-list-svg/my-list-svg';
 
 function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
   const dispatch = useAppDispatch();
@@ -54,7 +54,7 @@ function FilmCardWrap({filmData}: FilmDataPropsType): JSX.Element {
                 }
                 return (
                   <button onClick={handleMyListButtonClick} className="btn btn--list film-card__button" type="button">
-                    <MyListSvgElement isFavorite={isFavorite}/>
+                    <MyListSvg isFavorite={isFavorite}/>
                     <span>My list</span>
                   </button>
                 );

@@ -1,6 +1,6 @@
 import {FilmDataType} from '../../../types/types';
 
-import FilmCardForCatalog from './film-card-for-catalog-wrap';
+import FilmCardForCatalog from './film-card-for-catalog';
 
 import {AppRoute, FiltersHash, Genres, NameSpace, Values, VISIBLE_FILMS_STEP_COUNT} from '../../../utils/const';
 import {useLocation, useNavigate} from 'react-router-dom';
@@ -9,9 +9,9 @@ import {
   useAppSelector,
   useAppDispatch
 } from '../../../store/store';
-import ShowMoreButtonElement from './show-more-button';
+import ShowMoreButton from './show-more-button';
 import {useEffect} from 'react';
-import FiltersElement from './filters';
+import Filters from './filters';
 import {setInitialVisibleFilmsState, setGenresStateAction} from '../../../store/slices/other-slice';
 
 const filteredFilmsMap: Map<string, FilmDataType[]> = new Map();
@@ -71,10 +71,9 @@ function Catalog(): JSX.Element {
       if (hashLocation === value) {
         validHash = true;
       }
-      if (filmsData === null) {
-        throw new Error('НЕВАЛИДНОЕ ЗНАЧЕНИЕ');
+      if (filmsData) {
+        filteredFilmsMap.set(value, getFilteredFilms(filmsData, value));
       }
-      filteredFilmsMap.set(value, getFilteredFilms(filmsData, value));
     });
   } else {
     validHash = Object.values(FiltersHash).some((value) => hashLocation === value);
@@ -103,7 +102,7 @@ function Catalog(): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FiltersElement validHash={validHash}/>
+        <Filters validHash={validHash}/>
 
         <div className="catalog__films-list">
 
@@ -117,7 +116,7 @@ function Catalog(): JSX.Element {
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-      <FiltersElement validHash={validHash}/>
+      <Filters validHash={validHash}/>
 
       <div className="catalog__films-list">
         {
@@ -136,7 +135,7 @@ function Catalog(): JSX.Element {
           if ((convertFilmsData.length - visibleFilmsCount) <= VISIBLE_FILMS_STEP_COUNT) {
             return;
           }
-          return <ShowMoreButtonElement />;
+          return <ShowMoreButton />;
         })()
       }
     </section>
@@ -144,3 +143,4 @@ function Catalog(): JSX.Element {
 }
 
 export default Catalog;
+export {getFilteredFilms};

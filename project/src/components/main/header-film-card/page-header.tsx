@@ -1,11 +1,11 @@
-import {AuthorizationValue} from '../../../utils/const';
+import {AuthorizationValue, NameSpace} from '../../../utils/const';
 import {useAppSelector} from '../../../store/store';
 import SignIn from '../../header/user-block/sign-in';
 import SignOut from '../../header/user-block/sign-out';
-import HeaderElement from '../../layout/header-layout';
+import HeaderElement from '../../layout/header-element';
 
 function PageHeader(): JSX.Element {
-  const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state[NameSpace.USER].authorizationStatus);
 
   return (
     <HeaderElement>

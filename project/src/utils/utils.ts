@@ -1,6 +1,6 @@
 import * as dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import {RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, Values} from '../utils/const';
+import {RatingLevelCountValue, RatingLevel, ModeReceivingStarringData, Values} from './const';
 
 dayjs.extend(duration);
 
@@ -16,15 +16,17 @@ const getRatingLevel = (ratingCount: number): string => {
 };
 
 const getStarringArrayToString = (mode: string, starring: string[]): string => {
-  switch (true) {
-    case (mode === ModeReceivingStarringData.Overview) : return starring.join(', ');
-    case (mode === ModeReceivingStarringData.Details) : return starring.join(', \n');
+  switch (mode) {
+    case (ModeReceivingStarringData.Overview) : return starring.join(', ');
+    case (ModeReceivingStarringData.Details) : return starring.join(', \n');
     default: throw new Error('Передано  невалидное значение в функцию');
   }
 };
 
 const convertRunTime = (runTime: number): string => {
   switch (true) {
+    case (runTime < Values.ZERO_VALUE) : throw new Error ('Невалидное значение');
+    case (runTime === Values.ZERO_VALUE) :
     case (runTime < Values.SIXTY_VALUE) : return `${runTime}m`;
     case (runTime % Values.SIXTY_VALUE === Values.ZERO_VALUE) : return `${runTime/Values.SIXTY_VALUE}h`;
     case (runTime > Values.SIXTY_VALUE) : {
@@ -42,6 +44,8 @@ const getDurationFormatTime = (value: number): string => {
   const time = Number(value);
 
   switch (true) {
+    case (time < Values.ZERO_VALUE) : throw new Error('Невалидное значение');
+    case (time === Values.ZERO_VALUE):
     case (time < MINUTE_IN_SECONDS): {
       return dayjs.duration(time, 'seconds').format('-ss');
     }

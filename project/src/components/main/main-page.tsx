@@ -1,6 +1,6 @@
 import HeaderFilmCard from './header-film-card/header-film-card';
 import PageContent from './page-content/page-content';
-import PreloaderElement from '../preloader/preloader';
+import PreloaderElement from '../preloader/preloader-element';
 import {useAppSelector} from '../../store/store';
 import {NameSpace} from '../../utils/const';
 

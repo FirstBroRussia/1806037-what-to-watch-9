@@ -1,14 +1,14 @@
-import { setCurrentVideoPlayerStateAction } from '../../../store/slices/video-player-slice';
-import { useAppDispatch, useAppSelector } from '../../../store/store';
-import { NameSpace, VideoEvent } from '../../../utils/const';
+import {setCurrentVideoPlayerStateAction} from '../../../store/slices/video-player-slice';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
+import {NameSpace, VideoEvent} from '../../../utils/const';
 
 type PlayPauseButtonElementPropsType = {
   videoRef: React.MutableRefObject<HTMLVideoElement | null>;
 }
 
-function PlayPauseButtonElement({videoRef}: PlayPauseButtonElementPropsType) {
+function PlayPauseButton({videoRef}: PlayPauseButtonElementPropsType) {
   const dispatch = useAppDispatch();
-  const isCurrentVideoPlayerState = useAppSelector((state) => state[NameSpace.PLAYER].isCurrentVideoPlayerState);
+  const isCurrentVideoPlayerState: string | null = useAppSelector((state) => state[NameSpace.PLAYER].isCurrentVideoPlayerState);
 
   const handlePlayButtonClick: React.MouseEventHandler<HTMLButtonElement> = (evt) => {
     evt.preventDefault();
@@ -33,4 +33,4 @@ function PlayPauseButtonElement({videoRef}: PlayPauseButtonElementPropsType) {
   );
 }
 
-export default PlayPauseButtonElement;
+export default PlayPauseButton;

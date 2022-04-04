@@ -1,14 +1,12 @@
-/* eslint-disable no-console */
 import {useEffect, useRef} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {fetchGetIdFilmAction} from '../../api/api-action';
 import {setFilmIdDataAction} from '../../store/slices/data-slice';
 import {setCurrentVideoPlayerStateAction, setDurationVideoAction} from '../../store/slices/video-player-slice';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import {FilmDataType} from '../../types/types';
 import {NameSpace, VideoEvent} from '../../utils/const';
-import PreloaderElement from '../preloader/preloader';
-import PlayerControlsElement from './player-controls';
+import PreloaderElement from '../preloader/preloader-element';
+import PlayerControls from './player-controls';
 
 function VideoPlayer() {
   const params = useParams();
@@ -24,10 +22,9 @@ function VideoPlayer() {
       dispatch(setFilmIdDataAction(null));
       dispatch(setCurrentVideoPlayerStateAction(null));
     };
-  }, [dispatch]);
+  }, [dispatch, idFilm]);
 
-  const idFilmData: FilmDataType | null = useAppSelector((state) => state[NameSpace.DATA].idFilmData);
-  const videoLink = idFilmData?.videoLink;
+  const videoLink: string | undefined = useAppSelector((state) => state[NameSpace.DATA].idFilmData?.videoLink);
 
   const handleExitButtonClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate(-1);
@@ -35,7 +32,7 @@ function VideoPlayer() {
 
   const handlePlayAndPauseVideoChange: React.ReactEventHandler<HTMLVideoElement> = (evt) => {
     evt.preventDefault();
-    const videoElement = videoRef.current as unknown as HTMLVideoElement;
+    const videoElement = videoRef.current as HTMLVideoElement;
     switch(evt.type) {
       case (VideoEvent.LoadedData): {
         dispatch(setDurationVideoAction(videoElement.duration));
@@ -79,7 +76,7 @@ function VideoPlayer() {
         type="button" className="player__exit"
       >Exit
       </button>
-      <PlayerControlsElement videoRef={videoRef} />
+      <PlayerControls videoRef={videoRef} />
     </div>
   );
 }
